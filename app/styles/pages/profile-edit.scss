@@ -1,0 +1,250 @@
+.profile-edit {
+    margin-top: 20px;
+    max-width: 1090px;
+    margin: 20px auto 0;
+
+    .dropdown-menu {
+        float: right;
+        box-shadow: 0 0 5px rgba($border-lightgrey, 0.5);
+    }
+    .open > .dropdown-toggle, .dropdown-toggle {
+        color: #555;
+        text-align: right;
+        padding-right: 2px;
+
+        &:hover {
+            color: $link-blue;
+        }
+    }
+}
+.profile-edit-sections {
+	background-color: $light-grey-bg;
+    padding: 0 15px;
+
+	ul {
+		list-style: none;
+		
+		a {
+			cursor: pointer;
+            color: $dark-text-color;
+            font-size: 18px;
+            line-height: 45px;
+            text-decoration: none !important;
+
+            &.active-primary {
+                color: $lightblue;
+            }
+
+            &:hover {
+                color: $lightblue;
+            }
+        }
+	}
+
+}
+
+.profile-edit-body {
+	padding-left: 20px;
+    min-height: 395px;
+    max-width: 600px;
+
+    .with-titles {
+        padding-left: 20px;
+
+        .btn {
+            margin-left: 20px;
+        }
+    }
+
+    .no-titles {
+        margin-left: 20px;
+    }
+
+	.profile-edit-secondary-header {
+        text-align: center;
+
+		li {
+
+			a {
+	            color: $dark-text-color;
+				cursor: pointer;
+			}
+		}
+	}
+    
+    input[name="state"] {
+        text-transform: uppercase;
+    }
+}
+
+.btn.btn-default.page-ctrl {
+    min-height: 0;
+    min-width: 0;
+    padding: 6px 8px;
+    font-size: 14px;
+}
+
+.icon-preview {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: $light-grey-bg;
+    background-repeat: none;
+    background-size: cover;
+    border-radius: 100%;
+    margin-right: 20px;
+    height: 130px;
+    width: 130px;
+    background-position: center;
+
+    &.search-result-icon {
+        height: 85px;
+        width: 85px;
+    }
+
+    &.user-profile-icon {
+        height: 180px;
+        width: 180px;
+    }
+}
+
+.profile-icon {
+    .upload-icon {
+        width: 170px;
+    }
+}
+
+.bio-text-container {
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.bio-input {
+    margin-top: 5px !important;
+}
+
+.next-or-skip {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 16px;
+
+    .or-separator {
+        display: inline-block;
+        margin: 0 20px;
+    }
+}
+
+.university-container {
+    position: relative;
+}
+.completions {
+    margin-top: 0.5em;
+
+    &.hidden {
+        display: none;
+    }
+    ul {
+        padding-left: 0;
+        li {
+            transition: all 0.2s ease-out;
+            border-radius: 6px;
+            list-style-type: none;
+            padding: 0.25em 0.5em;
+            cursor: pointer;
+            color: rgba(black, 0.5);
+            &:hover {
+                color: #000000;
+                background-color: $select-item_hover;
+            }
+        }
+    }
+}
+
+.money-per-hour {
+
+    .sign {
+        color: $dark-text-color;
+        display: inline-block;
+        font-size: 30px;
+        font-family: $font-Brandon_Bold;
+        position: relative;
+        top: 4px;
+    }
+
+    .form-control {
+        display: inline-block;
+        text-align: center;
+        font-size: 24px;
+        margin: 0 10px;
+        width: 80px;
+    }
+
+    .after-input {
+        color: $dark-text-color;
+        font-size: 16px;
+        font-family: $font-Brandon_Bold;
+        // font-weight: 700;
+    }
+}
+
+.state-input {
+    width: 24%;
+}
+
+.zip-input {
+    width: 26%;
+}
+        
+.user-info {
+    text-align: left;
+    margin: 0 auto;
+    width: 330px;            
+}
+.btn.btn-default.danger-dropdown-toggle {
+    &:hover {
+        color: $red-clay !important;
+    }
+}
+.danger-dropdown {
+    a {
+        cursor: pointer;
+        color: $error-red !important;
+        font-size: 13px;
+
+        &:hover {
+            color: $red-clay !important;
+        }
+    }
+}
+.payment-side-nav {
+    padding-left: 60px;
+    min-height: 200px;
+}
+.selected-card {
+    text-align: left;
+    
+    .control-label {
+        padding: 0;
+    }
+}
+.action-link {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 20px;
+}
+.cancel-new-payment {
+    // text-transform: uppercase;
+    position: absolute;
+    left: 190px;
+    bottom: -89px;
+}
+.dob-dropdowns {
+    padding: 8px 0 0 0 !important;
+}
+.back-to-list-arrows {
+    margin-right: 4px;
+}
+.unchangeables {
+    .form-group {
+        font-size: 14px;
+    }
+}

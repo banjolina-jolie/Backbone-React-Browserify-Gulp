@@ -1,0 +1,205 @@
+.schedule-table {
+	margin: auto;
+
+	h3 {
+	    font-size: 21px;
+	    text-align: left;
+	}
+	.date-header {
+		text-align: center;
+		font-family: $font-Brandon_Bold;
+		// font-weight: 700;
+	}
+	.day-cell {
+		cursor: pointer;
+		width: 96px;
+		min-width: 38px;
+		max-height: 29px;
+		vertical-align: top;
+		position: relative;
+	}
+	.in-the-past {
+		background-color: rgba(221,221,221, 0.4);
+		border-color: #ccc !important;
+	}
+	.t-head {
+	    border-right: 1px solid #ddd;
+	}
+	td {
+	    border-bottom: 1px solid #ddd;
+	    border-right: 1px solid #ddd;
+	    border-left: 1px solid #ddd;
+		border-top: 1px dotted #ddd;
+	    height: 16px;
+		
+		.bord {
+			width: 100%;
+			height: 24px;
+			&:hover {
+				border-bottom: 1px solid $gold !important;
+			    border-right: 1px solid $gold !important;
+			    border-left: 1px solid $gold !important;
+				border-top: 1px solid $gold !important;
+			}
+		}
+	}
+	.selected {
+		border-color: lighten($calendar-selected-blue, 25%);
+		background-color: $calendar-selected-blue;
+	}
+	.temp-selected {
+		border-color: lighten($calendar-selected-blue, 25%);
+		background-color: $calendar-selected-blue;
+	}
+	.init-selected {
+		border-color: lighten($calendar-selected-blue, 25%);
+		background-color: $calendar-selected-blue;
+	}
+	.init-unselected {
+		background-color: white;
+	}
+	.booked {
+		z-index: 99;
+
+		.bord {
+			width: 95px;
+			position: absolute;
+			border-radius: 12px;
+			border: 1px solid darken($booked-mtg, 15%);
+			background-color: $booked-mtg !important;
+
+			&:hover {
+				background-color: darken($booked-mtg, 5%) !important;
+			}
+		}
+	}
+	.invite {
+		.bord {
+			border-radius: 12px;
+			border: 1px solid darken($mtg-invite, 25%);
+			background-color: $mtg-invite;
+		}
+	}
+	.time-slot-row {
+		height: 24px;
+
+	}
+	.light-border {
+
+		.day-cell {
+			border-top: none;
+			// border-bottom: none;
+		}
+	}
+}
+
+.calendar-box {
+	.fa-question-circle {
+		margin-left: 4px;
+		cursor: pointer;
+		color: #333;
+	}
+	.weekly-table-container {
+		padding: 0 30px;
+		overflow-y: scroll;
+		overflow-x: visible;
+		margin: auto;
+		width: 805px;
+		.arrow {
+			position: relative;
+			cursor: pointer;
+			
+			&:hover {
+				color: $gold-border;
+			}
+		}
+		.prev-week {
+			left: 24px;
+			float: left;
+			transform:rotateY(180deg);
+			-webkit-transform:rotateY(180deg);
+			-moz-transform:rotateY(180deg);
+			-o-transform:rotateY(180deg);
+			-ms-transform:rotateY(180deg);
+		}
+		.next-week {
+			float: right;
+			right: -20px;
+		}
+	}
+	
+	.empty {
+    	width: 44px;
+	}
+
+    .day-col-header {
+    	width: 96px;
+        background-color: $calendar-header-bg;
+        border-right: 1px solid $white;
+        color: $dark-text-color;
+        font-size: 16px;
+        font-family: $font-Brandon_Bold;
+		// font-weight: 700;
+        padding: 14px 0px;
+        text-align: center;
+        // text-transform: uppercase;
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+    .cal-business-hours {
+    	min-width: 44px;
+    	border: none;
+        color: $dark-text-color;
+        font-size: 16px;
+        font-family: $font-Brandon_Bold;
+		// font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
+        position: relative;
+        bottom: 10px;
+
+        .cal-daytime {
+            color: $placeholder-grey;
+            display: inline-block;
+            font-size: 12px;
+            margin-right: 6px;
+        }
+    }
+}
+.calendar-legend-container {
+	padding-right: 70px;
+}
+.calendar-legend {
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	vertical-align: middle;
+
+	&.blue {
+		background-color: $calendar-selected-blue;
+	}
+	&.booked-mtg {
+		border-radius: 100%;
+		background-color: $booked-mtg;
+		border: 1px solid darken($booked-mtg, 15%);
+	}
+	&.mtg-invite {
+		border-radius: 100%;
+		border: 1px solid darken($mtg-invite, 25%);
+		background-color: $mtg-invite;
+	}
+}
+.day-contents {
+	margin-bottom: 4px;
+}
+.datepicker {
+	.prev, .next {
+		cursor: pointer;
+
+		&:hover {
+			color: #333;
+		}
+	}
+}

@@ -1,0 +1,526 @@
+body {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+    background-size: cover;
+}
+
+p {
+	margin: 10px 0 5px 0;
+}
+
+.bistri-logo {
+	background-position: center 10px;
+	background-repeat: no-repeat;
+	background-image: url( ../images/conference/logo-bistri-120x35.png );
+}
+
+/* stripes animation */
+.stripes {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: -32px;
+	height: 14px;
+	background-color: #49afcd;
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAQCAYAAAB3AH1ZAAAAQ0lEQVR42uXNoQ0AIBTEUPZf4o96nKsiCEQFTZ7uupXkqE3lwfw9T+LOy52XNIc0hzSHNYc0hzSHNIc0hzSHNIc0xwb6PzfnUz+PRwAAAABJRU5ErkJggg==");
+	-webkit-animation: stripes-anim 1s infinite linear;
+	-moz-animation: stripes-anim 1s infinite linear;
+}
+
+@-webkit-keyframes stripes-anim {
+	0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+@-moz-keyframes stripes-anim {
+	0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+/* conference */
+
+.card {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+.box {
+	position: absolute;
+	padding: 20px;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border: 1px solid #D0D0D0;
+	box-shadow: 3px 3px 10px rgba( 0, 0, 0, 0.3 );
+    background-color: rgba(255,255,255,.7);
+}
+
+.card-1 .box {
+	width: 650px;
+}
+
+.card-2 .box {
+	font-size: 20px;
+}
+
+.card-3 .box {
+	width: 650px;
+    font-size: 20px;
+}
+
+.card-3 input[type=button] {
+	width: 80%;
+}
+
+.card-3 .warn {
+	margin: 0 auto;
+	width: 80%;
+}
+
+.card-4 {
+	position: relative;
+}
+
+.card-4 .left-panel {
+	position: absolute;
+	left:0;
+	top:0;
+	width: 80%;
+	height: 100%;
+}
+
+.card-4 .right-panel {
+	position: absolute;
+	right:0;
+	top:0;
+	width: 20%;
+	height: 100%;
+}
+
+.card-4 .inner-panel {
+	padding: 55px 10px 10px 10px;
+	height: 100%;
+}
+
+.card-5 .box {
+	width: 650px;
+	font-size: 20px;
+}
+
+.frame {
+	padding: 20px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	display: table;
+	position: absolute;
+}
+
+.cell {
+	display: table-cell;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.frame .object {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+	display: block !important;
+	height: 100%;
+	width: 100%;
+    border: 1px solid #fff;
+}
+
+.frame object {
+	height: 100%;
+	width: 100%;
+}
+
+.frame video {
+	display: block !important;
+    width: 100%;
+	border: 1px solid #fff;
+}
+
+.frame .object.muted,
+.frame video.muted {
+	display: none !important;
+}
+
+.frame .no-video {
+	display: none;
+	margin: 0 auto;
+	width: 200px;
+	height: 200px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url( ../images/anonym.jpg );
+	border: 1px solid #fff;
+}
+
+.frame .no-video.unmuted {
+	display: block;
+}
+
+.frame .audio {
+	width: 100%;
+	height: 100%;
+	border: 1px solid #fff;
+}
+
+.frame video.audio,
+.frame video.glow {
+	-webkit-box-shadow: 0px 0px 10px 1px #FF6600;
+	-moz-box-shadow: 0px 0px 10px 1px #FF6600;
+	box-shadow: 0px 0px 10px 1px #FF6600;
+}
+
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+	cursor: not-allowed;
+	background-color: #eeeeee;
+}
+
+.video-container.full {
+	width: 100%;
+}
+
+
+/*************************************/
+
+.media-control {
+    position: absolute;
+    display: inline-block !important;
+    margin: 0 5px;
+    padding: 3px;
+    border-radius: 4px;
+	background-color: #FFF;
+	box-shadow: -1px 3px 10px rgba( 0, 0, 0, 0.3 );
+    cursor: pointer;
+    z-index: 10;
+}
+
+.media-control span {
+    display: block;
+    width: 28px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+
+.sound {
+	left: 15px;
+	bottom: 15px;
+}
+
+.sound span {
+	background-image: url( "../images/conference/icon-sound.png" );
+}
+
+.sound.on span {
+    background-position: left top;
+}
+
+.mic {
+	left: 55px;
+	bottom: 15px;
+}
+
+.mic span {
+    background-image: url( "../images/conference/icon-mic.png" );
+}
+
+.mic.on span {
+    background-position: left top;
+}
+
+.video {
+	left: 95px;
+	bottom: 15px;
+}
+
+.video span {
+    background-image: url( "../images/conference/icon-webcam.png" );
+}
+
+.video.on span {
+    background-position: left top;
+}
+
+.share-screen {
+	left: 135px;
+	bottom: 15px;
+}
+
+.share-screen span {
+	background-image: url( "../images/conference/icon-screen-sharing.png" );
+}
+
+.share-screen.on span {
+    background-position: left top;
+}
+
+.share-screen.disabled {
+    background-color: #E0E0E0;
+    cursor: default;
+}
+
+.share-screen.disabled span {
+    opacity: .6;
+}
+
+/***************************************/
+
+.chat {
+	position: relative;
+    background-color: rgba(255,255,255,.7);
+	box-shadow: -1px 3px 10px rgba( 0, 0, 0, 0.3 );
+	-webkit-transition: -webkit-transform 0.5s;
+	-moz-transition: -moz-transform 0.5s;
+    transition: transform 0.5s
+}
+
+.chat.closed {
+	-webkit-transform: translate3d( 100%, 0, 0 );
+	-moz-transform: translate3d( 100%, 0, 0 );
+    transform: translate3d( 100%, 0, 0 );
+}
+
+.chat input[type=button] {
+	width: 100%;
+}
+
+.chat textarea {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	width: 100%;
+}
+
+.chat table {
+	width: 100%;
+	height: 100%;
+}
+
+.chat .waiting,
+.chat .warning {
+    display: none;
+	margin-top: 20px;
+	font-size: 11px;
+	word-break: normal;
+	text-align: center;
+}
+
+.chat .conversation {
+	height: 100%;
+}
+
+.chat .messages {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	overflow-y: auto;
+	height: 100%;
+	padding: 5px;
+	font-size: 13px;
+	line-height: 20px;
+	word-break: break-all;
+	word-wrap: break-word;
+	text-align: left;
+	background-color: #f5f5f5;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.chat form {
+	overflow: hidden;
+	margin: 0;
+}
+
+.chat form input[type=text] {
+	float: left;
+	width: 68%;
+}
+
+.chat form input[type=submit] {
+	float: right;
+	width: 28%;
+}
+
+.chat .form {
+	height: 40px;
+	vertical-align: bottom;
+}
+
+.chat .anchor {
+	position: absolute;
+	margin-left: -30px;
+	top: 40px;
+	left: 0;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	background-color: #FFF;
+	box-shadow: -3px 3px 3px rgba( 0, 0, 0, 0.1 );
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.chat .anchor .icon {
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url( ../images/conference/conversation.png );
+}
+
+/*
+	Sharing
+*/
+
+.share {
+	height: 95px;
+}
+
+.copy-wrapper {
+	overflow: hidden;
+	padding: 10px 0;
+	height: 55px;
+	border-top: 1px solid rgba( 153, 153, 153, 0.40 );
+}
+
+.share-wrapper {
+	padding: 10px 0 4px 0;
+	height: 40px;
+	border-top: 1px solid rgba( 153, 153, 153, 0.40 );
+}
+
+.share .social{
+	margin: 0 10px 0 0;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	opacity: .7;
+}
+
+.share .social:hover{
+	opacity: 1;
+}
+
+.share .facebook {
+	background-image: url( ../images/conference/share-facebook.png );
+}
+
+.share .twitter {
+	background-image: url( ../images/conference/share-twitter.png );
+}
+
+.share .linkedin {
+	background-image: url( ../images/conference/share-linkedin.png );
+}
+
+/* Copy */
+
+.share .copy-field {
+	font-size: 11px;
+}
+
+.share input[type=text] {
+	float: left;
+	width: 68%;
+}
+
+.share input[type=button] {
+	float: right;
+	width: 28%;
+}
+
+.loading-background {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    color: #fff;
+    text-shadow: #000 0.1em 0.1em 0.2em;
+    font-size: 13px;
+}
+
+.force-hide {
+    display: none !important;
+}
+
+/**/
+
+.media {
+    margin: 0;
+}
+
+.muted .webcam {
+    display: none !important;
+}
+
+.cascaded .webcam {
+    position: absolute;
+    right: 7% !important;
+    bottom: 7% !important;
+    width: 20% !important;
+    height: 20% !important;
+    z-index: 1000;
+}
+
+.cell .object,
+.cell video {
+    cursor: zoom-in;
+    background-color: #000;
+}
+
+.cascaded .cell .webcam.object:-webkit-full-screen {
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+    cursor: default;
+    border: 0;
+    background-color: #000;
+}
+
+.cascaded .cell .webcam.object:fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+    cursor: default;
+    border: 0;
+    background-color: #000;
+}
+
+.cell .object:-webkit-full-screen,
+.cell video:-webkit-full-screen {
+    cursor: default;
+    border: 0;
+    background-color: #000;
+}
+
+.cell .object:-moz-full-screen,
+.cell video:-moz-full-screen {
+    cursor: default;
+    border: 0;
+    background-color: #000;
+}
+
+.cell .object:fullscreen,
+.cell video:fullscreen {
+    cursor: default;
+    border: 0;
+    background-color: #000;
+}

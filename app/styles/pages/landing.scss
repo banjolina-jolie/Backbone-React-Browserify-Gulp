@@ -1,0 +1,137 @@
+.landing {
+    position: relative;
+
+    .glyphicon {
+        font-size: 36px;
+
+        &.glyphicon-triangle-bottom {
+            font-size: 8px;
+        }
+    }
+
+    .dashboard {
+        max-width: 1000px;
+    }
+
+    
+    .dashboard-title {
+        font-family: $font-Raleway;
+        font-size: 36px;
+    }
+
+    .dashboard-btn {
+        background-color: rgba(255, 255, 255, 0.1);
+        text-transform: capitalize;
+        display: block;
+        color: #fff;
+        margin: auto;
+        padding-top: 65px;
+        border: 2px solid #fff;
+        border-radius: 8px;
+        width: 240px;
+        height: 212px;
+        margin-bottom: 30px;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: darken(#fff, 15%);
+            border-color: darken(#fff, 15%);
+        }
+    }
+
+    .navbar {
+        margin-top: 16px;
+        padding: 0;
+        position: absolute;
+        width: 100%;
+        
+        .container {
+            border: none;
+        }
+
+        .navbar-brand {
+            color: $white-text-color;
+        }
+
+        .navbar-nav {
+            li {
+                a {
+                    color: $white-text-color;
+
+                    &:hover {
+                        color: $link-lightblue_hover;
+                    }
+                }
+            }
+        }
+
+        // .firstName {
+        //     color: #fff;
+        // }
+    }
+
+    .intro {
+        // background: url("https://s3.amazonaws.com/okprecious/landing_img.jpg") no-repeat;
+        background-size: cover;
+        padding-top: 90px;
+        height: 560px;
+
+        .container {
+            position: relative;
+            top: 20%;
+        }
+
+        .intro-title {
+            color: $white-text-color;
+            font-size: 72px;
+        }
+
+        .intro-desc {
+            color: #c9c9c9;
+            font-size: 34px;
+        }
+
+        .big-search-block {
+            margin-top: 50px;
+        }
+    }
+
+    .about {
+        margin-top: 100px;
+        padding-bottom: 60px;
+
+        .about-intro-text {
+            font-size: 24px;
+        }
+
+        .about-item {
+            text-align: center;
+
+            .about-img {
+                height: 100px;
+                margin-bottom: 35px;
+            }
+
+            .about-text {
+                margin-top: 20px;
+                font-size: 16px;
+            }
+        }
+
+        .btn {
+            margin: 40px 0 60px;
+        }
+    }
+
+    .claim {
+        background-color: $lightblue-bg;
+        padding: 60px 0;
+        text-align: center;
+        margin: 0 -80px;
+
+        .claim-text {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+    }
+}

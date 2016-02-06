@@ -1,0 +1,83 @@
+.registration-finish {
+    .basic-form.with-border {
+        border: none;
+    }
+
+    margin-bottom: 50px;
+
+    .step-title {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+        
+
+    &.step-2 {
+
+        .step-description {
+            line-height: 30px;
+            text-align: center;
+        }
+    }
+
+    &.payment {
+
+        .step-title {
+            margin-bottom: 38px;
+        }
+
+        .pay-method {
+            margin: 0 auto;
+            text-align: left;
+            font-size: 16px;
+            width: 500px;
+
+            .control-label {
+                &.move-left {
+                    padding-right: 0;
+                    position: relative;
+                    left: -15px;
+                }
+            }
+
+            .btn {
+                margin-top: 20px;
+                position: relative;
+                left: -20px;
+            }
+        }
+    }
+
+    &.step-4 {
+        .step-title {
+            margin-bottom: 38px;
+        }
+    }
+
+    &.step-5 {
+
+        .step-title {
+            margin-bottom: 40px;
+        }
+
+        .phone-number {
+            text-align: left;
+            margin: 37px auto 0;
+            width: 500px;
+
+            .select2-dropdown-open {
+                .select2-choice {
+                    color: $dark-text-color;
+                    border: 2px solid $darkblue;
+                    background-color: transparent;
+                    box-sizing: border-box;
+                    z-index: 99999;
+
+                    .select2-arrow {
+                        color: $darkblue;
+                    }
+                }
+            }
+        }
+    }
+}

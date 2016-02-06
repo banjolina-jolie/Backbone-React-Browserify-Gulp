@@ -1,0 +1,235 @@
+.search-input-block {
+    position: relative;
+    top: -20px;
+
+    .container {
+        background: url("https://s3.amazonaws.com/okprecious/main_image.png") no-repeat;
+        background-size: cover;
+        background-position-y: 90%; 
+        padding: 30px 20px;
+    }
+}
+
+.user-profile-image {
+    margin-bottom: 15px;
+    img {
+        border-radius: 100%;
+        max-height: 100px;
+    }
+}
+
+.profile-name {
+    display: inline-block;
+    color: $link-blue;
+    font-size: 18px;
+    cursor: pointer;
+    text-transform: none;
+
+    &:hover {
+        color: $darkblue;
+    }
+}
+
+.username {
+    color: $dark-text-color;
+    display: inline-block;
+    font-family: $font-Raleway;
+    font-size: 16px;
+
+    &.lead {
+        margin-left: 0;
+    }
+}
+
+.employer {
+    color: $dark-text-color;
+    font-family: $font-Open_Sans;
+    font-size: 16px;
+}
+
+.search-results {
+    // margin-top: 10px;
+    margin-bottom: 30px;
+
+    .results-title {
+        font-family: $font-Raleway;
+        margin-bottom: 30px;
+
+        .query {
+            margin-left: 4px;
+            color: $lightblue;
+            font-family: $font-Brandon_Black;
+        }
+    }
+
+    .results-toolbar {
+        padding-bottom: 15px;
+        position: relative;
+        
+        .col-dropdown {
+            @media (max-width: 490px) {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+        }
+
+        .col-pagination {
+            @media (max-width: 490px) {
+                width: 100%;
+                text-align: center;
+
+                .pagination-nav {
+                    float: none;
+                }
+            }   
+        } 
+
+        .dropdown-toggle {
+            color: $dark-text-color;
+            cursor: pointer;
+            font-family: $font-Open_Sans;
+            font-size: 16px;
+            text-transform: none;
+
+            .fa {
+                margin-left: 10px;
+            }
+        }
+
+        .pagination-nav {
+            display: inline-block;
+            float: right;
+
+            .pagination {
+                margin: 0;
+
+                li {
+                    a {
+                        border: none;
+                        color: $placeholder-grey;
+                        font-size: 18px;
+                        padding: 0 12px;
+
+                        &:focus {
+                            background-color: transparent;
+                        }
+
+                        .fa {
+                            color: $dark-text-color;
+                            font-size: 24px;
+                            position: relative;
+                            top: -1px;
+                        }
+
+                        &:hover {
+                            .fa {
+                                color: $link-blue;
+                            }
+                        }
+                    }
+
+                    &.active {
+                        a {
+                            background: none;
+                            color: $dark-text-color;
+                        }
+                    }
+
+                    &:hover {
+                        a {
+                            background: none;
+                            color: $link-blue;
+                        }
+                    }
+
+                    &:last-child {
+                        a {
+                            padding-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .results-list {
+        margin-bottom: 15px;
+    }
+
+    .result-item {
+        border-bottom: 1px solid $border-lightgrey;
+        padding: 40px 0 22px;
+        margin: 0;
+
+        &:first-child {
+            border-top: 1px solid $border-lightgrey;
+        }
+
+        .user-profile-image {
+            vertical-align: top;
+            width: 120px;
+        }
+    }
+
+}    
+
+.schedule {
+
+    .btn-group {
+        display: block;
+        margin-bottom: 10px;
+
+
+        .schedule-time {
+            font-family: $font-Brandon_Black;
+            padding: 0;
+            min-width: 100%;
+            text-transform: none;
+
+            &.active {
+                background-color: $lightblue;
+                border-color: $lightblue;
+                box-shadow: none;
+            }
+        }
+
+        &:after {
+            content: ".";
+            display: block;
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+    }
+}
+
+.apply-schedule {
+
+    .full-schedule-link {
+        // color: $darkblue;
+        // font-family: $font-Brandon_Bold;
+        // font-weight: 700;
+        font-size: 15px;
+        line-height: 39px;
+        text-transform: none;
+
+        // :hover {
+        //     color: $link-blue;
+        // }
+
+        .fa-calendar {
+            color: $dark-text-color;
+            font-size: 25px;
+            margin-right: 10px;
+            position: relative;
+            top: 2px;
+        }
+    }
+
+        padding-left: 0;
+        .btn {
+            padding: 5px;
+            float: right;
+            line-height: 26px;
+        }
+}

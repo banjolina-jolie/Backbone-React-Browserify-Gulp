@@ -1,0 +1,53 @@
+body {
+    background: $white;
+    font-family: $font-Open_Sans;
+}
+
+a, .anchor {
+    color: $link-blue;
+    font-family: 'remedy-custom';
+    // font-weight: 600;
+    font-family: $font-Brandon_Bold;
+    // text-transform: uppercase;
+    text-transform: capitalize;
+    cursor: pointer;
+
+    &.contact-us {
+        text-transform: none;
+        font-family: $font-Open_Sans;
+    }
+
+    &:hover, &:active {
+        color: $darkblue;
+        text-decoration: none;
+    }
+}
+
+h1, h2, h3, h4, h5 {
+    // font-weight: 600;
+    color: $darkblue;
+    font-family: $font-Brandon_Black;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 48px;
+    // margin-bottom: 30px;
+}
+
+h4 {
+    font-weight: 400;
+    font-size: 16px;
+    font-family: $font-Brandon_Bold;
+    margin-top: 0;
+
+    .tooltip {
+        letter-spacing: 2px;
+        font-family: helvetica;
+    }
+}
+
+p {
+    color: $dark-text-color;
+    font-size: 16px;
+}

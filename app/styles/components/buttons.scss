@@ -1,0 +1,197 @@
+.btn {
+    transition: all .18s ease-out;
+    font-family: $font-Brandon_Black;
+    // font-weight: 600;
+
+    &:focus {
+        outline: 0;
+    }
+
+    &.btn-default {
+        border-width: 2px;
+        border-radius: 8px;
+        font-size: 18px;
+        padding: 10px 46px;
+        min-height: 50px;
+        min-width: 170px;
+        background-color: transparent;
+        color: #999;
+
+        &:hover {
+            color: darken(#999, 15%)
+        }
+    }
+
+    &.btn-small {
+        border-width: 2px;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 35px;
+        min-height: 35px;
+        text-align: center;
+    }
+
+    &.btn-outline {
+        background-color: transparent;
+
+        &.btn-white {
+            &.xs-border-blue { 
+                border-color: $link-blue;
+            }
+
+            border-color: $white;
+
+            &:hover, &:focus {
+                border-color: $link-lightblue_hover;
+                color: $link-lightblue_hover !important;
+            }
+
+            &:active {
+                border-color: $white;
+            }
+        }
+
+        &.btn-blue {
+            border-color: $link-blue;
+            color: $link-blue;
+
+            &:hover, &:focus {
+                border-color: $link-lightblue-2_hover;
+                color: $link-lightblue-2_hover !important;
+            }
+
+            &:active {
+                border-color: $link-darkblue_hover;
+                color: $link-darkblue_hover !important;
+            }
+        }
+
+
+
+        &.btn-grey {
+            border-color: $dark-grey;
+            color: $dark-grey !important;
+
+            &:hover {
+                border-color: darken($dark-grey, 10%);
+                color: darken($dark-grey, 10%) !important;
+            }
+        }
+
+        &[disabled] {
+            border-color: $btn-bg_disabled !important;
+            color: $btn-text_disabled !important;
+        }
+    }
+    &.btn-green {
+        border-color: $success-green;
+        color: $success-green;
+
+        &:hover {
+            color: darken($success-green, 10%);
+            border-color: darken($success-green, 10%);
+        }
+    }
+    &.btn-red {
+        border-color: $error-red;
+        color: $error-red;
+
+        &:hover {
+            color: darken($error-red, 10%);
+            border-color: darken($error-red, 10%);
+        }
+    }
+
+    &.btn-solid {
+        color: $white-text-color !important;
+        // text-transform: uppercase;
+
+        &.btn-blue {
+            background-color: $link-blue;
+            border-color: $link-blue;
+
+            &:hover, &:focus {
+                background-color: $btn-solid_hover;
+                border-color: $btn-solid_hover;
+            }
+
+            &:active {
+                color: #fff !important;
+                background-color: $link-darkblue_hover;
+                border-color: $link-darkblue_hover;
+            }
+        }
+
+        &.btn-grey {
+            background-color: $btn-bg_disabled;
+            border-color: $btn-bg_disabled;
+        }
+
+        &[disabled] {
+            background-color: $btn-bg_disabled;
+            border-color: $btn-bg_disabled;
+            color: $btn-text_disabled !important;
+        }
+
+        &.with-icon {
+            position: relative;
+            min-width: 325px;
+
+            .fa {
+                font-size: 20px;
+                position: absolute;
+                top: 12px;
+                left: 18px;
+            }
+
+            &.facebook {
+                background-color: $facebook-color;
+                border-color: $facebook-color;
+            }
+            &.linkedin {
+                background-color: $linkedin-color;
+                border-color: $linkedin-color;
+            }
+            &.google {
+                background-color: $google-color;
+                border-color: $google-color;
+            }
+
+            &:hover {
+                opacity: .8;
+            }
+
+            &:active {
+                opacity: 1;
+            }
+        }
+    }
+    .inline-btn {
+        display: inline-block;
+    }
+
+    &.centered {
+        margin: auto;
+        display: block;
+    }
+
+    &.dropdown-toggle {
+        font-size: inherit;
+        border: none;
+
+        .caret {
+            margin-left: 3px;
+            margin-top: -2px;
+        }
+    }
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
+    background-color: inherit;
+}
+
+.caret {
+    position: relative;
+    // top: -1px;
+    font-size: 8px;
+}
