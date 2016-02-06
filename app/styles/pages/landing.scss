@@ -49,7 +49,7 @@
             border: none;
         }
 
-        .navbar-brand {
+        .brand {
             color: $white-text-color;
         }
 
@@ -65,13 +65,13 @@
             }
         }
 
-        // .firstName {
-        //     color: #fff;
-        // }
+        .firstName {
+            color: $white-text-color;
+        }
     }
 
     .intro {
-        // background: url("https://s3.amazonaws.com/okprecious/landing_img.jpg") no-repeat;
+        background: url("/images/landing_img.jpg") no-repeat;
         background-size: cover;
         padding-top: 90px;
         height: 560px;

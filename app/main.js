@@ -94,17 +94,17 @@ require('./stores/Store');
             version: 'v2.3',
         });
         FB.getLoginStatus(function(response) {
+            currentUser.isFetched = true;
+
             if (response.status === 'connected') {
-                FB.api('/me', {fields: 'name, picture, friends'}, function (user) {
+                FB.api('/me', {fields: 'first_name, last_name, picture, friends'}, function (user) {
                     user.profile_pic = user.picture.data.url;
                     delete user.picture;
                     currentUser.set(user);
                     Actions.setCurrentUser(currentUser);
                 });
-            } else if (response.status === 'not_authorized') {
-                console.log(response);
             } else {
-                console.log(response);
+                Actions.setCurrentUser(currentUser);
             }
         });
     };

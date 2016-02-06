@@ -1,6 +1,7 @@
 var React = require('react');
 var LoginModal = require('./LoginModal.jsx');
 var Store = require('../stores/Store');
+var Actions = require('../actions/Actions');
 
 var HeaderView = React.createClass({
     _getState: function () {
@@ -35,34 +36,27 @@ var HeaderView = React.createClass({
         }
     },
     render: function () {
-        var right = (this.state.user.id ? this.renderLogged() : this.renderNotLogged());
+        var right;
+        if (this.state.user.isFetched) {
+            var right = (this.state.user.id ? this.renderLogged() : this.renderNotLogged());
+        }
 
         return (
 			<nav className="navbar navbar-default" role="navigation">
                 <div className="container no-padding">
-                    <div className="navbar-header">
-                        <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                            <span className="sr-only">Toggle navigation</span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                        </button>
-                        <a className="navbar-brand ttn" href="/">
-                            <img className="logo" src="/images/logo.png" alt="okpitch logo"/>
+                    <div className="fl fs28">
+                        <a className="brand" href="/">
+                            <img className="logo mr10" src="/images/logo.png" alt="okpitch logo"/>
                             GoodLife
                         </a>
                     </div>
-                    <div className="collapse navbar-collapse navbar-ex1-collapse">
-                        <ul className="nav navbar-nav navbar-links">
-
-                            { this.renderHeaderItems() }
-
-                        </ul>
-
+                    <div>
                         {right}
                     </div>
                 </div>
-                <LoginModal user={this.state.user} />
+                {
+                    // <LoginModal user={this.state.user} />
+                }
             </nav>
         );
     },
@@ -74,7 +68,7 @@ var HeaderView = React.createClass({
                 <a className="dropdown-toggle fr p0i" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div className="avatar" id="header-avatar" ref="avatar"></div>
                     <span className="firstName">
-                        {this.state.user.get('name')}
+                        {this.state.user.get('first_name')}
                         <i className="ml4 glyphicon glyphicon-triangle-bottom"></i>
                     </span>
                 </a>
@@ -90,10 +84,9 @@ var HeaderView = React.createClass({
     },
     renderNotLogged: function () {
         return (
-            <div>
-                <ul className="nav navbar-nav navbar-right navbar-buttons">
-                    <li><a data-toggle="modal" data-target="#loginModal" className="btn btn-default btn-outline btn-white xs-border-blue">Sign in</a></li>
-                    <li><a href="/register/step1" className="btn btn-default btn-solid btn-blue">Register</a></li>
+            <div className="fr">
+                <ul className="navbar-buttons">
+                    <li><a onClick={this.FBLogin} className="btn btn-default btn-outline btn-white xs-border-blue">Log in <i className="fa fa-facebook-square ml4"></i></a></li>
                 </ul>
             </div>
         );
@@ -103,6 +96,16 @@ var HeaderView = React.createClass({
             <ul className="nav navbar-nav navbar-links">
             </ul>
         );
+    },
+    FBLogin: function () {
+        FB.login(function () {
+            FB.api('/me', {fields: 'first_name, last_name, picture, friends'}, function (user) {
+                user.profile_pic = user.picture.data.url;
+                delete user.picture;
+                currentUser.set(user);
+                Actions.setCurrentUser(currentUser);
+            });
+        });
     }
 });
 

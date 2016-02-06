@@ -6,7 +6,6 @@
     height: 91px;
 
     .container {
-        border-bottom: 1px solid $border-lightgrey;
         position: relative;
 
         .dropdown-menu {
@@ -22,26 +21,9 @@
         }
     }
 
-    .navbar-brand {
-        color: $lightblue;
+    .brand {
         font-size: 36px;
         font-family: $font-Raleway;
-        // text-transform: lowercase;
-        margin-right: 20px;
-        text-transform: none;
-         
-        // @media (max-width: $screen-xs-max) { 
-        //     padding-top: 0;
-        // }
-
-        .logo {
-            display: inline-block;
-            margin-right: 8px;
-        }
-
-        &:hover {
-            color: $link-blue;
-        }
     }
 
     .navbar-nav {
@@ -68,70 +50,25 @@
                 margin: 0;
                 a { 
                     font-size: 16px;
-
-                    // @media (min-width: $screen-sm-min)  { 
-                    //     @media (max-width: $screen-sm-max) { 
-                    //         font-size: 15px;
-                    //         padding-left: 0;
-                    //     }
-                    // }
                 }
             }
         }
         &.navbar-buttons {
-            margin-top: 15px;
-
-            // @media (max-width: $screen-xs-max) { 
-            //     margin-top: 0;
-            // }
 
             li {
                 margin-left: 30px;
-
-                // @media (max-width: $screen-xs-max) { 
-                //     margin-right: 15px;
-                //     margin-left: 15px;
-                //     margin-top: 10px;
-                //     margin-bottom: 10px;
-                // }
-                
-                // @media (min-width: $screen-sm-min)  { 
-                //         @media (max-width: $screen-sm-max) { 
-                //             margin-right: 25px;
-                //         }
-                // }
 
                 a {
                     line-height: 15px;
                     padding-top: 15px;
                     padding-bottom: 15px;
-
-                    // @media (min-width: $screen-sm-min)  { 
-                    //     @media (max-width: $screen-sm-max) { 
-                    //         font-size: 15px;
-                    //             min-width: initial;
-                    //             padding-left: 10px;
-                    //             padding-right: 10px;
-                    //     }
-                    // }
                 }
-                
-                // @media (min-width: $screen-sm-min) { 
-                //     &:last-child {
-                //         margin-right: 0;
-                //     }
-                // }
             }
         }
 
         &.user-menu {
             li {
                 margin-right: 0;
-
-                // @media (max-width: $screen-xs-max) {
-                //     margin-right: $grid-gutter-width/2; 
-                //     margin-left: $grid-gutter-width/2;
-                // }
 
                 a {
                     padding-left: 0;
@@ -204,7 +141,6 @@
         cursor: pointer;
         position: relative;
         float: right;
-        top: 16px;
         height: 50px;
 
         .firstName {
@@ -236,4 +172,7 @@
             }
         }
     }
+}
+.fa-facebook-square {
+    color: $fb-blue;
 }

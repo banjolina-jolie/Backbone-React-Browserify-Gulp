@@ -8,8 +8,6 @@ var model = Backbone.Model.extend({
     defaults: function () {
         return {
             meetings: [],
-            name: '',
-            surname: '',
             username: '',
             password: '',
             type: null,

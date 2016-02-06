@@ -178,7 +178,7 @@ var router = Backbone.Router.extend({
     landing: function () {
         var view = require('./views/Landing.jsx');
         var data = { user: Store.getCurrentUser() };
-        Actions.setUI('loggedIn', view, data);
+        Actions.setUI(false, view, data);
     },
     register: function (step) {
 

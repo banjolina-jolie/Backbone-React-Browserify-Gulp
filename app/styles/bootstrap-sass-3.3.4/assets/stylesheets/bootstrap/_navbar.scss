@@ -30,6 +30,7 @@
 
 .navbar-header {
   @include clearfix;
+  height: 76px;
 
   @media (min-width: $grid-float-breakpoint) {
     float: left;

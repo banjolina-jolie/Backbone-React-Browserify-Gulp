@@ -51,7 +51,7 @@ var PersonalBasic = React.createClass({
 		        <div className="form-group inline row">
 		            <div className="col-xs-6 no-padding pr10">
 		                <div className={'input-group input-with-label ' + this.state.markers.name}>
-		                    <input onKeyUp={this._removeMarker} valueLink={this.linkState('name')} type="text" className="form-control" name="name" placeholder="First Name"/>
+		                    <input onKeyUp={this._removeMarker} valueLink={this.linkState('first_name')} type="text" className="form-control" name="name" placeholder="First Name"/>
 		                    <span className="input-group-title">
 		                        First Name
 		                    </span>
@@ -60,7 +60,7 @@ var PersonalBasic = React.createClass({
 		            </div>
 		            <div className="col-xs-6 no-padding pl10">
 		                <div className={'input-group input-with-label ' + this.state.markers.surname}>
-		                    <input onKeyUp={this._removeMarker} valueLink={this.linkState('surname')} type="text" className="form-control" name="surname" placeholder="Last Name"/>
+		                    <input onKeyUp={this._removeMarker} valueLink={this.linkState('last_name')} type="text" className="form-control" name="surname" placeholder="Last Name"/>
 		                    <span className="input-group-title ml10">
 		                        Last Name
 		                    </span>
