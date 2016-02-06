@@ -9,7 +9,7 @@ var About = React.createClass({
                     <h2>About</h2>
                 </div>
                 <div className="row mb20 fs16 lh25">
-                    Some shit and some shit
+                    Stuff and things
                 </div>
                 
 		    </div>

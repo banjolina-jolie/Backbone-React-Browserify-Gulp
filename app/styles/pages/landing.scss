@@ -16,7 +16,6 @@
     .dashboard {
         max-width: 1000px;
     }
-
     
     .dashboard-title {
         font-family: $font-Raleway;
@@ -95,52 +94,8 @@
             font-size: 72px;
         }
 
-        .intro-desc {
-            color: #c9c9c9;
-            font-size: 34px;
-        }
-
         .big-search-block {
             margin-top: 50px;
-        }
-    }
-
-    .about {
-        margin-top: 100px;
-        padding-bottom: 60px;
-
-        .about-intro-text {
-            font-size: 24px;
-        }
-
-        .about-item {
-            text-align: center;
-
-            .about-img {
-                height: 100px;
-                margin-bottom: 35px;
-            }
-
-            .about-text {
-                margin-top: 20px;
-                font-size: 16px;
-            }
-        }
-
-        .btn {
-            margin: 40px 0 60px;
-        }
-    }
-
-    .claim {
-        background-color: $lightblue-bg;
-        padding: 60px 0;
-        text-align: center;
-        margin: 0 -80px;
-
-        .claim-text {
-            font-size: 24px;
-            margin-bottom: 30px;
         }
     }
 }

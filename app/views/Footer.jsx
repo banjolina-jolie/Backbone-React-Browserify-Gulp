@@ -21,7 +21,7 @@ var FooterView = React.createClass({
                                 </div>
                                 <div className="col-xs-5 no-padding pull-right">
                                     <ul className="clear-list footer-copy">
-                                        <li>&copy; {currentYear} GoodLife</li>
+                                        <li>&copy; {currentYear} AppName</li>
                                         <li>All rights reserved</li>
                                     </ul>
                                 </div>

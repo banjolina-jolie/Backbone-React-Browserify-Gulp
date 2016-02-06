@@ -8,7 +8,7 @@ var PersonalBio = React.createClass({
 
     _getState: function () {
         return {
-            bio: this.props.user.get('meta').bio
+            bio: this.props.user.get('bio')
         };
     },
     _updateState: function () {
@@ -125,10 +125,10 @@ var PersonalBio = React.createClass({
         Actions.setEnabledButton(!!(this.state.profileIcon || this.state.bio));
     },
     _onSaveProfile: function () {
-        var meta = this.props.user.get('meta');
-        meta.picture = this.state.profileIcon;
-        meta.bio = this.state.bio;
-        this.props.user.set({ meta: meta });
+        this.props.user.set({
+            picture: this.state.profileIcon,
+            bio: this.state.bio
+        });
     }
 });
 

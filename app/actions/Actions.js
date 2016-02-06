@@ -41,12 +41,6 @@ var Actions = {
             actionType: Constants.SAVE_PROFILE
         });
     },
-    setSelectedUser: function (user) {
-        Dispatcher.dispatch({
-            actionType: Constants.UPDATE_CURRENT_SELECTED_USER,
-            user: user
-        });
-    },
     setPaymentMethods: function (paymentMethods) {
         Dispatcher.dispatch({
             actionType: Constants.SET_PAYMENT_METHODS,

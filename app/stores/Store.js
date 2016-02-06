@@ -16,7 +16,6 @@ var OKP_ALERT_EVENT = 'okpAlert';
 
 // Persisted Values
 var _currentUser = new User();
-var _selectedUser = null;
 var _header = null;
 var _footer = null;
 var _buttonEnableState = null;
@@ -32,10 +31,6 @@ var _viewData = { user: _currentUser };
 // Persisted Value Modifiers
 function setCurrentUser(model) {
 	_currentUser = model;
-}
-
-function setSelectedUser(user) {
-	_selectedUser = user;
 }
 
 function changeUI(ui, view, viewData) {
@@ -75,9 +70,6 @@ function setAlert(alert) {
 	_alert = alert;
 }
 
-function setCheckEmailSucessCB(options) {
-	_checkListenerSuccessCB = options;
-}
 
 // Store Methods
 var Store = assign({}, EventEmitter.prototype, {
@@ -88,10 +80,6 @@ var Store = assign({}, EventEmitter.prototype, {
 
 	getCurrentUser: function () {
 		return _currentUser;
-	},
-
-	getSelectedUser: function () {
-		return _selectedUser;
 	},
 
 	getHeader: function () {
@@ -127,10 +115,6 @@ var Store = assign({}, EventEmitter.prototype, {
 			view: _view,
 			data: _viewData
 		}
-	},
-
-	getCheckListenerSuccessCB: function () {
-		return _checkListenerSuccessCB;
 	},
 
 	addUIChangeListener: function (callback) {
@@ -209,10 +193,6 @@ Dispatcher.register(function (action) {
 			Store.emitChange(SET_CURRENT_USER_EVENT);
 		break;
 
-		case Constants.UPDATE_CURRENT_SELECTED_USER:
-			setSelectedUser(action.user);
-		break;
-
 		case Constants.CHANGE_UI:
 			changeUI(action.ui, action.view, action.viewData);
 			Store.emitChange(UI_CHANGE_EVENT);
@@ -242,10 +222,6 @@ Dispatcher.register(function (action) {
 			Store.emitChange(SET_LOADING_EVENT);
 		break;
 
-		case Constants.UPDATE_CURRENT_MTG:
-			updateCurrentMtg(action.mtg);
-			Store.emitChange(UPDATE_CURRENT_MTG_EVENT);
-		break;
 
 		case Constants.OKP_ALERT:
 			setAlert(action.alert);

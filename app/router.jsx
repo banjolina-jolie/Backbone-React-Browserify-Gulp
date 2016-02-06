@@ -16,21 +16,17 @@ function parseQuery(qstr) {
 var router = Backbone.Router.extend({
     routes: {
         '': 'landing',
-        'validator': 'validator',
         'login': 'login',
         'logout': 'logout',
-        'signup/:type': 'signup',
         'account': 'profileEdit',
         'account/:section': 'profileEdit',
-        'schedule/:page': 'schedule',
-        'schedule': 'schedule',
         'about': 'about',
         'terms': 'terms',
         'privacy': 'privacy',
         '*all': 'notFound'
     },
     initialize: function (options) {
-        // // TODO: remove before deploy
+        // NOTE: use for debugging
         // window.currentUser = Store.getCurrentUser();
     },
     notFound: function () {
@@ -41,37 +37,14 @@ var router = Backbone.Router.extend({
         var view = require('./views/About.jsx');
         Actions.setUI('loggedIn', view);
     },
-    validator: function (qString) {
-        var keyVal = qString.split('=');
-        var data = {};
-        data.token = keyVal[1];
-
-        $.ajax({
-            url: apiBaseUrl + '/validator',
-            type: 'POST',
-            data: data
-        })
-        .done(function () {
-            Backbone.history.navigate('/login', true);
-        }.bind(this));
-    },
-    login: function () {
-        var view = require('./views/Login.jsx');
-        var data = { user: Store.getCurrentUser() };
-        Actions.setUI('register', view, data);
-    },
     logout: function () {
+        // TODO: Log out of FB
         $.ajax({
-            url: apiBaseUrl + '/api/logout'
+            url: apiBaseUrl + '/api/logout' // server should remove cookie
         })
         .done(function () {
             window.location.href= '/';
         });
-    },
-    schedule: function () {
-        var data = { user: Store.getCurrentUser() };
-        var view = require('./views/schedule/ScheduleBase.jsx');
-        Actions.setUI('loggedIn', view, data);
     },
     landing: function () {
         var view = require('./views/Landing.jsx');
@@ -79,11 +52,6 @@ var router = Backbone.Router.extend({
         Actions.setUI(false, view, data);
     },
     profileEdit: function (section) {
-        if (section === 'schedule') {
-            this.schedule();
-            return;
-        }
-
         var view = require('./views/profile_edit/ProfileEditBase.jsx');
         var data = { user: Store.getCurrentUser(), section: section };
         Actions.setUI('loggedIn', view, data);

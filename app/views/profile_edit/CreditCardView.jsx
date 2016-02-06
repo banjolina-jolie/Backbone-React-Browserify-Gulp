@@ -32,7 +32,7 @@ var CreditCardView = React.createClass({
             card_number: null,
             cvc: null,
             markers: {},
-            useHomeAddress: !!this.props.user.get('meta').address.line1
+            useHomeAddress: !!this.props.user.get('address').line1
         };
     },
     componentDidMount: function () {
@@ -154,12 +154,12 @@ var CreditCardView = React.createClass({
 		}
 	},
 	renderAddressBase: function () {
-		if (this.props.user.get('meta').address.line1) {
+		if (this.props.user.get('address').line1) {
 			return (
 				<div>
 					<div className="tal ml10">
 		                <input checked={this.state.useHomeAddress} id="useHome1" onChange={this._toggleAddressForm} type="radio" name="useHomeAddress" value="1" />
-                    	<label className="ml6" htmlFor="useHome1">use {this.props.user.get('meta').address.line1}</label>
+                    	<label className="ml6" htmlFor="useHome1">use {this.props.user.get('address').line1}</label>
                 	</div>
                 	<div className="tal ml10 mb10">
 		                <input checked={!this.state.useHomeAddress} id="useHome0" onChange={this._toggleAddressForm} type="radio" name="useHomeAddress" value="0" />
@@ -234,7 +234,7 @@ var CreditCardView = React.createClass({
    		delete values.errors;
 
   	    if (this.state.useHomeAddress) {
-        	var homeAddress = this.props.user.get('meta').address;
+        	var homeAddress = this.props.user.get('address');
   	    	_.extend(values, homeAddress);
   	    }
 

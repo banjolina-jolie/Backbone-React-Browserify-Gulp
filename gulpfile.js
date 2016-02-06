@@ -30,7 +30,6 @@ gulp.task('connect', function() {
         port: process.env.PORT,
         livereload: livereload,
         keepalive: true,
-        // https: false,
         middleware: function(connect, opt) {
             return [
               historyApiFallback // make all routes match on app init

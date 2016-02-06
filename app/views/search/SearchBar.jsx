@@ -37,7 +37,7 @@ var SearchBar = React.createClass({
     	}
     },
     submitAddress: function () {
-    	// look at this.state.autocomplete to store lat/lon
+    	// TODO: look at this.state.autocomplete to store lat/lon
     	console.log($('#autocomplete').val());
     },
     geolocate: function () {

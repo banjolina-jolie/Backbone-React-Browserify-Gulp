@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var Actions = require('../actions/Actions');
+var Store = require('../stores/Store');
 
 var ContactUsModal = React.createClass({
 
@@ -7,14 +8,14 @@ var ContactUsModal = React.createClass({
 
     componentDidMount: function () {
         $('#contactUsModal').on('shown.bs.modal', function () {
-            // setTimeout(function () {
-            //     $('[name=email]').focus();
-            // }, 0);
+            setTimeout(function () {
+                $('[name=email]').focus();
+            }, 0);
         });
     },
 
     getInitialState: function () {
-    	var user = this.props.user.toJSON();
+    	var user = Store.getCurrentUser();
         return {
             name: user.name ? user.name + ' ' + user.surname : '',
             email: user.email || '',
@@ -75,9 +76,6 @@ var ContactUsModal = React.createClass({
     },
     send: function (e) {
         if (e.keyCode && e.keyCode !== 13) { return; }
-
-        var self = this;
-        var currentUser = self.props.user;
 
         $.ajax({
             url: apiBaseUrl + '/contactUs',

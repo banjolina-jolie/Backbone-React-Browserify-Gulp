@@ -3,7 +3,6 @@ var Actions = require('../../actions/Actions');
 var Store = require('../../stores/Store');
 var vsBinding = require('../../utils/vsBinding');
 var CreditCardView = require('./CreditCardView.jsx');
-var PayPalView = require('./PayPalView.jsx');
 
 var PaymentView = React.createClass({
 	
@@ -26,14 +25,6 @@ var PaymentView = React.createClass({
             cardDetails: {}
 		};
 	},
-	secondaryComponent: function () {
-		switch (this.state.paymentMethod) {
-			case 'card':
-				return <CreditCardView user={this.props.user} />;
-			case 'paypal':
-				return <PayPalView user={this.props.user} />;
-		}
-	},
 	renderOption: function (obj) {
 		return <option key={obj.slug} value={obj.slug}>{obj.text}</option>;
 	},
@@ -42,7 +33,7 @@ var PaymentView = React.createClass({
             <div className="row">
                 <div className="col-xs-10 text-center pl0">
                     <form className="pay-method form-horizontal">
-                        { this.secondaryComponent() }
+                        <CreditCardView user={this.props.user} />
                     </form>
                 </div>
             </div>

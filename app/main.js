@@ -36,9 +36,11 @@ require('./stores/Store');
     var router = new Router({ root: '/', currentUser: currentUser });
     // Start history
     Backbone.history.start({ pushState: true, root: '/' });
-    // show loading while API checks cookies
+    
+    // // show loading while API checks cookies
     // Actions.startLoading();
-    // // send GET to /login to read cookies
+
+    // // send GET to /login to read cookies and return currentUser
     // currentUser.fetch({url: apiBaseUrl + '/login'})
     // // NOTE: currentUser is parsed by now
     // .done(function (response) {

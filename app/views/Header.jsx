@@ -11,10 +11,10 @@ var HeaderView = React.createClass({
     _updateState: function () {
         this.setState(this._getState);
     },
-    getInitialState() {
+    getInitialState: function () {
         return this._getState();
     },
-    componentWillUnmount() {
+    componentWillUnmount: function () {
         var Store = require('../stores/Store');
         Store.removeSetCurrentUserListener(this._updateState);
     },
@@ -45,7 +45,7 @@ var HeaderView = React.createClass({
                 <div className="container no-padding">
                     <div className="fl">
                         <a className="brand" href="/">
-                            <div className="brand-text dib">GoodLife</div>
+                            <div className="brand-text dib">AppName</div>
                         </a>
                     </div>
 
@@ -56,7 +56,7 @@ var HeaderView = React.createClass({
         );
     },
     renderLogged: function () {
-        var links = ['account', 'schedule', 'logout'];
+        var links = ['account', 'logout'];
 
         return (
             <div className="dropdown user">

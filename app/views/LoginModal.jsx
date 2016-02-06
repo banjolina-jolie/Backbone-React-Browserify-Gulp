@@ -77,9 +77,6 @@ var LoginModalView = React.createClass({
     login: function (e) {
         if (e.keyCode && e.keyCode !== 13) { return; }
 
-        var self = this;
-        var currentUser = self.props.user;
-
         Actions.startLoading();
 
         $.ajax({
@@ -89,9 +86,6 @@ var LoginModalView = React.createClass({
                 email: this.state.email,
                 password: this.state.password
             }
-        })
-        .done(function() {
-            window.location.reload();
         })
         .fail(function () {
             $('.flash-msg-error').toggleClass('hidden');

@@ -375,79 +375,6 @@
     }
 }
 
-/*
-    Big search input-group
-*/
-
-.big-search-block {
-
-    .input-group {
-
-        .input-group-addon {
-            color: $darkblue;
-            background-color: $white;
-            font-size: 25px;
-            height: 66px;
-        }
-
-        .form-control {
-            padding-left: 0;
-            font-size: 24px;
-            height: 67px;
-
-            &:focus {
-                border-color: transparent !important;
-
-                & + .input-group-btn .btn {
-                    border-color: transparent !important;
-                    color: $darkblue !important;
-                }
-            }
-
-            &::-webkit-input-placeholder { /* WebKit browsers */
-                color: $placeholder-grey;
-            }
-            &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-               color: $placeholder-grey;
-               opacity: 1;
-            }
-            &::-moz-placeholder { /* Mozilla Firefox 19+ */
-               color: $placeholder-grey;
-               opacity: 1;
-            }
-            &:-ms-input-placeholder { /* Internet Explorer 10+ */
-               color: $placeholder-grey;
-            }
-        }
-
-        .input-group-btn {
-
-            .btn {
-                color: $darkblue !important;
-                background-color: #fff;
-                // padding: 16px 12px;
-                font-size: 23px;
-                height: 67px;
-
-                &:hover {
-                    background-color: #fff;
-                    color: $darkblue !important;
-                }
-
-                &:active, &:focus {
-                    outline: none;
-                    box-shadow: none;
-                }
-            }
-        }
-    }
-}
-
-.confirm-quickstart-modal-flash, .check-listener-modal-flash {
-    position: relative;
-    top: 20px;
-}
-
 .flash-msg-container {
     height: 25px;
 }
@@ -479,41 +406,5 @@
         padding-top: 20px;
         // border: 1px solid #ccc;
         border-top: none;
-    }
-}
-
-.budget {
-    color: #555;
-    font-size: 36px;
-    font-family: $font-Brandon_Bold;
-    // font-weight: 700;
-    text-transform: uppercase;
-
-    .dollar-sign {
-        font-size: 28px;
-        font-family: $font-Raleway;
-        position: relative;
-        bottom: 3px;
-        margin-right: 2px;
-    }
-}
-
-.money-input-container {
-    &:before {
-        content: "$";
-        font-size: 17px;
-        padding-left: 6px;
-        margin-right: -4px;
-        font-family: helvetica;
-    }
-
-    &.rate {
-        display: inline-block;
-        float: none;
-        width: 11px;
-
-        &:before {
-            padding-left: 0;
-        }
     }
 }

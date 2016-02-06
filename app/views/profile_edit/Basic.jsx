@@ -9,8 +9,10 @@ var PersonalBasic = React.createClass({
 	mixins: [React.addons.LinkedStateMixin],
 
     _getState: function () {
-        var obj = this.props.user.toJSON();
+        var user = Store.getCurrentUser();
+        var obj = user.toJSON();
         obj.markers = {};
+        obj.user = user;
         return obj;
     },
     _updateState: function () {
@@ -61,7 +63,9 @@ var PersonalBasic = React.createClass({
 		            </div>
 		        </div>
 
-	        	{ this.renderUnchangeableInputs() }
+	        	{ 
+                    // this.renderUnchangeableInputs()
+                }
 
 		        { this.renderPasswordInputs() }
 
@@ -73,12 +77,12 @@ var PersonalBasic = React.createClass({
 
 				</div>
 		        
-		        <DeleteModal user={this.props.user}/>
+		        <DeleteModal user={this.state.user}/>
 		    </form>
         );
     },
     renderDangerZone: function () {
-        if (!this.props.user.isNew()) {
+        if (!this.state.user.isNew()) {
             return (
                 <div className="dropdown">
                     <button className="btn btn-default dropdown-toggle danger-dropdown-toggle fr p0" type="button" id="dangerZoneDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,11 +98,11 @@ var PersonalBasic = React.createClass({
         }
     },
     renderUnchangeableInputs: function () {
-        var disableEmail = this.props.user.get('email') ? 'disabled' : null;
+        var disableEmail = this.state.user.get('email') ? 'disabled' : null;
         var messages = this.renderMessages();
         
 
-        if (this.props.user.isNew()) {
+        if (this.state.user.isNew()) {
             return (
                 <div>
                     <div className="form-group">
@@ -148,7 +152,7 @@ var PersonalBasic = React.createClass({
         }
     },
     renderPasswordInputs: function () {
-        if (this.props.user.isNew()) {
+        if (this.state.user.isNew()) {
             return (
                 <div>
                     <div className="form-group">
@@ -176,10 +180,25 @@ var PersonalBasic = React.createClass({
         }
     },
     renderAddressInputs: function () {
-    	if (this.props.user.isNew()) {
-    		return (
-	    		<div className="row">
-			        <div className="form-group col-xs-9 no-padding">
+    	return (
+    		<div>
+                <label>Address</label>
+	    		<div className="form-group">
+		            <div className={'input-group input-with-label ' + this.state.markers.line1}>
+		                <input onKeyUp={this._removeMarker} valueLink={this.linkState('line1')} type="text" name="line1" className="form-control" placeholder="Address Line 1"/>
+		                <i className="fa fa-times"></i>
+		                <i className="fa fa-check"></i>
+		            </div>
+		        </div>
+		        <div className="form-group">
+		            <div className={'input-group input-with-label ' + this.state.markers.line2}>
+		                <input onKeyUp={this._removeMarker} valueLink={this.linkState('line2')} type="text" name="line2" className="form-control" placeholder="Address Line 2"/>
+		                <i className="fa fa-times"></i>
+		                <i className="fa fa-check"></i>
+		            </div>
+		        </div>
+		        <div className="row">
+			        <div className="form-group col-xs-6 no-padding">
 			            <div className={'input-group input-with-label ' + this.state.markers.city}>
 			                <input onKeyUp={this._removeMarker} valueLink={this.linkState('city')} type="text" name="city" className="form-control" placeholder="City"/>
 			                <span className="input-group-title">
@@ -189,71 +208,29 @@ var PersonalBasic = React.createClass({
 			                <i className="fa fa-check"></i>
 			            </div>
 			        </div>
-			        <div className="form-group col-xs-3 no-padding">
-			            <div className={'input-group input-with-label pl20 ' + this.state.markers.state}>
+			        <div className="form-group col-xs-3 ps20">
+			            <div className={'input-group input-with-label ' + this.state.markers.state}>
 			                <input onKeyUp={this._removeMarker} valueLink={this.linkState('state')} type="text" name="state" className="form-control" placeholder="State" maxLength="2" />
-			                <span className="input-group-title ml20">
+			                <span className="input-group-title">
 			                    State
 			                </span>
 			                <i className="fa fa-times"></i>
 			                <i className="fa fa-check"></i>
 			            </div>
 			        </div>
+			        <div className="form-group col-xs-3 no-padding">
+			            <div className={'input-group input-with-label ' + this.state.markers.postal_code}>
+			                <input onKeyUp={this._removeMarker} valueLink={this.linkState('postal_code')} type="text" name="postal_code" className="form-control" placeholder="Zip"/>
+			                <span className="input-group-title">
+			                    Zip Code
+			                </span>
+			                <i className="fa fa-times"></i>
+			                <i className="fa fa-check"></i>
+			            </div>
+			        </div>
 	        	</div>
-    		);
-    	} else {
-	    	return (
-	    		<div>
-		    		<label>Address</label>
-		    		<div className="form-group">
-			            <div className={'input-group input-with-label ' + this.state.markers.line1}>
-			                <input onKeyUp={this._removeMarker} valueLink={this.linkState('line1')} type="text" name="line1" className="form-control" placeholder="Address Line 1"/>
-			                <i className="fa fa-times"></i>
-			                <i className="fa fa-check"></i>
-			            </div>
-			        </div>
-			        <div className="form-group">
-			            <div className={'input-group input-with-label ' + this.state.markers.line2}>
-			                <input onKeyUp={this._removeMarker} valueLink={this.linkState('line2')} type="text" name="line2" className="form-control" placeholder="Address Line 2"/>
-			                <i className="fa fa-times"></i>
-			                <i className="fa fa-check"></i>
-			            </div>
-			        </div>
-			        <div className="row">
-				        <div className="form-group col-xs-6 no-padding">
-				            <div className={'input-group input-with-label ' + this.state.markers.city}>
-				                <input onKeyUp={this._removeMarker} valueLink={this.linkState('city')} type="text" name="city" className="form-control" placeholder="City"/>
-				                <span className="input-group-title">
-				                    City
-				                </span>
-				                <i className="fa fa-times"></i>
-				                <i className="fa fa-check"></i>
-				            </div>
-				        </div>
-				        <div className="form-group col-xs-3 ps20">
-				            <div className={'input-group input-with-label ' + this.state.markers.state}>
-				                <input onKeyUp={this._removeMarker} valueLink={this.linkState('state')} type="text" name="state" className="form-control" placeholder="State" maxLength="2" />
-				                <span className="input-group-title">
-				                    State
-				                </span>
-				                <i className="fa fa-times"></i>
-				                <i className="fa fa-check"></i>
-				            </div>
-				        </div>
-				        <div className="form-group col-xs-3 no-padding">
-				            <div className={'input-group input-with-label ' + this.state.markers.postal_code}>
-				                <input onKeyUp={this._removeMarker} valueLink={this.linkState('postal_code')} type="text" name="postal_code" className="form-control" placeholder="Zip"/>
-				                <span className="input-group-title">
-				                    Zip Code
-				                </span>
-				                <i className="fa fa-times"></i>
-				                <i className="fa fa-check"></i>
-				            </div>
-				        </div>
-		        	</div>
-	    		</div>
-    		);
-    	}
+    		</div>
+		);
     },
     removeError: function (e) {
     	var attr = $(e.currentTarget).attr('name');
@@ -280,7 +257,7 @@ var PersonalBasic = React.createClass({
         	delete values.retype_newPassword;
         }
 
-        values.meta.address = {
+        values.address = {
         	line1: values.line1,
         	line2: values.line2,
         	city: values.city,
@@ -290,15 +267,15 @@ var PersonalBasic = React.createClass({
 
         // delete stuff from values
         // TODO: MAKE BETTER
-       	var attrsToDelete = ['line1','line2','city','state','postal_code','markers','errors'];
+       	var attrsToDelete = ['line1','line2','city','state','postal_code','markers','errors', 'user'];
        	attrsToDelete.forEach(function (attr) {
        		delete values[attr];
        	});
 
-    	this.props.user.set(values);
+    	this.state.user.set(values);
 
-    	if (!this.props.user.isValid()) {
-    		for (var key in this.props.user.validationError) {
+    	if (!this.state.user.isValid()) {
+    		for (var key in this.state.user.validationError) {
     			markers[key] = 'has-error';
     		}
         }

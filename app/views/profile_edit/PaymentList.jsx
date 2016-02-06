@@ -12,29 +12,7 @@ var PaymentListView = React.createClass({
         state.addNew = false;
         return state;
     },
-    fetchTransactor: function () {
-        Actions.startLoading();
-
-        if (!this.props.user.id) { return; }
-
-        return this.props.user.getTransactor()
-        .done(function (response) {
-            this.setState({ methods: response.visible.paymentMethods }, this._setListView);
-        }.bind(this))
-        .fail(function (res) {
-            Actions.okpAlert({body: 'There was an error'});
-        })
-        .always(function () {
-            Actions.stopLoading();
-        });
-    },
-    componentDidMount: function () {
-        var self = this;
-        this.props.user.on('saved:payments', this.fetchTransactor);
-        this.fetchTransactor();
-    },
     componentWillUnmount: function () {
-        this.props.user.off('saved:payments');
         $('#save-profile-edit').removeClass('hidden');
     },
     render: function () {
@@ -50,40 +28,19 @@ var PaymentListView = React.createClass({
             );
         } else {
             $('#save-profile-edit').addClass('hidden');
-            var daysLeftInFreeTrial = this.props.user.daysLeftInFreeTrial();
 
             return (
                 <div className="row mb20">
                     <div className="col-xs-6 no-padding">
                         {function () {
-                            if (daysLeftInFreeTrial) {
+                            if (!this.state.methods || !this.state.methods.length) {
                                 return (
                                     <div className="mb20">
-                                        You have {daysLeftInFreeTrial} days left in your free trial.
+                                        <div className="mb20">
+                                        You have no payment methods on file
+                                        </div>
                                     </div>
                                 );
-                            }
-                        }.call(this)}
-
-                        {function () {
-                            if (!this.state.methods || !this.state.methods.length) {
-                                // empty state
-                                if (daysLeftInFreeTrial) {
-                                    return (
-                                        <div className="mb20">
-                                            Add a credit card to keep your account activated when it ends!
-                                        </div>
-                                    );
-                                } else {
-                                    return (
-                                        <div className="mb20">
-                                            <div className="mb20">
-                                            You have no payment methods on file!
-                                            </div>
-                                            Please add a credit card to re-activate your account.
-                                        </div>
-                                    );
-                                }
                             }
                         }.call(this)}
                         
@@ -106,6 +63,7 @@ var PaymentListView = React.createClass({
         }
     },
     _addOrChange: function () {
+        // render text
         return this.state.methods.length ? 'Change' : 'Add';
     },
     _updateMethods: function () {
