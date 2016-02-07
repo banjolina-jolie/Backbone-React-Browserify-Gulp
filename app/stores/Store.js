@@ -7,15 +7,12 @@ var User =  require('../models/UserModel');
 // Events
 var UI_CHANGE_EVENT = 'uiChange';
 var SAVE_PROFILE_EVENT = 'saveProfile';
+var SET_CURRENT_USER_EVENT = 'setCurrentUser';
 var SET_ENABLE_BUTTON_EVENT = 'setEnableButton';
 var SET_PAYMENT_METHODS_EVENT = 'setPaymentMethods';
 var SET_SELECTED_CARD_EVENT = 'setSelectedCard';
 var SET_LOADING_EVENT = 'setLoading';
-var SET_CURRENT_USER_EVENT = 'setCurrentUser';
-var UPDATE_CURRENT_MTG_EVENT = 'updateCurrentMtg';
 var OKP_ALERT_EVENT = 'okpAlert';
-var CONFIRM_QUICKSTART_EVENT = 'confirmQuickStart';
-var CHECK_LISTENER_EVENT = 'checkListener';
 
 // Persisted Values
 var _currentUser = new User();
@@ -26,9 +23,7 @@ var _buttonEnableState = null;
 var _paymentMethods = null;
 var _selectedCard = null;
 var _loading = null;
-var _currentMtg = null;
 var _alert = null;
-var _quickstartOptions = {};
 var _checkListenerSuccessCB = {};
 var _view = null;
 var _viewData = { user: _currentUser };
@@ -80,10 +75,6 @@ function setAlert(alert) {
 	_alert = alert;
 }
 
-function setQuickStartOptions(options) {
-	_quickstartOptions = options;
-}
-
 function setCheckEmailSucessCB(options) {
 	_checkListenerSuccessCB = options;
 }
@@ -127,10 +118,6 @@ var Store = assign({}, EventEmitter.prototype, {
 		return _loading;
 	},
 
-	getCurrentMtg: function () {
-		return _currentMtg;
-	},
-
 	getAlert: function () {
 		return _alert;
 	},
@@ -140,10 +127,6 @@ var Store = assign({}, EventEmitter.prototype, {
 			view: _view,
 			data: _viewData
 		}
-	},
-
-	getQuickStartOptions: function () {
-		return _quickstartOptions;
 	},
 
 	getCheckListenerSuccessCB: function () {
@@ -206,36 +189,12 @@ var Store = assign({}, EventEmitter.prototype, {
 		this.removeListener(SET_CURRENT_USER_EVENT, callback);
 	},
 
-	addupdateCurrentMtgListener: function (callback) {
-		this.on(UPDATE_CURRENT_MTG_EVENT, callback);	
-	},
-	
-	removeupdateCurrentMtgListener: function (callback) {
-		this.removeListener(UPDATE_CURRENT_MTG_EVENT, callback);
-	},
-
 	addOkpAlertListener: function (callback) {
 		this.on(OKP_ALERT_EVENT, callback);
 	},
 
 	removeOkpAlertListener: function (callback) {
 		this.removeListener(OKP_ALERT_EVENT, callback);
-	},
-
-	addQuickStartListener: function (callback) {
-		this.on(CONFIRM_QUICKSTART_EVENT, callback);
-	},
-
-	removeQuickStartListener: function (callback) {
-		this.removeListener(CONFIRM_QUICKSTART_EVENT, callback);
-	},
-
-	addSetCheckEmailSuccessListener: function (callback) {
-		this.on(CHECK_LISTENER_EVENT, callback);
-	},
-
-	removeSetCheckEmailSuccessListener: function (callback) {
-		this.removeListener(CHECK_LISTENER_EVENT, callback);
 	}
 
 });
@@ -291,16 +250,6 @@ Dispatcher.register(function (action) {
 		case Constants.OKP_ALERT:
 			setAlert(action.alert);
 			Store.emitChange(OKP_ALERT_EVENT);
-		break;
-
-		case Constants.CONFIRM_QUICKSTART:
-			setQuickStartOptions(action.options);
-			Store.emitChange(CONFIRM_QUICKSTART_EVENT);
-		break;
-
-		case Constants.CHECK_LISTENER:
-			setCheckEmailSucessCB(action.successCB);
-			Store.emitChange(CHECK_LISTENER_EVENT);
 		break;
 
 		default:

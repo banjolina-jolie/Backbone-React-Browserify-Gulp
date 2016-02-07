@@ -1,6 +1,10 @@
 .landing {
     position: relative;
 
+    h2 {
+        color: #fff;
+    }
+
     .glyphicon {
         font-size: 36px;
 
@@ -83,7 +87,7 @@
 
         .container {
             position: relative;
-            top: 20%;
+            top: 10%;
         }
 
         .intro-title {

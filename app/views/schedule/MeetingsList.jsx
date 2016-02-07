@@ -1,7 +1,6 @@
 var React = require('react/addons');
 var Actions = require('../../actions/Actions');
 var Store = require('../../stores/Store');
-var meetingStates = require('../../utils/MeetingConstants.json');
 
 var MeetingsListView = React.createClass({
     _getState: function () {
@@ -74,7 +73,6 @@ var MeetingsListView = React.createClass({
                     <td className="meeting-state">{mtg.displayState}</td>
                     <td className="cta">
                         <a className="fr pr10" href={'/meetings/' + mtg.id}>view</a>
-                        { this.renderMailIcon(mtg) }
                     </td>
                 </tr>
             );
@@ -116,13 +114,6 @@ var MeetingsListView = React.createClass({
                 </table>
             </div>
         );
-    },
-    renderMailIcon: function (mtg) {
-        if (mtg['new_message_for_' + this.props.user.role()] && mtg.state < meetingStates.ENDED_NO_FEEDBACK) {
-            return (
-                <i data-toggle="tooltip" className="mail-icon fa fa-envelope" title="unread messages"></i>
-            );
-        }
     },
     _startSession: function () {
         Backbone.history.navigate('/users/'+this.props.user.get('username'), {trigger: true});

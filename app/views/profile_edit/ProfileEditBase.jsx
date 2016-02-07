@@ -39,9 +39,6 @@ var ProfileEditBase = React.createClass({
         return (
 	        <section className="profile-edit">
 	            <div className="container no-padding">
-	                <div className="row mb20">
-                        <h2 className="">Account</h2>
-                    </div>
                     <div className="row">
                         <div className="col-xs-3 profile-edit-sections">
                             <ul>

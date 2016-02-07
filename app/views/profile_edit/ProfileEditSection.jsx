@@ -5,7 +5,6 @@ var Basic = require('./Basic.jsx');
 var Bio = require('./Bio.jsx');
 var ChangePassword = require('./ChangePassword.jsx');
 
-var Experience = require('./Experience.jsx');
 
 var PaymentList = require('./PaymentList.jsx');
 
@@ -14,9 +13,6 @@ var profileEditConfig = {
     	basic: { view: Basic, title: 'Basic'},
     	bio: { view: Bio, title: 'Bio & Photo'},
         'change-password': { view: ChangePassword }
-    },
-    experience: {
-    	experience: { view: Experience }
     },
     payments: {
         payments: { view: PaymentList, title: 'Payment Info'}

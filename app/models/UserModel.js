@@ -1,14 +1,10 @@
 var Backbone = require('backbone');
 var Email = require('./EmailModel');
-var MeetingModel = require('./MeetingModel');
 var Actions = require('../actions/Actions');
-var meetingStates = require('../utils/MeetingConstants.json');
 
 var model = Backbone.Model.extend({
     defaults: function () {
         return {
-            meetings: [],
-            username: '',
             password: '',
             type: null,
             meta: {
@@ -66,63 +62,6 @@ var model = Backbone.Model.extend({
     },
     isPresenter: function () {
         return Number(this.get('type')) && !this.isNew();
-    },
-    daysLeftInFreeTrial: function () {
-        var now = new Date().getTime() / 1000;
-        var start = this.get('tos_acceptance') && this.get('tos_acceptance').date;
-        var THIRTY_DAYS = 60 * 60 * 24 * 30;
-        var diff = now - start;
-
-        if ( diff < THIRTY_DAYS) {
-            return 30 - Math.ceil(diff / 60 / 60 / 24);
-        } else {
-            return 0;
-        }
-    },
-    resetCurrentSession: function (view) {
-        // make meeting look like a true meeting model
-        var mtg = this.get('currentSession');
-        mtg.listener = {
-            name: mtg.name,
-            email: mtg.email,
-            company: mtg.company
-        };
-        mtg.state = meetingStates.ENDED_NO_FEEDBACK;
-        
-        var now = moment().unix();
-        mtg.duration = now - mtg.startTime;
-
-        mtg.startTime *= 1000;
-
-        delete mtg.name;
-        delete mtg.email;
-        delete mtg.company;
-        
-        var mtgModel = new MeetingModel(mtg);
-
-        mtgModel.save()
-        .done(function (model) {
-            view.sendP2PUpdate(model);
-        });
-
-        return this.save({
-            currentSession: {
-                state: 0,
-                email: '',
-                name: '',
-                company: '',
-                prompts: [],
-                messages: []
-            }
-        });
-    },
-    getMeetingsWithStartTime: function () {
-        return _.filter(this.get('meetings'), function (mtg) {
-            return mtg.startTime;
-        });
-    },
-    getMeeting: function (id) {
-        return _.findWhere(this.get('meetings'), { id: id });
     },
     getTransactor: function () {
         return $.ajax({
@@ -232,14 +171,8 @@ var model = Backbone.Model.extend({
             model.id = model._id;
             delete model._id;
         }
-        if (model.meetings) {
-            model.meetings.forEach(function (mtg) {
-                mtg.userIsListener = !model.type;
-                mtg = MeetingModel.prototype.parse(mtg);
-            });
-        }
-        if (model.schedule) {
-            model.schedule = model.schedule.availability;
+        if (model.events) {
+            
         }
         this.status = true;
 

@@ -6,11 +6,19 @@
         height: 60px;
         width: 500px;
         padding: 10px 20px;
+        border: none;
+        opacity: 0.9;
+
+        &:focus {
+            opacity: 1;
+        }
     }
     button {
-        height: 59px;
+        height: 60px;
         background-color: $link_blue;
         color: #fff;
         border: none;
+        vertical-align: top;
+        opacity: 0.9;
     }
 }

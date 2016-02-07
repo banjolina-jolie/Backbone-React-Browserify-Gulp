@@ -47,24 +47,6 @@ var Actions = {
             user: user
         });
     },
-    setMeetingsConfirm: function (mtgs) {
-        Dispatcher.dispatch({
-            actionType: Constants.SET_MEETINGS_CONFIRM,
-            mtgs: mtgs
-        });
-    },
-    setMeetingState: function (state) {
-        Dispatcher.dispatch({
-            actionType: Constants.SET_MEETING_STATE,
-            state: state
-        });  
-    },
-    setUsers: function (users) {
-        Dispatcher.dispatch({
-            actionType: Constants.SET_USERS,
-            users: users
-        });
-    },
     setPaymentMethods: function (paymentMethods) {
         Dispatcher.dispatch({
             actionType: Constants.SET_PAYMENT_METHODS,
@@ -77,29 +59,11 @@ var Actions = {
             card: card
         });  
     },
-    updateCurrentMtg: function (mtg) {
-        Dispatcher.dispatch({
-            actionType: Constants.UPDATE_CURRENT_MTG,
-            mtg: mtg
-        });
-    },
     okpAlert: function (alert) {
         Dispatcher.dispatch({
             actionType: Constants.OKP_ALERT,
             alert: alert
         }); 
-    },
-    setConfirmQuickStartOptions: function (options) {
-        Dispatcher.dispatch({
-            actionType: Constants.CONFIRM_QUICKSTART,
-            options: options
-        });
-    },
-    checkListenerEmail: function (successCB) {
-        Dispatcher.dispatch({
-            actionType: Constants.CHECK_LISTENER,
-            successCB: successCB
-        });  
     }
 };
 

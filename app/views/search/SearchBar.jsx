@@ -14,7 +14,7 @@ var SearchBar = React.createClass({
 	componentDidMount() {
 		var self = this;
 	    if (window.google) {
-			this.autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'),{types: ['geocode']});
+			this.setState({ autocomplete: new google.maps.places.Autocomplete(document.getElementById('autocomplete'),{types: ['geocode']}) });
 	    } else {
 	    	$(window).on('googleapis:loaded', function () {
 	    		var autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'),{types: ['geocode']});
@@ -26,7 +26,7 @@ var SearchBar = React.createClass({
 	render: function () {
 		return (
 			<div className="search-bar">
-				<input id="autocomplete" onKeyPress={this.checkEnter} onFocus={this.geolocate} className="address search ma" valueLink={this.linkState('address')} placeholder="Where are you?"/>
+				<input id="autocomplete" onKeyPress={this.checkEnter} onFocus={this.geolocate} className="address search ma" valueLink={this.linkState('address')} placeholder="Where are you interested?"/>
 				<button onClick={this.submitAddress}>Search</button>
 			</div>
 		);
@@ -37,7 +37,7 @@ var SearchBar = React.createClass({
     	}
     },
     submitAddress: function () {
-    	// look at this.state.autocomplete
+    	// look at this.state.autocomplete to store lat/lon
     	console.log($('#autocomplete').val());
     },
     geolocate: function () {

@@ -3,8 +3,6 @@ var React = require('react/addons');
 var uiConfig = require('../utils/uiConfig')();
 var Actions = require('../actions/Actions');
 var ContactUsModal = require('./ContactUsModal.jsx');
-var ConfirmQuickStartModal = require('./meeting/ConfirmQuickStartModal.jsx');
-var CheckListenerEmail = require('./meeting/CheckListenerEmail.jsx');
 var Header = require('../views/Header.jsx');
 var Footer = require('../views/Footer.jsx');
 
@@ -61,8 +59,6 @@ var AppBaseView = React.createClass({
                 
                 {this.renderAlertModal()}
                 <ContactUsModal user={this.state.user}/>
-                <ConfirmQuickStartModal user={this.state.user}/>
-                <CheckListenerEmail user={this.state.user}/>
             </div>
         );
     },

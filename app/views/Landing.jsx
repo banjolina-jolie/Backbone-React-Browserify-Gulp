@@ -19,10 +19,13 @@ var LandingView = React.createClass({
 
                 <section className="intro">
                     <div className="container dashboard">
-                        <div className="">
-                            <SearchBar />
-                        </div>
+                        <h2 className="tac mb40">Follow your bliss</h2>
+                        <SearchBar />
                     </div>
+                </section>
+
+                <section>
+
                 </section>
 
             </div>
