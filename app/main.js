@@ -3,15 +3,6 @@ require('./stores/Store');
 (function () {
     var location = window.location;
 
-    if (location.hostname === 'www.okpitch.com') {
-        // chop off 'www' - problem with browser extension
-        location.hostname = 'okpitch.com';
-    }
-        // enforce use of https
-    if (location.hostname === 'okpitch.com' && location.protocol !== 'https:') {
-        location.href = 'https://' + location.hostname + location.pathname;
-        return;
-    }
 
     var Store = require('./stores/Store');
     var React = require('react');
@@ -53,13 +44,11 @@ require('./stores/Store');
     // .done(function (response) {
     //     Actions.setCurrentUser(currentUser);
     //     // set listener for when Bistri is loaded
-    //     window.onBistriConferenceReady = function () {
-    //         router.trigger('bc:ready');
-    //     };
     // })
     // .fail(function () {
     //     document.write('API Failure');
     // });
+    
     // make anchor tags work with pushstate (Backbone boilerplate)
     $(document).on('click', 'a:not([data-bypass])', function(evt) {
         if (evt.metaKey || evt.ctrlKey) { return; }
@@ -86,6 +75,7 @@ require('./stores/Store');
             }
         }
     });
+
     window.fbAsyncInit = function () {
         FB.init({
             appId: 167536220286926,

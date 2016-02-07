@@ -3,16 +3,6 @@ var Actions = require('./actions/Actions');
 var Store = require('./stores/Store');
 var UserModel = require('./models/UserModel');
 
-// register views
-var registerViews = {};
-registerViews.step2 = require('./views/register/Register2.jsx');
-registerViews.verify = require('./views/register/RegisterVerify.jsx');
-
-// register finish views
-var registerFinishViews = {};
-registerFinishViews.payment = require('./views/register/RegisterPayment.jsx');
-registerFinishViews.bio = require('./views/register/RegisterBio.jsx');
-
 function parseQuery(qstr) {
     var query = {};
     var a = qstr.split('&');
@@ -27,15 +17,11 @@ var router = Backbone.Router.extend({
     routes: {
         '': 'landing',
         'validator': 'validator',
-        'register/:step': 'register',
-        'register/:step/:type': 'register',
-        'register-finish/:step': 'registerFinish',
         'login': 'login',
         'logout': 'logout',
         'signup/:type': 'signup',
         'account': 'profileEdit',
         'account/:section': 'profileEdit',
-        'users/:userName': 'userProfile',
         'schedule/:page': 'schedule',
         'schedule': 'schedule',
         'about': 'about',
@@ -44,11 +30,8 @@ var router = Backbone.Router.extend({
         '*all': 'notFound'
     },
     initialize: function (options) {
-        // set current user
-        // Store.getCurrentUser() = options.currentUser;
-
-        // TODO: remove before deploy
-        window.currentUser = Store.getCurrentUser();
+        // // TODO: remove before deploy
+        // window.currentUser = Store.getCurrentUser();
     },
     notFound: function () {
         // TODO: make nice 404 page
@@ -90,22 +73,10 @@ var router = Backbone.Router.extend({
         var view = require('./views/schedule/ScheduleBase.jsx');
         Actions.setUI('loggedIn', view, data);
     },
-    roomLocked: function () {
-        Actions.setUI('loggedIn');
-        $('#content').html('<div class="container mt40"><h4>Sorry this room is locked</h4></div>');
-    },
     landing: function () {
         var view = require('./views/Landing.jsx');
         var data = { user: Store.getCurrentUser() };
         Actions.setUI(false, view, data);
-    },
-    register: function (step) {
-
-        Store.getCurrentUser().set({ type: 1 });
-        var view = registerViews[step];
-        var data = { user: Store.getCurrentUser() };
-
-        Actions.setUI('register', view, data);
     },
     profileEdit: function (section) {
         if (section === 'schedule') {
@@ -116,26 +87,6 @@ var router = Backbone.Router.extend({
         var view = require('./views/profile_edit/ProfileEditBase.jsx');
         var data = { user: Store.getCurrentUser(), section: section };
         Actions.setUI('loggedIn', view, data);
-    },
-    userProfile: function (userName, queryStr) {
-        var args = arguments;
-        var currentUser = Store.getCurrentUser();
-        
-        if (!currentUser.fetched) {
-            this.listenToOnce(currentUser, 'sync', function () {
-                this.userProfile.apply(this, args);
-            }.bind(this));
-            return;
-        }
-
-        var searchedUser = new UserModel({id: userName});
-        searchedUser.fetch()
-        .done(function (res) {
-            var view = require('./views/users/UserProfile.jsx');
-            var data = { user: Store.getCurrentUser(), searchedUser: searchedUser };
-            Actions.setUI('loggedIn', view, data);
-            Actions.setSelectedUser(res);
-        }.bind(this));
     },
     terms: function () {
         var view = require('./views/Terms.jsx');

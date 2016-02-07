@@ -1,6 +1,5 @@
 var Store = require('../stores/Store');
 var React = require('react/addons');
-var uiConfig = require('../utils/uiConfig')();
 var Actions = require('../actions/Actions');
 var ContactUsModal = require('./ContactUsModal.jsx');
 var Header = require('../views/Header.jsx');
