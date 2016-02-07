@@ -68,6 +68,11 @@
         .firstName {
             color: $white-text-color;
         }
+
+        .btn.btn-outline.btn-white.xs-border-blue {
+            border-color: $white-text-color;
+            color: $white-text-color;
+        }
     }
 
     .intro {

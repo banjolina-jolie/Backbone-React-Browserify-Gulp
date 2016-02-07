@@ -26,9 +26,12 @@
         font-family: $font-Raleway;
     }
 
+    .brand-text {
+        vertical-align: middle;
+    }
+
     .navbar-nav {
         li {
-            // margin-right: 40px;
 
             a {
                 color: $dark-text-color;
@@ -144,6 +147,7 @@
         height: 50px;
 
         .firstName {
+            vertical-align: middle;
             font-size: 16px;
             font-family: $font-Brandon_Black;
 

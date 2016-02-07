@@ -1,5 +1,4 @@
 var React = require('react');
-var LoginModal = require('./LoginModal.jsx');
 var Store = require('../stores/Store');
 var Actions = require('../actions/Actions');
 
@@ -44,28 +43,24 @@ var HeaderView = React.createClass({
         return (
 			<nav className="navbar navbar-default" role="navigation">
                 <div className="container no-padding">
-                    <div className="fl fs28">
+                    <div className="fl">
                         <a className="brand" href="/">
-                            <img className="logo mr10" src="/images/logo.png" alt="okpitch logo"/>
-                            GoodLife
+                            <div className="brand-text dib">GoodLife</div>
                         </a>
                     </div>
-                    <div>
-                        {right}
-                    </div>
+
+                    {right}
+
                 </div>
-                {
-                    // <LoginModal user={this.state.user} />
-                }
             </nav>
         );
     },
     renderLogged: function () {
-        var links = ['account', 'history', 'logout'];
+        var links = ['account', 'schedule', 'logout'];
 
         return (
             <div className="dropdown user">
-                <a className="dropdown-toggle fr p0i" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a className="dropdown-toggle fr p0i mt8" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div className="avatar" id="header-avatar" ref="avatar"></div>
                     <span className="firstName">
                         {this.state.user.get('first_name')}

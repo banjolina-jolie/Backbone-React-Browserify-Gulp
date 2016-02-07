@@ -1,7 +1,5 @@
 .btn {
     transition: all .18s ease-out;
-    font-family: $font-Brandon_Black;
-    // font-weight: 600;
 
     &:focus {
         outline: 0;
@@ -15,11 +13,6 @@
         min-height: 50px;
         min-width: 170px;
         background-color: transparent;
-        color: #999;
-
-        &:hover {
-            color: darken(#999, 15%)
-        }
     }
 
     &.btn-small {

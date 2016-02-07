@@ -3,15 +3,13 @@ var Actions = require('../actions/Actions');
 var Store = require('../stores/Store');
 var Footer = require('./Footer.jsx');
 var Header = require('./Header.jsx');
+var SearchBar = require('./search/SearchBar.jsx');
 
 var LandingView = React.createClass({
     getInitialState() {
         return {
             user: Store.getCurrentUser()
         };
-    },
-    componentDidMount: function () {
-
     },
     render: function () {
         return (
@@ -21,6 +19,9 @@ var LandingView = React.createClass({
 
                 <section className="intro">
                     <div className="container dashboard">
+                        <div className="">
+                            <SearchBar />
+                        </div>
                     </div>
                 </section>
 

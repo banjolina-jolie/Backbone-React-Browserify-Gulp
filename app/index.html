@@ -8,18 +8,11 @@
 	<link rel="stylesheet" href="/vendor/select2/select2.css">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic' rel='stylesheet' type='text/css'>
     
-    <!-- @if NODE_ENV='development' -->
 	<script>
 		// window.apiBaseUrl = 'http://localhost:3001';
 		// window.apiBaseUrl = 'http://10.0.0.2:3001';
 		window.apiBaseUrl = 'https://api-okpitch.herokuapp.com';
 	</script>
-	<!-- @endif -->
-    <!-- @if NODE_ENV='production' -->
-	<script>
-		window.apiBaseUrl = 'https://api-okpitch.herokuapp.com';
-	</script>
-	<!-- @endif -->
 </head>
 <body>
 	<script>
@@ -35,5 +28,11 @@
 	<div id="app"></div>
 	<script type="text/javascript" src="/js/main.js"></script>
 	<script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script>
+		window.initAutocomplete = function () {
+			$(window).trigger('googleapis:loaded');
+		}
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-XF67pt44AmaIVjvRDpDVptC1OfSGw_0&signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
 </body>
 </html>

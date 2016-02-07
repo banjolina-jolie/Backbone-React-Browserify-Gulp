@@ -20,12 +20,6 @@
         box-shadow: none;
     }
 
-    &.search-bar {
-        &:hover, &:focus {
-            border: 2px solid white;
-        }
-    }
-
     &::-webkit-input-placeholder { /* WebKit browsers */
         color: $dark-text-color;
         opacity: .5;

@@ -1,16 +1,16 @@
 footer {
     background-color: $darkblue;
-    color: $white-text-color;
+    color: #fff;
     padding: 45px 80px;
     width: 100%;
     position: absolute;
     bottom: 0;
 
     a {
-        color: $white-text-color;
+        color: #fff;
 
         &:hover, &:active {
-            color: $link-blue;
+            color: darken($darkblue, 10%);
             text-decoration: none;
         }
     }
@@ -53,23 +53,6 @@ footer {
                 border: 2px solid $white;
                 border-right-width: 0;
                 color: $white-text-color;
-
-                &::-webkit-input-placeholder { /* WebKit browsers */
-                    color: $white-text-color;
-                    opacity: .6;
-                }
-                &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-                   color: $white-text-color;
-                   opacity: .6;
-                }
-                &::-moz-placeholder { /* Mozilla Firefox 19+ */
-                   color: $white-text-color;
-                   opacity: .6;
-                }
-                &:-ms-input-placeholder { /* Internet Explorer 10+ */
-                   color: $white-text-color;
-                   opacity: .6;
-                }
             }
 
             .input-group-btn {
@@ -150,10 +133,6 @@ footer {
 
                 a {
                     font-size: 16px;
-
-                    &:hover, &:active {
-                        color: $link-lightblue_hover;
-                    }
                 }
             }
         }
