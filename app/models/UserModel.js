@@ -6,31 +6,7 @@ var model = Backbone.Model.extend({
     defaults: function () {
         return {
             password: '',
-            type: null,
-            meta: {
-                address: {},
-                price: {}
-            },
-            currentSession: {
-                state: 0,
-                email: '',
-                name: '',
-                company: '',
-                prompts: [],
-                messages: []
-            },
-            feedbackPrompts: [
-                {
-                    type: 'text',
-                    text: 'What is your top takeaway from the meeting?',
-                    checked: true
-                },
-                {
-                    type: 'rate 1-10',
-                    text: 'How was the presentation?',
-                    checked: true
-                }
-            ]
+            type: null
         };
     },
     urlRoot: function () {
@@ -90,79 +66,8 @@ var model = Backbone.Model.extend({
             type: 'DELETE'
         });
     },
-    sendInvites: function (invites) {
-        var data = $.extend(true, [], invites);
-
-        _.each(data, function (invite) {
-            invite.duration = Number(invite.duration);
-            invite.rate = Number(invite.rate);
-            invite.startTime  = Number(invite.startTime)/1000;
-            invite.listener = invite.listener.id;
-            invite.presenter = invite.presenter.id;
-        });
-
-        if (this.isActive()) {
-            return $.ajax({
-                url: apiBaseUrl + '/api/meetings',
-                type: 'POST',
-                data: {
-                    meetings: data
-                },
-                dataType: 'json'
-            });
-        }
-    },
-    sendBatchInvites: function (options) {
-        var data = $.extend(true, {}, options);
-        if (this.isActive()) {
-            return $.ajax({
-                url: apiBaseUrl + '/api/invites',
-                type: 'POST',
-                data: {
-                    options: data
-                },
-                dataType: 'json'
-            });
-        }
-    },
-    checkMtgListener: function (listenerEmail, meetingId) {
-        return $.ajax({
-            url: apiBaseUrl + '/checkListener',
-            type: 'POST',
-            data: {
-                listenerEmail: listenerEmail,
-                meetingId: meetingId
-            },
-            dataType: 'json'
-        })
-        .always(function () {
-            Actions.stopLoading();
-        });
-    },
-    noAuthSaveMtg: function (mtg) {
-        var data = {
-            listenerEmail: this.get('email'),
-            meeting: mtg.toJSON()
-        };
-        data = $.extend(true, {}, data);
-        data.meeting = JSON.stringify(data.meeting);
-
-        return $.ajax({
-            url: apiBaseUrl + '/meetings/' + mtg.id,
-            type: 'put',
-            data: data,
-            dataType: 'json'
-        })
-        .done(function () {
-            mtg.set(mtg.parse(mtg.attributes));
-        });
-    },
     isActive: function () {
         return this.get('state') === 0 || this.get('state') === 3;
-    },
-    save: function () {
-        this.set({meetings: []});
-        return Backbone.Model.prototype.save.apply(this, arguments);
     },
     parse: function (model) {
         this.fetched = true;
@@ -186,27 +91,14 @@ var model = Backbone.Model.extend({
         if (!mailOutput) {
             errors.email = emailModel.validationError;
         }
-        if (!attrs.name) {
-            errors.name = 'Please enter a first name';
+        if (!attrs.first_name) {
+            errors.first_name = 'Please enter a first name';
         }
-        if (!attrs.surname) {
-            errors.surname = 'Please enter your last name';
+        if (!attrs.last_name) {
+            errors.last_name = 'Please enter your last name';
         }
         if (!attrs.username) {
             errors.username = 'Please enter a username';
-        }
-        if (!/^[a-zA-Z0-9_]+$/.test(attrs.username)) {
-            // TODO: validate this on BE and make sure we're validating unique usernames to not be case-specific
-            setTimeout(function () {
-                Actions.okpAlert({body: 'Username must contain only letters, numbers, and max 2 underscores.'});
-            }, 0);
-            errors.username = 'Username cannot have special charactors other than _';
-        }
-        if (!attrs.meta.address.city) {
-            errors.city = 'Please enter a city';
-        }
-        if (!attrs.meta.address.state || attrs.meta.address.state.length !== 2) {
-            errors.state = 'Please enter a state';
         }
         if (this.isNew() && (!attrs.password || attrs.password !== attrs.reEnterPassword)) {
             errors.reEnterPassword = 'Passwords do not match';

@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var View = require('./MeetingsList.jsx');
+var View = require('./EventsList.jsx');
 
 var ScheduleBase = React.createClass({
 

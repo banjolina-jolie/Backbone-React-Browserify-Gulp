@@ -10,15 +10,7 @@ var PersonalBasic = React.createClass({
 
     _getState: function () {
         var obj = this.props.user.toJSON();
-        obj.meta.address = obj.meta.address || {};
-        
-        obj.line1 = obj.meta.address.line1;
-        obj.line2 = obj.meta.address.line2;
-        obj.state = obj.meta.address.state;
-        obj.city = obj.meta.address.city;
-        obj.postal_code = obj.meta.address.postal_code;
         obj.markers = {};
-
         return obj;
     },
     _updateState: function () {
@@ -94,7 +86,7 @@ var PersonalBasic = React.createClass({
                         <span className="caret"></span>
                     </button>
                     <ul className="dropdown-menu danger-dropdown" aria-labelledby="dangerZoneDropdown">
-                        <li><a data-toggle="modal" data-target="#deleteModal">Delete Account</a></li>
+                        {/*<li><a data-toggle="modal" data-target="#deleteModal">Delete Account</a></li>*/}
                         <li><a href="/account/change-password">Change Password</a></li>
                     </ul>
                 </div>

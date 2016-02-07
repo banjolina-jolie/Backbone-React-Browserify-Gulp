@@ -23,7 +23,6 @@ var PaymentView = React.createClass({
 	getInitialState: function () {
 		return {
 			paymentMethod: 'card',
-			title: this.props.user.isListener() ? 'How will we pay you?' : 'How will you pay?',
             cardDetails: {}
 		};
 	},
@@ -38,25 +37,11 @@ var PaymentView = React.createClass({
 	renderOption: function (obj) {
 		return <option key={obj.slug} value={obj.slug}>{obj.text}</option>;
 	},
-	getPaymentMethods: function () {
-        if (this.props.user.isListener()) {
-			return [{slug: 'bank', text: 'Bank Account'}, {slug: 'card', text: 'Debit Card'}, {slug: 'paypal', text: 'PayPal'}];
-		} else {
-			return [{slug: 'card', text: 'Credit Card'}];
-		}
-	},
     render: function () {
     	return (
             <div className="row">
                 <div className="col-xs-10 text-center pl0">
                     <form className="pay-method form-horizontal">
-                        {/*<div className="form-group">
-                            <div className="col-xs-12">
-                                <select valueLink={this.linkState('paymentMethod')} name="paymentMethod" id="payment-method">
-                                    {this.getPaymentMethods().map(this.renderOption)}
-                                </select>
-                            </div>
-                        </div>*/}
                         { this.secondaryComponent() }
                     </form>
                 </div>

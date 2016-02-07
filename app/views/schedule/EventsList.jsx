@@ -2,11 +2,11 @@ var React = require('react/addons');
 var Actions = require('../../actions/Actions');
 var Store = require('../../stores/Store');
 
-var MeetingsListView = React.createClass({
+var EventsListView = React.createClass({
     _getState: function () {
         return {
-            mtgs: _.sortBy(this.props.user.get('meetings'), function(mtg) {
-                return mtg.startTime;
+            events: _.sortBy(this.props.user.get('meetings'), function(evt) {
+                return evt.startTime;
             })
         };
     },
@@ -32,7 +32,6 @@ var MeetingsListView = React.createClass({
     },
     renderMeetings: function () {
         var currentUser = this.props.user;
-        var clientRole = currentUser.isListener() ? 'presenter' : 'listener';
 
         if (!this.props.user.isActive()) {
             return (
@@ -46,7 +45,7 @@ var MeetingsListView = React.createClass({
             );
         }
 
-        if (!this.state.mtgs.length) {
+        if (!this.state.events.length) {
             return (
                 <tr>
                     <td colSpan="5">
@@ -59,40 +58,24 @@ var MeetingsListView = React.createClass({
             );
         }
 
-        return this.state.mtgs.map(function(mtg) {
+        return this.state.events.map(function(evt) {
             return (
-                <tr key={mtg.id}>
+                <tr key={evt.id}>
                     <td className="name">
-                        {/*<div className="avatar" style={{backgroundImage: 'url(https://s3.amazonaws.com/okprecious/' + mtg[clientRole].id + '/profile_pic)'}}></div>*/}
-                        { this.renderListName(mtg, clientRole) }
+                        {/*<div className="avatar" style={{backgroundImage: 'url(https://'}}></div>*/}
+                        { /*name*/ }
                     </td>
                     <td className="start-time">
-                        {mtg.formattedStartTime}
+                        {evt.formattedStartTime}
                     </td>
-                    <td className="start-time">{Math.ceil(mtg.duration / 60)} min</td>
-                    <td className="meeting-state">{mtg.displayState}</td>
+                    <td className="start-time">{Math.ceil(evt.duration / 60)} min</td>
+                    <td className="meeting-state">{evt.displayState}</td>
                     <td className="cta">
-                        <a className="fr pr10" href={'/meetings/' + mtg.id}>view</a>
+                        <a className="fr pr10" href={'/meetings/' + evt.id}>view</a>
                     </td>
                 </tr>
             );
         }.bind(this));
-    },
-    renderListName: function (mtg, clientRole) {
-        if (mtg[clientRole].name) {
-            var name = mtg[clientRole].name;
-            if (mtg[clientRole].company) {
-                name += ' - ' + mtg[clientRole].company;
-            }
-            return (
-                <span>{name}</span>
-            );
-        } else {
-            // mtg[clientRole] is listener's email
-            return (
-                <span className="">{mtg[clientRole]}</span>
-            );
-        }
     },
     render: function () {
         return (
@@ -102,7 +85,7 @@ var MeetingsListView = React.createClass({
                         <tr>
                             <th onClick={this._sortTable} data-attr={'name'} className="name">Name <i className="fa fa-caret-down"></i></th>
                             <th onClick={this._sortTable} data-attr={'startTime'} className="start-time">Start Date <i className="fa fa-caret-down"></i></th>
-                            <th onClick={this._sortTable} data-attr={'duration'} className="mtg-duration">Duration <i className="fa fa-caret-down"></i></th>
+                            <th onClick={this._sortTable} data-attr={'duration'} className="evt-duration">Duration <i className="fa fa-caret-down"></i></th>
                             <th onClick={this._sortTable} data-attr={'state'} className="status start-time">Status <i className="fa fa-caret-down"></i></th>
                             <th></th>
                         </tr>
@@ -121,7 +104,7 @@ var MeetingsListView = React.createClass({
     _sortTable: function (e) {
         var partner = this.props.user.partnerRole();
         var attr = $(e.currentTarget).data('attr');
-        var mtgs = $.extend([], this.state.mtgs);
+        var events = $.extend([], this.state.events);
 
         if (this.sortBy === attr) {
             this.reverseOrder = !this.reverseOrder;
@@ -131,22 +114,22 @@ var MeetingsListView = React.createClass({
         }
 
         if (attr === 'username' || attr === 'name') {
-            mtgs = _.sortBy(mtgs, function(mtg) {
-                return (mtg[partner][attr] && mtg[partner][attr].toLowerCase()) || mtg[partner].email.toLowerCase();
+            events = _.sortBy(events, function(evt) {
+                return (evt[partner][attr] && evt[partner][attr].toLowerCase()) || evt[partner].email.toLowerCase();
             }.bind(this));
         } else if (attr === 'state' ) {
-            mtgs = _.sortBy(mtgs, function(mtg) {
-                return mtg.displayState;
+            events = _.sortBy(events, function(evt) {
+                return evt.displayState;
             }.bind(this));
         } else {
-            mtgs = _.sortBy(mtgs, function(mtg) {
-                return mtg[attr];
+            events = _.sortBy(events, function(evt) {
+                return evt[attr];
             }.bind(this));
         }
-        if (this.reverseOrder) { mtgs.reverse(); }
+        if (this.reverseOrder) { events.reverse(); }
         
-        this.setState({mtgs: mtgs});
+        this.setState({events: events});
     }
 });
 
-module.exports = MeetingsListView;
+module.exports = EventsListView;

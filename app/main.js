@@ -58,21 +58,7 @@ require('./stores/Store');
 
         if (href.prop && href.prop.slice(0, root.length) === root) {
             evt.preventDefault();
-            if (window.inActiveMeeting) {
-                var self = this;
-                Actions.okpAlert({
-                    body: 'You are in an active meeting. Are you sure you want to navigate away?',
-                    ok: function () {
-                        window.inActiveMeeting = false;
-                        Backbone.history.navigate(href.attr, true);
-                    },
-                    cancel: function () {
-                        return false;
-                    }
-                });
-            } else {
-                Backbone.history.navigate(href.attr, true);
-            }
+            Backbone.history.navigate(href.attr, true);
         }
     });
 

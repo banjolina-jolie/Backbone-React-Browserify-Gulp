@@ -6,10 +6,6 @@ var sectionMapper = {
         title: 'Personal',
         sections: ['basic','bio', 'change-password']
     },
-    experience: {
-        title: 'Professional',
-        sections: ['experience']
-    },
     payments: {
         title: 'Payment',
         sections: ['payments', 'rate']
