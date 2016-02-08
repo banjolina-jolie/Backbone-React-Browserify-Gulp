@@ -97,9 +97,6 @@ var model = Backbone.Model.extend({
         if (!attrs.last_name) {
             errors.last_name = 'Please enter your last name';
         }
-        if (!attrs.username) {
-            errors.username = 'Please enter a username';
-        }
         if (this.isNew() && (!attrs.password || attrs.password !== attrs.reEnterPassword)) {
             errors.reEnterPassword = 'Passwords do not match';
         }

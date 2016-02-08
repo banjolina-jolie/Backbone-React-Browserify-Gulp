@@ -40,13 +40,13 @@ gulp.task('connect', function() {
 // Browserify
 gulp.task('browserify', function () {
     var browserified = transform(function(filename) {
-        var b = browserify(filename);
+        var b = browserify(filename, {noParse: ['jquery', 'moment']});
         return b.bundle();
     });
     if (process.env.NODE_ENV !== 'production') {
+        // skip uglify in development
         return gulp.src(['./app/main.js'])
             .pipe(browserified)
-            // skip uglify in development
             .pipe(gulp.dest('./dist/js'))
             .pipe(connect.reload());
     } else {
