@@ -5,7 +5,7 @@ var Store = require('../../stores/Store');
 var EventsListView = React.createClass({
     _getState: function () {
         return {
-            events: _.sortBy(this.props.user.get('meetings'), function(evt) {
+            events: _.sortBy(this.props.user.get('events'), function(evt) {
                 return evt.startTime;
             })
         };
@@ -30,14 +30,14 @@ var EventsListView = React.createClass({
             );
         }
     },
-    renderMeetings: function () {
+    renderEvents: function () {
         var currentUser = this.props.user;
 
         if (!this.props.user.isActive()) {
             return (
                 <tr>
                     <td colSpan="5">
-                        <div className="meetings-list-empty mt40 mb20">
+                        <div className="events-list-empty mt40 mb20">
                             This feature is currently disabled while your account is pending activation. Thank you for your patience!
                         </div>
                     </td>
@@ -49,8 +49,8 @@ var EventsListView = React.createClass({
             return (
                 <tr>
                     <td colSpan="5">
-                        <div className="meetings-list-empty mt40 mb20">
-                            Your meeting list is empty
+                        <div className="events-list-empty mt40 mb20">
+                            Your event list is empty
                         </div>
                         { this.renderAction() }
                     </td>
@@ -69,9 +69,9 @@ var EventsListView = React.createClass({
                         {evt.formattedStartTime}
                     </td>
                     <td className="start-time">{Math.ceil(evt.duration / 60)} min</td>
-                    <td className="meeting-state">{evt.displayState}</td>
+                    <td className="event-state">{evt.displayState}</td>
                     <td className="cta">
-                        <a className="fr pr10" href={'/meetings/' + evt.id}>view</a>
+                        <a className="fr pr10" href={'/events/' + evt.id}>view</a>
                     </td>
                 </tr>
             );
@@ -80,7 +80,7 @@ var EventsListView = React.createClass({
     render: function () {
         return (
             <div>
-                <table className="meetings-list">
+                <table className="events-list">
                     <thead>
                         <tr>
                             <th onClick={this._sortTable} data-attr={'name'} className="name">Name <i className="fa fa-caret-down"></i></th>
@@ -92,7 +92,7 @@ var EventsListView = React.createClass({
                     </thead>
                     <tbody>
                         <tr></tr>
-                        { this.renderMeetings() }
+                        { this.renderEvents() }
                     </tbody>
                 </table>
             </div>

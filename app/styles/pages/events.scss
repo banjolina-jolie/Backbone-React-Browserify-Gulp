@@ -1,4 +1,4 @@
-.meeting {
+.event {
 	.one-to-ten-radio-container {
 		float: left;
 		margin-right: 10px;
@@ -136,7 +136,7 @@
 			top: 0;
 		}
 	}
-	&.active-meeting {
+	&.active-event {
 		position: relative;
 		.container {
 			padding: 0;
@@ -199,7 +199,7 @@
 				font-size: 16px;
 			}
 		}
-		.meeting-timer, .time-block {
+		.event-timer, .time-block {
 			display: block;
 			height: 22px;
 
@@ -250,7 +250,7 @@
 .confirm-text {
 	text-align: center;
 }
-.meeting-status-message {
+.event-status-message {
 	font-family: $font-Raleway;
 }
 textarea {
@@ -335,7 +335,7 @@ textarea {
 .text-light {
 	color: #777;
 }
-.meeting-state {
+.event-state {
 	font-size: 13px;
 }
 .lead-email {
@@ -393,7 +393,7 @@ textarea {
 	width: 100% !important;
 	z-index: 99;
 }
-.add-time-btn, .next-meeting-btn {
+.add-time-btn, .next-event-btn {
 	line-height: 20px !important;
 	margin-top: 5px;
 }
@@ -428,7 +428,7 @@ textarea {
 	position: relative;
 	bottom: 120px;
 }
-.next-meeting {
+.next-event {
 	width: 900px;
 	border-radius: 6px;
 	z-index: 999;

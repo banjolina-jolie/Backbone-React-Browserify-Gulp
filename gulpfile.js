@@ -9,9 +9,11 @@ var clean = require('gulp-clean');
 var concat = require('gulp-concat');
 var preprocess = require('gulp-preprocess');
 
-if(process.env.NODE_ENV !== 'production')
-  require('dotenv').load();
 
+// Load .env
+if(process.env.NODE_ENV !== 'production') {
+    require('dotenv').load();
+}
 
 // Clean
 gulp.task('clean', function () {
@@ -58,6 +60,7 @@ gulp.task('browserify', function () {
     }
 });
 
+// Preprocess
 gulp.task('preprocess', function () {
     gulp.src('./app/index.html')
         .pipe(preprocess({context: { NODE_ENV: process.env.NODE_ENV }}))
