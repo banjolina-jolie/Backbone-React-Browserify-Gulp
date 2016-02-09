@@ -11,6 +11,10 @@
 
         &:focus {
             opacity: 1;
+
+        }
+        &:focus + button {
+            opacity: 1;
         }
     }
     button {
