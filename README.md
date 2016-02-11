@@ -1,6 +1,6 @@
 # Backbone React Browserify Gulp
 
-### A webapp scaffold
+### A webapp generator
 
 Also includes:
 - Facebook login
@@ -22,4 +22,4 @@ If you don't have gulp installed globally, run `npm install -g gulp`
 
 Then, in your browser, navigate to localhost:8080
 
-COMING SOON: An API scaffold to power this webapp
+COMING SOON: An API generator to power this webapp
