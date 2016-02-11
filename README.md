@@ -15,8 +15,8 @@ If you don't have gulp installed globally, run `npm install -g gulp`
 
 
 (in terminal)
-  1. `git clone https://github.com/leftco/remedy-frontend.git`
-  2. `cd remedy-frontend`
+  1. `git clone https://github.com/banjolina-jolie/Backbone-React-Browserify-Gulp`
+  2. `cd Backbone-React-Browserify-Gulp`
   3. `npm install`
   4. `gulp --harmony`
 
