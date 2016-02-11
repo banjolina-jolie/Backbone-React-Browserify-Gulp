@@ -19,23 +19,23 @@ function getState() {
 }
 
 var AppBaseView = React.createClass({
-	getInitialState: function () {
+    getInitialState: function () {
         return getState();
-	},
+    },
 
-	componentDidMount: function () {
-	    Store.addUIChangeListener(this._onUIChange);
+    componentDidMount: function () {
+        Store.addUIChangeListener(this._onUIChange);
         Store.addSetLoadingListener(this._updateLoading);
         Store.addOkpAlertListener(this._showAlert);
         Store.addSetCurrentUserListener(this._onUIChange);
-	},
+    },
 
-	componentWillUnmount: function () {
+    componentWillUnmount: function () {
         Store.removeUIChangeListener(this._onUIChange);
-	    Store.removeLoadingListener(this._updateLoading);
+        Store.removeLoadingListener(this._updateLoading);
         Store.removeOkpAlertListener(this._showAlert);
         Store.removeSetCurrentUserListener(this._onUIChange);
-	},
+    },
 
     render: function () {
         var classes = 'spinner';
@@ -112,13 +112,13 @@ var AppBaseView = React.createClass({
         }
     },
 
-	_onUIChange: function () {
-    	this.setState(getState(), function () {
+    _onUIChange: function () {
+        this.setState(getState(), function () {
             if (this.state.view) {
                 React.render(React.createElement(this.state.view, this.state.viewData), document.getElementById('content'));
             }
         }.bind(this));
-  	},
+    },
 
     _updateLoading: function () {
         this.setState({loading: Store.getLoading()});
