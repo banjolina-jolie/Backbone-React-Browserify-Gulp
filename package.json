@@ -1,5 +1,5 @@
 {
-  "name": "RepConnectFrontend",
+  "name": "Backbone React Browserify Gulp",
   "version": "0.0.1",
   "author": "Dylan O'Carroll",
   "dependencies": {
@@ -42,5 +42,6 @@
   },
   "scripts": {
     "start": "node_modules/.bin/gulp --harmony"
-  }
+  },
+  "keywords": ["backbone", "react", "browserify", "gulp"]
 }
