@@ -43,7 +43,7 @@ var ProfileEditBase = React.createClass({
                         </div>
 
                         <div className="col-xs-9 profile-edit-body no-padding">
-                            <ProfileEditSection user={this.props.user} primary={primary} secondary={secondary} />
+                            <ProfileEditSection primary={primary} secondary={secondary} />
                         </div>
 
                     </div>

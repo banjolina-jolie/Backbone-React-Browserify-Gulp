@@ -81,16 +81,10 @@ var HeaderView = React.createClass({
         return (
             <div className="fr">
                 <ul className="navbar-buttons">
-                    <li className="fr ml10"><a href="/register/step1" className="btn btn-default btn-solid btn-blue">Register</a></li>
+                    <li className="fr ml10"><a data-toggle="modal" data-target="#registerModal" className="btn btn-default btn-solid btn-blue">Register</a></li>
                     <li className="fr"><a data-toggle="modal" data-target="#loginModal" className="btn btn-default btn-outline btn-white xs-border-blue">Sign in</a></li>
                 </ul>
             </div>
-        );
-    },
-    renderHeaderItems: function () {
-        return (
-            <ul className="nav navbar-nav navbar-links">
-            </ul>
         );
     }
 });

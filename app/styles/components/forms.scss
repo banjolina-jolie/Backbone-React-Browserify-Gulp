@@ -387,7 +387,7 @@
     color: $red-clay;
 }
 
-.login-modal {
+.narrow-modal {
     width: 300px;
 }
 
@@ -408,7 +408,6 @@
     
     &.with-border {
         padding-top: 20px;
-        // border: 1px solid #ccc;
         border-top: none;
     }
 }
@@ -421,4 +420,20 @@
     top: 8px;
     background-color: #fff;
     color: #bbb;
+}
+.tos-container {
+    position: relative;
+    bottom: 40px;
+    height: 70px;
+}
+.terms-of-service {
+    font-family: helvetica;
+    font-size: 12px;
+    span {
+        margin-left: 3px;
+    }
+    a {
+        font-family: helvetica;
+        text-transform: none;
+    }
 }

@@ -27,7 +27,7 @@ var router = Backbone.Router.extend({
     },
     initialize: function (options) {
         // NOTE: use for debugging
-        // window.currentUser = Store.getCurrentUser();
+        window.currentUser = Store.getCurrentUser();
     },
     notFound: function () {
         // TODO: make nice 404 page
@@ -38,6 +38,8 @@ var router = Backbone.Router.extend({
         Actions.setUI('loggedIn', view);
     },
     logout: function () {
+        Actions.setCurrentUser({});
+
         // TODO: Log out of FB
         $.ajax({
             url: apiBaseUrl + '/api/logout' // server should remove cookie
@@ -48,18 +50,16 @@ var router = Backbone.Router.extend({
     },
     landing: function () {
         var view = require('./views/Landing.jsx');
-        var data = { user: Store.getCurrentUser() };
-        Actions.setUI(false, view, data);
+        Actions.setUI(false, view);
     },
     profileEdit: function (section) {
         var view = require('./views/profile_edit/ProfileEditBase.jsx');
-        var data = { user: Store.getCurrentUser(), section: section };
+        var data = { section: section };
         Actions.setUI('loggedIn', view, data);
     },
     terms: function () {
         var view = require('./views/Terms.jsx');
         Actions.setUI('loggedIn', view);
-
     },
     privacy: function () {
         var view = require('./views/Privacy.jsx');

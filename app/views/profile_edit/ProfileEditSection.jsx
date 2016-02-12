@@ -28,13 +28,12 @@ var ProfileEditSections = React.createClass({
     },
     getSecondaryView: function () {
     	var secondaries = profileEditConfig[this.props.primary];
-
         return secondaries[this.props.secondary].view;
     },
     renderSecondary: function () {
         return (
             <div>
-                { React.createElement(this.getSecondaryView(), { user: this.props.user, profileEdit: true }) }
+                { React.createElement(this.getSecondaryView()) }
 
                 <button onClick={this.saveProfile} id="save-profile-edit" className="btn btn-default btn-solid btn-blue mb40">Save</button>
             </div>
@@ -63,41 +62,42 @@ var ProfileEditSections = React.createClass({
                         </div>
                     </ul>
 
-                    { React.createElement(this.getSecondaryView(), { user: this.props.user, profileEdit: true }) }
+                    { React.createElement(this.getSecondaryView()) }
 
-                    <button onClick={this.saveProfile} id="save-profile-edit" className="btn btn-default btn-solid btn-blue mb40">Save</button>
+                    <button onClick={this.triggerSet} id="save-profile-edit" className="btn btn-default btn-solid btn-blue mb40">Save</button>
                 </div>
-
-
             );
         } else {
         	return (
     	    	<div className="no-titles">
-    	            { React.createElement(this.getSecondaryView(), { user: this.props.user, profileEdit: true }) }
+    	            
+                    { React.createElement(this.getSecondaryView()) }
 
-                    <button onClick={this.saveProfile} id="save-profile-edit" className="btn btn-default btn-solid btn-blue mb40">Save</button>
+                    <button onClick={this.triggerSet} id="save-profile-edit" className="btn btn-default btn-solid btn-blue mb40">Save</button>
     	        </div>
     		);
         }
 
 	},
-	saveProfile: function (e) {
+    triggerSet: function (e) {
         e.preventDefault();
-        
+        var user = Store.getCurrentUser();
+        user.off(this.save);
+        user.once('change', this.save);
         Actions.saveProfile();
+    },
+    save: function (e) {
+        var user = Store.getCurrentUser();
 
         if (this.props.secondary !== 'payments') {
-            // wait for set to be done
-            setTimeout(function() {
-                if (!this.props.user.validationError) {
-                    Actions.startLoading();
-            	    this.props.user.save()
-                    .done(function () {
-                        Actions.okpAlert({body: 'Changes Saved'});
-                        Actions.stopLoading();
-                    });
-                }
-            }.bind(this), 50);
+            if (!user.validationError) {
+                Actions.startLoading();
+        	    user.save()
+                .done(function () {
+                    Actions.okpAlert({body: 'Changes Saved'});
+                    Actions.stopLoading();
+                });
+            }
         }
 	}
 });

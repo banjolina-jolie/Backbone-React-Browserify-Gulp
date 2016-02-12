@@ -4,14 +4,14 @@ var SearchBar = React.createClass({
 
 	mixins: [React.addons.LinkedStateMixin],
 
-	getInitialState() {
+	getInitialState: function () {
 		return {
 			address: ''  ,
 			autocomplete: window.google ? new google.maps.places.Autocomplete(document.getElementById('autocomplete'),{types: ['geocode']}) : null
 		};
 	},
 
-	componentDidMount() {
+	componentDidMount: function () {
 		var self = this;
 	    if (window.google) {
 			this.setState({ autocomplete: new google.maps.places.Autocomplete(document.getElementById('autocomplete'),{types: ['geocode']}) });

@@ -39,11 +39,21 @@ var PersonalBasic = React.createClass({
     },
     render: function () {
     	var messages = this.renderMessages();
+        var baseClass = 'no-padding';
+        var sizeClass = ' col-xs-12';
+        var firstNameClasses = baseClass + sizeClass + ' mb20';
+        var lastNameClasses = baseClass + sizeClass;
+
+        if (this.state.user.id) {
+            var sizeClass = ' col-xs-6 ';
+            firstNameClasses = baseClass + sizeClass + 'pr10';
+            lastNameClasses = baseClass + sizeClass + 'pl10';
+        }
 
         return (
 		    <form className="basic-form with-border">
 		        <div className="form-group inline row">
-		            <div className="col-xs-6 no-padding pr10">
+		            <div className={firstNameClasses}>
 		                <div className={'input-group input-with-label ' + this.state.markers.name}>
 		                    <input onKeyUp={this._removeMarker} valueLink={this.linkState('first_name')} type="text" className="form-control" name="name" placeholder="First Name"/>
 		                    <span className="input-group-title">
@@ -52,7 +62,7 @@ var PersonalBasic = React.createClass({
 			                <i className="fa fa-times"></i>
 		                </div>
 		            </div>
-		            <div className="col-xs-6 no-padding pl10">
+		            <div className={lastNameClasses}>
 		                <div className={'input-group input-with-label ' + this.state.markers.surname}>
 		                    <input onKeyUp={this._removeMarker} valueLink={this.linkState('last_name')} type="text" className="form-control" name="surname" placeholder="Last Name"/>
 		                    <span className="input-group-title ml10">
@@ -64,18 +74,14 @@ var PersonalBasic = React.createClass({
 		        </div>
 
 	        	{ 
-                    // this.renderUnchangeableInputs()
+                    this.renderUnchangeableInputs()
                 }
 
 		        { this.renderPasswordInputs() }
 
 		        { this.renderAddressInputs() }
 
-				<div className="mb20">
-
-                    { this.renderDangerZone() }
-
-				</div>
+				<div className="mb20"> { this.renderDangerZone() } </div>
 		        
 		        <DeleteModal user={this.state.user}/>
 		    </form>
@@ -104,27 +110,12 @@ var PersonalBasic = React.createClass({
 
         if (this.state.user.isNew()) {
             return (
-                <div>
-                    <div className="form-group">
-                        <div className={'input-group input-with-label ' + this.state.markers.username}>
-                            <input onKeyUp={this._removeMarker} valueLink={this.linkState('username')} type="text" name="username" className="form-control" placeholder="username" pattern="[a-zA-Z0-9_]{0,100}"/>
-                            <span className="input-group-title">
-                                Username
-                            </span>
-                            <i className="fa fa-times"></i>
-                            <i className="fa fa-check"></i>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <div className={'input-group input-with-label ' + this.state.markers.email}>
-                            <input disabled={disableEmail} onKeyUp={this._removeMarker} id="email" valueLink={this.linkState('email')} onFocus={this.removeError} type="email" name="email" className={'form-control ' + (this.state.markers.email || '')} placeholder="Email"/>
-                            <span className="input-group-title">
-                                Email (preferrably tied to your google calendar)
-                            </span>
-                            <i className="fa fa-times"></i>
-                            <i className="fa fa-check"></i>
-                        {messages.email}
-                        </div>
+                <div className="form-group">
+                    <div className={'input-group input-with-label ' + this.state.markers.email}>
+                        <input disabled={disableEmail} onKeyUp={this._removeMarker} id="email" valueLink={this.linkState('email')} onFocus={this.removeError} type="email" name="email" className={'form-control ' + (this.state.markers.email || '')} placeholder="Email"/>
+                        <i className="fa fa-times"></i>
+                        <i className="fa fa-check"></i>
+                    {messages.email}
                     </div>
                 </div>
             );
@@ -132,18 +123,7 @@ var PersonalBasic = React.createClass({
             return (
                 <div className="unchangeables">
                     <div className="row">
-                        <div className="col-xs-6 no-padding">
-                            <label className="">Username</label>
-                        </div>
-                        <div className="col-xs-6 no-padding">
-                            <label className="">Email</label>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-xs-6 no-padding">
-                            <div className="form-group">{this.state.username}</div>
-                        </div>
-                        <div className="col-xs-6 no-padding">
+                        <div className="col-xs-12 no-padding">
                             <div className="form-group">{this.state.email}</div>
                         </div>
                     </div>
@@ -165,7 +145,7 @@ var PersonalBasic = React.createClass({
                             <i className="fa fa-check"></i>
                         </div>
                     </div>
-                    <div className="form-group">
+                    {/*<div className="form-group">
                         <div className={'input-group input-with-label ' + this.state.markers.reEnterPassword}>
                             <input onKeyUp={this._removeMarker} valueLink={this.linkState('reEnterPassword')} type="password" id="" className="form-control" name="reEnterPassword" placeholder="Re-enter Password"/>
                             <span className="input-group-title">
@@ -174,63 +154,64 @@ var PersonalBasic = React.createClass({
                             <i className="fa fa-times"></i>
                             <i className="fa fa-check"></i>
                         </div>
-                    </div>
+                    </div>*/}
                 </div>
             );
         }
     },
     renderAddressInputs: function () {
-    	return (
-    		<div>
-                <label>Address</label>
-	    		<div className="form-group">
-		            <div className={'input-group input-with-label ' + this.state.markers.line1}>
-		                <input onKeyUp={this._removeMarker} valueLink={this.linkState('line1')} type="text" name="line1" className="form-control" placeholder="Address Line 1"/>
-		                <i className="fa fa-times"></i>
-		                <i className="fa fa-check"></i>
-		            </div>
-		        </div>
-		        <div className="form-group">
-		            <div className={'input-group input-with-label ' + this.state.markers.line2}>
-		                <input onKeyUp={this._removeMarker} valueLink={this.linkState('line2')} type="text" name="line2" className="form-control" placeholder="Address Line 2"/>
-		                <i className="fa fa-times"></i>
-		                <i className="fa fa-check"></i>
-		            </div>
-		        </div>
-		        <div className="row">
-			        <div className="form-group col-xs-6 no-padding">
-			            <div className={'input-group input-with-label ' + this.state.markers.city}>
-			                <input onKeyUp={this._removeMarker} valueLink={this.linkState('city')} type="text" name="city" className="form-control" placeholder="City"/>
-			                <span className="input-group-title">
-			                    City
-			                </span>
-			                <i className="fa fa-times"></i>
-			                <i className="fa fa-check"></i>
-			            </div>
-			        </div>
-			        <div className="form-group col-xs-3 ps20">
-			            <div className={'input-group input-with-label ' + this.state.markers.state}>
-			                <input onKeyUp={this._removeMarker} valueLink={this.linkState('state')} type="text" name="state" className="form-control" placeholder="State" maxLength="2" />
-			                <span className="input-group-title">
-			                    State
-			                </span>
-			                <i className="fa fa-times"></i>
-			                <i className="fa fa-check"></i>
-			            </div>
-			        </div>
-			        <div className="form-group col-xs-3 no-padding">
-			            <div className={'input-group input-with-label ' + this.state.markers.postal_code}>
-			                <input onKeyUp={this._removeMarker} valueLink={this.linkState('postal_code')} type="text" name="postal_code" className="form-control" placeholder="Zip"/>
-			                <span className="input-group-title">
-			                    Zip Code
-			                </span>
-			                <i className="fa fa-times"></i>
-			                <i className="fa fa-check"></i>
-			            </div>
-			        </div>
-	        	</div>
-    		</div>
-		);
+        if (this.state.user.id) {
+        	return (
+        		<div>
+    	    		<div className="form-group">
+    		            <div className={'input-group input-with-label ' + this.state.markers.line1}>
+    		                <input onKeyUp={this._removeMarker} valueLink={this.linkState('line1')} type="text" name="line1" className="form-control" placeholder="Address Line 1"/>
+    		                <i className="fa fa-times"></i>
+    		                <i className="fa fa-check"></i>
+    		            </div>
+    		        </div>
+    		        <div className="form-group">
+    		            <div className={'input-group input-with-label ' + this.state.markers.line2}>
+    		                <input onKeyUp={this._removeMarker} valueLink={this.linkState('line2')} type="text" name="line2" className="form-control" placeholder="Address Line 2"/>
+    		                <i className="fa fa-times"></i>
+    		                <i className="fa fa-check"></i>
+    		            </div>
+    		        </div>
+    		        <div className="row">
+    			        <div className="form-group col-xs-6 no-padding">
+    			            <div className={'input-group input-with-label ' + this.state.markers.city}>
+    			                <input onKeyUp={this._removeMarker} valueLink={this.linkState('city')} type="text" name="city" className="form-control" placeholder="City"/>
+    			                <span className="input-group-title">
+    			                    City
+    			                </span>
+    			                <i className="fa fa-times"></i>
+    			                <i className="fa fa-check"></i>
+    			            </div>
+    			        </div>
+    			        <div className="form-group col-xs-3 ps20">
+    			            <div className={'input-group input-with-label ' + this.state.markers.state}>
+    			                <input onKeyUp={this._removeMarker} valueLink={this.linkState('state')} type="text" name="state" className="form-control" placeholder="State" maxLength="2" />
+    			                <span className="input-group-title">
+    			                    State
+    			                </span>
+    			                <i className="fa fa-times"></i>
+    			                <i className="fa fa-check"></i>
+    			            </div>
+    			        </div>
+    			        <div className="form-group col-xs-3 no-padding">
+    			            <div className={'input-group input-with-label ' + this.state.markers.postal_code}>
+    			                <input onKeyUp={this._removeMarker} valueLink={this.linkState('postal_code')} type="text" name="postal_code" className="form-control" placeholder="Zip"/>
+    			                <span className="input-group-title">
+    			                    Zip Code
+    			                </span>
+    			                <i className="fa fa-times"></i>
+    			                <i className="fa fa-check"></i>
+    			            </div>
+    			        </div>
+    	        	</div>
+        		</div>
+    		);
+        }
     },
     removeError: function (e) {
     	var attr = $(e.currentTarget).attr('name');

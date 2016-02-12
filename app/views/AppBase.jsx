@@ -3,6 +3,7 @@ var React = require('react/addons');
 var Actions = require('../actions/Actions');
 var ContactUsModal = require('./ContactUsModal.jsx');
 var LoginModal = require('./LoginModal.jsx');
+var RegisterModal = require('./register/RegisterModal.jsx');
 var Header = require('../views/Header.jsx');
 var Footer = require('../views/Footer.jsx');
 
@@ -61,6 +62,7 @@ var AppBaseView = React.createClass({
                 
                 <ContactUsModal />
                 <LoginModal />
+                <RegisterModal />
             </div>
         );
     },

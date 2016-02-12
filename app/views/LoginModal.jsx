@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var Actions = require('../actions/Actions');
+var Store = require('../stores/Store');
 
 var LoginModalView = React.createClass({
 
@@ -27,7 +28,7 @@ var LoginModalView = React.createClass({
     render: function () {
         return (
             <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-                <div className="modal-dialog login-modal">
+                <div className="modal-dialog narrow-modal">
                     <div className="modal-content">
                         <div className="modal-body">
                             <span className="login-modal-flash flash-msg-error hidden">Invalid email/password combination.</span>
@@ -91,12 +92,15 @@ var LoginModalView = React.createClass({
         });
     },
     FBLogin: function () {
+        var currentUser = Store.getCurrentUser();
+
         FB.login(function () {
             FB.api('/me', {fields: 'email, first_name, last_name, picture, friends'}, function (user) {
                 user.profile_pic = user.picture.data.url;
                 delete user.picture;
                 currentUser.set(user);
                 Actions.setCurrentUser(currentUser);
+                $('#loginModal').modal('hide');
             });
         });
     }

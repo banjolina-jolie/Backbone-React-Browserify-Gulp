@@ -41,9 +41,8 @@ function changeUI(ui, view, viewData) {
 	if (view) {
 		_view = view;
 	}
-	if (viewData) {
-		_viewData = viewData;
-	}
+	
+	_viewData = viewData || {};
 }
 
 function changeEnableButton(enabled) {
