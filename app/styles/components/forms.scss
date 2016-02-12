@@ -387,6 +387,10 @@
     color: $red-clay;
 }
 
+.login-modal {
+    width: 300px;
+}
+
 .login-modal-flash {
     margin: 68px 20px 0 0;
     float: right;
@@ -407,4 +411,14 @@
         // border: 1px solid #ccc;
         border-top: none;
     }
+}
+
+.login-or {
+    width: 30px;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    top: 8px;
+    background-color: #fff;
+    color: #bbb;
 }

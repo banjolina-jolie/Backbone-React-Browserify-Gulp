@@ -81,7 +81,8 @@ var HeaderView = React.createClass({
         return (
             <div className="fr">
                 <ul className="navbar-buttons">
-                    <li><a onClick={this.FBLogin} className="btn btn-default btn-outline btn-white xs-border-blue">Log in <i className="fa fa-facebook-square ml4"></i></a></li>
+                    <li className="fr ml10"><a href="/register/step1" className="btn btn-default btn-solid btn-blue">Register</a></li>
+                    <li className="fr"><a data-toggle="modal" data-target="#loginModal" className="btn btn-default btn-outline btn-white xs-border-blue">Sign in</a></li>
                 </ul>
             </div>
         );
@@ -91,16 +92,6 @@ var HeaderView = React.createClass({
             <ul className="nav navbar-nav navbar-links">
             </ul>
         );
-    },
-    FBLogin: function () {
-        FB.login(function () {
-            FB.api('/me', {fields: 'first_name, last_name, picture, friends'}, function (user) {
-                user.profile_pic = user.picture.data.url;
-                delete user.picture;
-                currentUser.set(user);
-                Actions.setCurrentUser(currentUser);
-            });
-        });
     }
 });
 

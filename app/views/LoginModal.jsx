@@ -27,23 +27,21 @@ var LoginModalView = React.createClass({
     render: function () {
         return (
             <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
+                <div className="modal-dialog login-modal">
                     <div className="modal-content">
-                        <div className="modal-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 className="modal-title" id="loginModalLabel">Login</h4>
-                            <span className="login-modal-flash flash-msg-error hidden">Invalid email/password combination.</span>
-                        </div>
                         <div className="modal-body">
+                            <span className="login-modal-flash flash-msg-error hidden">Invalid email/password combination.</span>
                             <div className="row">
-                                <div className="col-xs-6">
+                                <div className="col-xs-12">
                                     <form>
-                                        <div className="form-group">
+                                        <button onClick={this.FBLogin} type="button" className="btn btn-default fb-blue mb4">
+                                            <i className="fa fa-facebook-f mr10"></i>
+                                            Log in with Facebook
+                                        </button>
+                                        <div className="login-or">or</div>
+                                        <div className="form-group pt20 btddd">
                                             <div className="input-group input-with-label">
                                                 <input valueLink={this.linkState('email')} type="email" name="email" className="form-control" placeholder="Email"/>
-                                                <span className="input-group-title">
-                                                    Email
-                                                </span>
                                                 <i className="fa fa-times"></i>
                                                 <i className="fa fa-check"></i>
                                             </div>
@@ -51,23 +49,15 @@ var LoginModalView = React.createClass({
                                         <div className="form-group">
                                             <div className="input-group input-with-label">
                                                 <input onKeyUp={this.login} valueLink={this.linkState('password')} type="password" name="password" className="form-control" placeholder="Password"/>
-                                                <span className="input-group-title">
-                                                    Password
-                                                </span>
                                                 <i className="fa fa-times"></i>
                                                 <i className="fa fa-check"></i>
                                             </div>
                                         </div>
+                                        <button type="button" className="btn btn-default btn-solid btn-blue login-btn" onClick={this.login}>Log In</button>
+                                        <div className="mt20 pt20 pb10 btddd">{'Don\'t have an account? '}<a className="fwnormal ttn" href="/register/step1">Sign up</a></div>
                                     </form>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-xs-12">Not an OKPitch member yet? <a className="fwnormal ttn" href="/register/step1">Register here</a>.</div>
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-default btn-outline btn-blue" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-default btn-solid btn-blue" onClick={this.login}>Login</button>
                         </div>
                     </div>
                 </div>
@@ -87,6 +77,9 @@ var LoginModalView = React.createClass({
                 password: this.state.password
             }
         })
+        .done(function() {
+            debugger;
+        })
         .fail(function () {
             $('.flash-msg-error').toggleClass('hidden');
             setTimeout(function () {
@@ -95,6 +88,16 @@ var LoginModalView = React.createClass({
         })
         .always(function () {
             Actions.stopLoading();
+        });
+    },
+    FBLogin: function () {
+        FB.login(function () {
+            FB.api('/me', {fields: 'email, first_name, last_name, picture, friends'}, function (user) {
+                user.profile_pic = user.picture.data.url;
+                delete user.picture;
+                currentUser.set(user);
+                Actions.setCurrentUser(currentUser);
+            });
         });
     }
 });

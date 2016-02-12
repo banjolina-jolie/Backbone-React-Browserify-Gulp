@@ -2,6 +2,7 @@ var Store = require('../stores/Store');
 var React = require('react/addons');
 var Actions = require('../actions/Actions');
 var ContactUsModal = require('./ContactUsModal.jsx');
+var LoginModal = require('./LoginModal.jsx');
 var Header = require('../views/Header.jsx');
 var Footer = require('../views/Footer.jsx');
 
@@ -57,7 +58,9 @@ var AppBaseView = React.createClass({
                 <Footer />
                 
                 {this.renderAlertModal()}
-                <ContactUsModal user={this.state.user}/>
+                
+                <ContactUsModal />
+                <LoginModal />
             </div>
         );
     },
