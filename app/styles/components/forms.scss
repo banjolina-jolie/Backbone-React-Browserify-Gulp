@@ -389,6 +389,11 @@
 
 .narrow-modal {
     width: 300px;
+
+    .basic-form.with-border {
+        padding: 15px;
+        padding-top: 0;
+    }
 }
 
 .login-modal-flash {
