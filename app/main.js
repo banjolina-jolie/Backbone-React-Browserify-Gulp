@@ -34,6 +34,20 @@ Backbone.history.start({ pushState: true, root: '/' });
 // show loading while API checks cookies
 Actions.startLoading();
 
+// send GET to /login to read cookies and return currentUser
+currentUser.fetch({url: apiBaseUrl + '/login'})
+// NOTE: currentUser is parsed by now
+.done(function (response) {
+    currentUser.isFetched = true;
+    Actions.setCurrentUser(currentUser);
+})
+.fail(function () {
+    Actions.okpAlert({body: 'API is down.'});
+})
+.always(function () {
+    Actions.stopLoading();
+});
+
 // make anchor tags work with pushstate (Backbone boilerplate)
 $(document).on('click', 'a:not([data-bypass])', function(evt) {
     if (evt.metaKey || evt.ctrlKey) { return; }
@@ -46,40 +60,3 @@ $(document).on('click', 'a:not([data-bypass])', function(evt) {
         Backbone.history.navigate(href.attr, true);
     }
 });
-
-window.fbAsyncInit = function () {
-    FB.init({
-        appId: 167536220286926,
-        cookie: true,
-        xfbml: false,
-        version: 'v2.3',
-    });
-    FB.getLoginStatus(function(response) {
-        currentUser.isFetched = true;
-
-        if (response.status === 'connected') {
-            FB.api('/me', {fields: 'first_name, last_name, picture, friends'}, function (user) {
-                user.profile_pic = user.picture.data.url;
-                user.fb_id = user.id;
-                delete user.id;
-                delete user.picture;
-                currentUser.set(user);
-                checkLogin();
-            });
-        } else {
-            checkLogin();
-        }
-    });
-};
-
-function checkLogin () {
-    // send GET to /login to read cookies and return currentUser
-    currentUser.fetch({url: apiBaseUrl + '/login'})
-    // NOTE: currentUser is parsed by now
-    .done(function (response) {
-        Actions.setCurrentUser(currentUser);
-    })
-    .fail(function () {
-        Actions.okpAlert('API is down.');
-    });
-}

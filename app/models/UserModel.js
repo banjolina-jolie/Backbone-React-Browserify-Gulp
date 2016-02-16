@@ -18,8 +18,8 @@ var model = Backbone.Model.extend({
         return apiBaseUrl + route;
     },
     profilePic: function (el) {
-        if (this.get('profile_pic')) {
-            var url = this.get('profile_pic');
+        if (this.get('picture')) {
+            var url = this.get('picture');
             var img = document.createElement('img');
             img.onload = function(){
                 el.style.backgroundImage = 'url("' + img.src + '")';

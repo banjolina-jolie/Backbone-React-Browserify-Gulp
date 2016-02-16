@@ -3,7 +3,6 @@
 ### A webapp generator
 
 Also includes:
-- Facebook login
 - Google Maps autocomplete
 - Bootstrap
 

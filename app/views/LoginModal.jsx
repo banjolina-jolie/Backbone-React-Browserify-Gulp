@@ -49,13 +49,13 @@ var LoginModalView = React.createClass({
                                         </div>
                                         <div className="form-group">
                                             <div className="input-group input-with-label">
-                                                <input onKeyUp={this.login} valueLink={this.linkState('password')} type="password" name="password" className="form-control" placeholder="Password"/>
+                                                <input onKeyUp={this.captureLogin} valueLink={this.linkState('password')} type="password" name="password" className="form-control" placeholder="Password"/>
                                                 <i className="fa fa-times"></i>
                                                 <i className="fa fa-check"></i>
                                             </div>
                                         </div>
                                         <button type="button" className="btn btn-default btn-solid btn-blue login-btn" onClick={this.login}>Log In</button>
-                                        <div className="mt20 pt20 pb10 btddd">{'Don\'t have an account? '}<a className="fwnormal ttn" href="/register/step1">Sign up</a></div>
+                                        <div className="mt20 pt20 pb10 btddd">{'Don\'t have an account? '}<a onClick={this.signUp} className="fwnormal ttn">Sign up</a></div>
                                     </form>
                                 </div>
                             </div>
@@ -65,19 +65,19 @@ var LoginModalView = React.createClass({
             </div>
         );
     },
-    login: function (e) {
+    signUp: function () {
+        $('#loginModal').modal('hide');
+        $('#registerModal').modal('show');
+    },
+    captureLogin: function (e) {
         if (e.keyCode && e.keyCode !== 13) { return; }
+        
+        var data = {
+            email: this.state.email,
+            password: this.state.password
+        };
 
-        Actions.startLoading();
-
-        $.ajax({
-            url: apiBaseUrl + '/login',
-            type: 'POST',
-            data: {
-                email: this.state.email,
-                password: this.state.password
-            }
-        })
+        this.login(data)
         .done(function() {
             debugger;
         })
@@ -86,22 +86,26 @@ var LoginModalView = React.createClass({
             setTimeout(function () {
                 $('.flash-msg-error').toggleClass('hidden');
             }, 3000);
+        });
+    },
+    login: function (data) {
+        Actions.startLoading();
+
+        return $.ajax({
+            url: apiBaseUrl + '/login',
+            type: 'POST',
+            data: data
         })
         .always(function () {
             Actions.stopLoading();
         });
     },
     FBLogin: function () {
-        var currentUser = Store.getCurrentUser();
-
-        FB.login(function () {
-            FB.api('/me', {fields: 'email, first_name, last_name, picture, friends'}, function (user) {
-                user.profile_pic = user.picture.data.url;
-                delete user.picture;
-                currentUser.set(user);
-                Actions.setCurrentUser(currentUser);
-                $('#loginModal').modal('hide');
-            });
+        $.ajax({
+            url: 'http://localhost:3001/auth/facebook'
+        })
+        .done(function () {
+            debugger;
         });
     }
 });

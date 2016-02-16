@@ -47,7 +47,7 @@ var RegisterView = React.createClass({
             Actions.startLoading();
             user.save()
             .done(function () {
-                Backbone.history.navigate('/register/verify', { trigger: true });
+                Backbone.history.navigate('/account', { trigger: true });
             })
             .fail(function (res) {
                 res = res.responseJSON || res;
