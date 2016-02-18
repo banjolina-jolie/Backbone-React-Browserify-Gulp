@@ -47,6 +47,7 @@ var RegisterView = React.createClass({
             Actions.startLoading();
             user.save()
             .done(function () {
+                $('#registerModal').modal('hide');
                 Backbone.history.navigate('/account', { trigger: true });
             })
             .fail(function (res) {

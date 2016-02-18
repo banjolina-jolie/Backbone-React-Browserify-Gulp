@@ -35,10 +35,10 @@ var LoginModalView = React.createClass({
                             <div className="row">
                                 <div className="col-xs-12">
                                     <form>
-                                        <button onClick={this.FBLogin} type="button" className="btn btn-default fb-blue mb4">
+                                        <a href="http://localhost:3001/auth/facebook" type="button" className="btn btn-default fb-blue mb4">
                                             <i className="fa fa-facebook-f mr10"></i>
                                             Log in with Facebook
-                                        </button>
+                                        </a>
                                         <div className="login-or">or</div>
                                         <div className="form-group pt20 btddd">
                                             <div className="input-group input-with-label">
@@ -71,7 +71,7 @@ var LoginModalView = React.createClass({
     },
     captureLogin: function (e) {
         if (e.keyCode && e.keyCode !== 13) { return; }
-        
+
         var data = {
             email: this.state.email,
             password: this.state.password
@@ -100,14 +100,14 @@ var LoginModalView = React.createClass({
             Actions.stopLoading();
         });
     },
-    FBLogin: function () {
-        $.ajax({
-            url: 'http://localhost:3001/auth/facebook'
-        })
-        .done(function () {
-            debugger;
-        });
-    }
+    // FBLogin: function () {
+    //     $.ajax({
+    //         url: 'http://localhost:3001/auth/facebook'
+    //     })
+    //     .done(function () {
+    //         debugger;
+    //     });
+    // }
 });
 
 module.exports = LoginModalView;
