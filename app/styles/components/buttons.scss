@@ -28,7 +28,7 @@
         background-color: transparent;
 
         &.btn-white {
-            &.xs-border-blue { 
+            &.xs-border-blue {
                 border-color: $link-blue;
             }
 
@@ -98,6 +98,7 @@
         background-color: $fb-blue;
         padding: 0;
         width: 100%;
+        line-height: 45px;
 
         &:hover, &:focus {
             border-color: lighten($fb-blue, 10%);
@@ -107,7 +108,7 @@
         &:active {
             border-color: lighten($fb-blue, 10%);
             background-color: lighten($fb-blue, 10%);
-        }   
+        }
     }
 
     &.btn-solid {

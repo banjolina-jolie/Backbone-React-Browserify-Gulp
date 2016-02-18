@@ -18,10 +18,10 @@ var RegisterView = React.createClass({
                     <div className="modal-content">
                         <div className="modal-body">
                             <div className="ps15">
-                                <button onClick={this.FBLogin} type="button" className="btn btn-default fb-blue mb4 ps20">
+                                <a href="http://localhost:3001/auth/facebook" className="btn btn-default fb-blue mb4 ps20">
                                     <i className="fa fa-facebook-f mr10"></i>
                                     Log in with Facebook
-                                </button>
+                                </a>
                             </div>
                             <div className="login-or">or</div>
                             <div className="pt20 btddd w100p"></div>

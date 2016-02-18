@@ -38,13 +38,12 @@ var router = Backbone.Router.extend({
         Actions.setUI('loggedIn', view);
     },
     logout: function () {
-        Actions.setCurrentUser({});
-
         // TODO: Log out of FB
         $.ajax({
             url: apiBaseUrl + '/api/logout' // server should remove cookie
         })
         .done(function () {
+            // Actions.setCurrentUser({});
             window.location.href= '/';
         });
     },
