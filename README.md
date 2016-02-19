@@ -2,6 +2,8 @@
 
 ### A webapp generator
 
+##### Works with this API generator --> https://github.com/banjolina-jolie/Express-Passport-Mongo-Stripe
+
 Also includes:
 - Google Maps autocomplete
 - Bootstrap
@@ -20,5 +22,3 @@ If you don't have gulp installed globally, run `npm install -g gulp`
   4. `gulp --harmony`
 
 Then, in your browser, navigate to localhost:8080
-
-COMING SOON: An API generator to power this webapp
