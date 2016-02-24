@@ -1,14 +1,16 @@
-var React = require('react/addons');
-var Actions = require('../../actions/Actions');
-var Store = require('../../stores/Store');
-var vsBinding = require('../../utils/vsBinding');
-var CreditCardView = require('./CreditCardView.jsx');
+'use strict';
 
-var PaymentView = React.createClass({
-	
+let React = require('react/addons');
+let Actions = require('../../actions/Actions');
+let Store = require('../../stores/Store');
+let vsBinding = require('../../utils/vsBinding');
+let CreditCardView = require('./CreditCardView.jsx');
+
+let PaymentView = React.createClass({
+
 	mixins: [React.addons.LinkedStateMixin],
 
-    componentDidMount: function () {
+    componentDidMount() {
         $('select#payment-method').select2({
             minimumResultsForSearch: -1
         });
@@ -16,19 +18,19 @@ var PaymentView = React.createClass({
         // bind change event on dropdown
         $('#payment-method').on('change', vsBinding.bind(this));
     },
-    componentWillUnmount: function () {
+    componentWillUnmount() {
         $('#payment-method').off();
     },
-	getInitialState: function () {
+	getInitialState() {
 		return {
 			paymentMethod: 'card',
             cardDetails: {}
 		};
 	},
-	renderOption: function (obj) {
+	renderOption(obj) {
 		return <option key={obj.slug} value={obj.slug}>{obj.text}</option>;
 	},
-    render: function () {
+    render() {
     	return (
             <div className="row">
                 <div className="col-xs-10 text-center pl0">

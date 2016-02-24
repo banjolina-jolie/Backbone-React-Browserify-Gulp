@@ -1,31 +1,33 @@
-var React = require('react/addons');
-var Actions = require('../../actions/Actions');
-var Store = require('../../stores/Store');
-var vsBinding = require('../../utils/vsBinding');
-var months = numRange(1, 12);
-var years = numRange(2015, 2025);
+'use strict';
 
-function numRange (min, max) {
-	var arr = [];
-	for (var i = min; i <= max; i++) {
+let React = require('react/addons');
+let Actions = require('../../actions/Actions');
+let Store = require('../../stores/Store');
+let vsBinding = require('../../utils/vsBinding');
+let months = numRange(1, 12);
+let years = numRange(2015, 2025);
+
+let numRange = (min, max) => {
+	let arr = [];
+	for (let i = min; i <= max; i++) {
 		arr.push(i);
 	}
 	return arr;
 }
 
-var renderOption = function (num) {
+let renderOption = num => {
 	return <option key={num} value={num}>{num}</option>;
 };
 
-var CreditCardView = React.createClass({
+let CreditCardView = React.createClass({
 
     mixins: [React.addons.LinkedStateMixin],
 
-    getSelectedCard: function () {
+    getSelectedCard() {
     	return Store.getSelectedCard();
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             exp_month: null,
             exp_year: null,
@@ -35,7 +37,7 @@ var CreditCardView = React.createClass({
             useHomeAddress: !!this.props.user.get('address').line1
         };
     },
-    componentDidMount: function () {
+    componentDidMount() {
         Store.addSaveProfileListener(this._onSaveProfile);
         Store.addSetSelectedCardListener(this._updateSelectedCard);
 
@@ -45,18 +47,18 @@ var CreditCardView = React.createClass({
         });
         $('#credit-card-view').find('select').on('change', this._selectChange);
 	},
-	componentDidUpdate: function () {
+	componentDidUpdate() {
 		$('#credit-card-view').find('select').select2({
             minimumResultsForSearch: -1
         });
         $('#credit-card-view').find('select').off();
         $('#credit-card-view').find('select').on('change', this._selectChange);
 	},
-    componentWillUnmount: function () {
+    componentWillUnmount() {
         Store.removeSaveProfileListener(this._onSaveProfile);
         $('#credit-card-view').find('select').off('change');
 	},
-	renderSelectedCard: function () {
+	renderSelectedCard() {
 		return (
 			<div id="credit-card-view" className="selected-card">
 				<div className="form-group">
@@ -87,7 +89,7 @@ var CreditCardView = React.createClass({
 			</div>
 		);
 	},
-	renderNewCard: function () {
+	renderNewCard() {
 		return (
 			<div id="credit-card-view">
 				<div className="form-group">
@@ -138,22 +140,22 @@ var CreditCardView = React.createClass({
 	            <div className="form-group">
                 	<label className="col-sm-4 control-label pt0-sm">Billing address:</label>
                     <div className="col-sm-8 no-padding mt10">
-						
-						{ this.renderAddressBase() }                    	
+
+						{ this.renderAddressBase() }
 
                     </div>
 	            </div>
 			</div>
 		);
 	},
-	render: function () {
+	render() {
 		if (this.state.last4) {
 			return this.renderSelectedCard();
 		} else {
 			return this.renderNewCard();
 		}
 	},
-	renderAddressBase: function () {
+	renderAddressBase() {
 		if (this.props.user.get('address').line1) {
 			return (
 				<div>
@@ -174,7 +176,7 @@ var CreditCardView = React.createClass({
 			return this.renderAddressFields();
 		}
 	},
-	renderAddressFields: function () {
+	renderAddressFields() {
 		if (!this.state.useHomeAddress) {
 			return (
 				<div>
@@ -213,39 +215,39 @@ var CreditCardView = React.createClass({
 			);
 		}
 	},
-	_inputChanged: function (e) {
+	_inputChanged(e) {
 		vsBinding.call(this, e, this.setEnabledButton);
 	},
-	_selectChange: function (e) {
+	_selectChange(e) {
 		$(e.currentTarget).parents('.has-error').removeClass('has-error');
 		vsBinding.apply(this, arguments);
 	},
-	setEnabledButton: function () {
+	setEnabledButton() {
         Actions.setEnabledButton(!!(this.state.exp_month && this.state.exp_year && this.state.card_number && this.state.cvc));
 	},
-	_toggleAddressForm: function (e) {
-		var attr = $(e.target).attr('name');
-	    var val = Number(e.target.value);
+	_toggleAddressForm(e) {
+		let attr = $(e.target).attr('name');
+	    let val = Number(e.target.value);
 	    this.setState({ useHomeAddress: val });
 	},
-	_onSaveProfile: function () {
-        var values = _.clone(this.state);
+	_onSaveProfile() {
+        let values = _.clone(this.state);
    		delete values.markers;
    		delete values.errors;
 
   	    if (this.state.useHomeAddress) {
-        	var homeAddress = this.props.user.get('address');
+        	let homeAddress = this.props.user.get('address');
   	    	_.extend(values, homeAddress);
   	    }
 
-		var markers = {};
-		var hasErrors = this.hasErrors();
+		let markers = {};
+		let hasErrors = this.hasErrors();
     	if (hasErrors) {
-    		for (var key in hasErrors) {
+    		for (let key in hasErrors) {
     			markers[key] = 'has-error';
     		}
         }
-    
+
         this.setState({ markers: markers });
 
         if (hasErrors) { return; }
@@ -261,20 +263,20 @@ var CreditCardView = React.createClass({
         .fail(function (res) {
         	this.props.user.validationError = true;
         	Actions.okpAlert({body: res.responseJSON.message || 'Sorry there was an error'});
-        }.bind(this));
+        });
 	},
-	_updateSelectedCard: function () {
+	_updateSelectedCard() {
 		this.replaceState(this.getSelectedCard());
 	},
-    _removeMarker: function (e) {
-    	var attr = $(e.currentTarget).attr('name');
-        var markers = this.state.markers;
+    _removeMarker(e) {
+    	let attr = $(e.currentTarget).attr('name');
+        let markers = this.state.markers;
         markers[attr] = '';
         this.setState({ markers: markers });
     },
-    hasErrors: function () {
-    	var errors = {};
-    	var state = this.state;
+    hasErrors() {
+    	let errors = {};
+    	let state = this.state;
     	if (!state.card_number) {
             errors.card_number = 'Please enter a card number';
         }

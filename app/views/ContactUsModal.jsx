@@ -1,21 +1,23 @@
-var React = require('react/addons');
-var Actions = require('../actions/Actions');
-var Store = require('../stores/Store');
+'use strict';
 
-var ContactUsModal = React.createClass({
+let React = require('react/addons');
+let Actions = require('../actions/Actions');
+let Store = require('../stores/Store');
+
+let ContactUsModal = React.createClass({
 
     mixins: [React.addons.LinkedStateMixin],
 
-    componentDidMount: function () {
-        $('#contactUsModal').on('shown.bs.modal', function () {
-            setTimeout(function () {
+    componentDidMount() {
+        $('#contactUsModal').on('shown.bs.modal', _ => {
+            setTimeout(_ => {
                 $('[name=email]').focus();
             }, 0);
         });
     },
 
-    getInitialState: function () {
-    	var user = Store.getCurrentUser();
+    getInitialState() {
+    	let user = Store.getCurrentUser();
         return {
             name: user.name ? user.name + ' ' + user.surname : '',
             email: user.email || '',
@@ -23,7 +25,7 @@ var ContactUsModal = React.createClass({
         };
     },
 
-    render: function () {
+    render() {
         return (
             <div className="modal fade" id="contactUsModal" tabIndex="-1" role="dialog" aria-labelledby="contactUsModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
@@ -74,7 +76,7 @@ var ContactUsModal = React.createClass({
             </div>
         );
     },
-    send: function (e) {
+    send(e) {
         if (e.keyCode && e.keyCode !== 13) { return; }
 
         $.ajax({
@@ -88,7 +90,7 @@ var ContactUsModal = React.createClass({
         })
         .done(function(data) {
             $('#contactUsModal').modal('hide');
-            setTimeout(function () {
+            setTimeout(_ => {
             	Actions.okpAlert({
             		body: 'Your message has been submitted. We will get back to you ASAP!'
             	});

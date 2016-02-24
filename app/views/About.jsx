@@ -1,8 +1,10 @@
-var React = require('react/addons');
+'use strict';
 
-var About = React.createClass({
-	
-    render: function () {
+let React = require('react/addons');
+
+let About = React.createClass({
+
+    render() {
         return (
             <div className="container mt20 about-page no-padding">
                 <div className="row mb20">
@@ -11,7 +13,7 @@ var About = React.createClass({
                 <div className="row mb20 fs16 lh25">
                     Stuff and things
                 </div>
-                
+
 		    </div>
         );
     }

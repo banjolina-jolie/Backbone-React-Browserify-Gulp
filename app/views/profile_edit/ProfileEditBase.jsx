@@ -1,7 +1,9 @@
-var React = require('react/addons');
-var ProfileEditSection = require('./ProfileEditSection.jsx');
+'use strict';
 
-var sectionMapper = {
+let React = require('react/addons');
+let ProfileEditSection = require('./ProfileEditSection.jsx');
+
+let sectionMapper = {
     personal: {
         title: 'Personal',
         sections: ['basic','bio', 'change-password']
@@ -12,16 +14,16 @@ var sectionMapper = {
     }
 };
 
-var ProfileEditBase = React.createClass({
-    renderLeftBarPrimaries: function (primary) {
+let ProfileEditBase = React.createClass({
+    renderLeftBarPrimaries(primary) {
         return _.map(sectionMapper, function (val, key) {
-            var classes = primary === key ? 'active-primary' : '';
+            let classes = primary === key ? 'active-primary' : '';
             return <li key={key} ><a className={classes} href={'/account/'+key}>{val.title}</a></li>;
-        }.bind(this));
+        });
     },
-    render: function () {
-        var primary = this.props.primary || 'personal';
-        var secondary = sectionMapper[primary].sections[0];
+    render() {
+        let primary = this.props.primary || 'personal';
+        let secondary = sectionMapper[primary].sections[0];
 
         if (this.props.section) {
             _.each(sectionMapper, function (val, key, obj) {
@@ -29,7 +31,7 @@ var ProfileEditBase = React.createClass({
                     primary = key;
                     secondary = this.props.section;
                 }
-            }.bind(this));
+            });
         }
 
         return (

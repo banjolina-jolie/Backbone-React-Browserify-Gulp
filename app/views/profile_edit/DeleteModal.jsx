@@ -1,8 +1,10 @@
-var React = require('react');
+'use strict';
 
-var DeleteModalView = React.createClass({
+let React = require('react');
 
-    render: function () {
+let DeleteModalView = React.createClass({
+
+    render() {
         return (
             <div className="modal fade" id="deleteModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
@@ -23,9 +25,9 @@ var DeleteModalView = React.createClass({
             </div>
         );
     },
-    deleteAccount: function () {
+    deleteAccount() {
         this.props.user.destroy()
-        .always(function () {
+        .always(_ => {
             window.location.href = '/';
         });
     }

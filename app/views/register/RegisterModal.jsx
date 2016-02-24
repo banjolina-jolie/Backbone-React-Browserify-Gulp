@@ -1,17 +1,19 @@
-var React = require('react');
-var Basic = require('../profile_edit/Basic.jsx');
-var Actions = require('../../actions/Actions');
-var Store = require('../../stores/Store');
+'use strict';
 
-var RegisterView = React.createClass({
+let React = require('react');
+let Basic = require('../profile_edit/Basic.jsx');
+let Actions = require('../../actions/Actions');
+let Store = require('../../stores/Store');
 
-    getInitialState: function () {
+let RegisterView = React.createClass({
+
+    getInitialState() {
         return {
             acceptsTerms: false
         };
     },
 
-    render: function () {
+    render() {
         return (
             <div className="modal fade" id="registerModal" tabIndex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
                 <div className="modal-dialog narrow-modal">
@@ -40,34 +42,34 @@ var RegisterView = React.createClass({
             </div>
         );
     },
-    save: function () {
-        var user = Store.getCurrentUser();
+    save() {
+        let user = Store.getCurrentUser();
         // break if errors
         if (!user.validationError) {
             Actions.startLoading();
             user.save()
-            .done(function () {
+            .done(_ => {
                 $('#registerModal').modal('hide');
                 Backbone.history.navigate('/account', { trigger: true });
             })
             .fail(function (res) {
                 res = res.responseJSON || res;
-                var msg = (res && res.message) || 'Sorry there was an error.';
+                let msg = (res && res.message) || 'Sorry there was an error.';
                 Actions.okpAlert({body: msg});
             })
-            .always(function () {
+            .always(_ => {
                 Actions.stopLoading();
             });
         }
     },
-    triggerSet: function () {
-        var user = Store.getCurrentUser();
+    triggerSet() {
+        let user = Store.getCurrentUser();
         user.off();
         user.once('change', this.save);
         Actions.saveProfile();
     },
-    _toggleAcceptsTerms: function (e) {
-        var acceptsTerms = $(e.currentTarget).prop('checked');
+    _toggleAcceptsTerms(e) {
+        let acceptsTerms = $(e.currentTarget).prop('checked');
         this.setState({ acceptsTerms: acceptsTerms });;
     }
 });

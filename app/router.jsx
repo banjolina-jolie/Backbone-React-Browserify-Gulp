@@ -1,19 +1,21 @@
-var React = require('react');
-var Actions = require('./actions/Actions');
-var Store = require('./stores/Store');
-var UserModel = require('./models/UserModel');
+'use strict';
+
+let React = require('react');
+let Actions = require('./actions/Actions');
+let Store = require('./stores/Store');
+let UserModel = require('./models/UserModel');
 
 function parseQuery(qstr) {
-    var query = {};
-    var a = qstr.split('&');
-    for (var i = 0; i < a.length; i++) {
-        var b = a[i].split('=');
+    let query = {};
+    let a = qstr.split('&');
+    for (let i = 0; i < a.length; i++) {
+        let b = a[i].split('=');
         query[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || '');
     }
     return query;
 }
 
-var router = Backbone.Router.extend({
+let router = Backbone.Router.extend({
     routes: {
         '': 'landing',
         'login': 'login',
@@ -25,19 +27,19 @@ var router = Backbone.Router.extend({
         'privacy': 'privacy',
         '*all': 'notFound'
     },
-    initialize: function (options) {
+    initialize(options) {
         // NOTE: use for debugging
         window.currentUser = Store.getCurrentUser();
     },
-    notFound: function () {
+    notFound() {
         // TODO: make nice 404 page
         this.navigate('/', { trigger: true });
     },
-    about: function () {
-        var view = require('./views/About.jsx');
+    about() {
+        let view = require('./views/About.jsx');
         Actions.setUI('loggedIn', view);
     },
-    logout: function () {
+    logout() {
         // TODO: Log out of FB
         $.ajax({
             url: apiBaseUrl + '/api/logout' // server should remove cookie
@@ -47,21 +49,21 @@ var router = Backbone.Router.extend({
             window.location.href= '/';
         });
     },
-    landing: function () {
-        var view = require('./views/Landing.jsx');
+    landing() {
+        let view = require('./views/Landing.jsx');
         Actions.setUI(false, view);
     },
-    profileEdit: function (section) {
-        var view = require('./views/profile_edit/ProfileEditBase.jsx');
-        var data = { section: section };
+    profileEdit(section) {
+        let view = require('./views/profile_edit/ProfileEditBase.jsx');
+        let data = { section: section };
         Actions.setUI('loggedIn', view, data);
     },
-    terms: function () {
-        var view = require('./views/Terms.jsx');
+    terms() {
+        let view = require('./views/Terms.jsx');
         Actions.setUI('loggedIn', view);
     },
-    privacy: function () {
-        var view = require('./views/Privacy.jsx');
+    privacy() {
+        let view = require('./views/Privacy.jsx');
         Actions.setUI('loggedIn', view);
 
     }

@@ -1,23 +1,25 @@
-var React = require('react/addons');
-var Store = require('../../stores/Store');
+'use strict';
 
-var ChangePassword = React.createClass({
+let React = require('react/addons');
+let Store = require('../../stores/Store');
+
+let ChangePassword = React.createClass({
 
     mixins: [React.addons.LinkedStateMixin],
 
-    componentDidMount: function () {
+    componentDidMount() {
         Store.addSaveProfileListener(this._onSaveProfile);
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
         Store.removeSaveProfileListener(this._onSaveProfile);
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {};
     },
 
-    render: function () {
+    render() {
         return (
             <form className="basic-form mt20" id="change-pw">
                 <div className="form-group">
@@ -56,8 +58,8 @@ var ChangePassword = React.createClass({
         );
     },
 
-    _onSaveProfile: function () {
-        var values = _.clone(this.state);
+    _onSaveProfile() {
+        let values = _.clone(this.state);
 
         if (values.newPassword) {
             if (values.newPassword !== values.retype_newPassword) {

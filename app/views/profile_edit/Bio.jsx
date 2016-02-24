@@ -1,49 +1,51 @@
-var React = require('react/addons');
-var Actions = require('../../actions/Actions');
-var Store = require('../../stores/Store');
+'use strict';
 
-var PersonalBio = React.createClass({
+let React = require('react/addons');
+let Actions = require('../../actions/Actions');
+let Store = require('../../stores/Store');
+
+let PersonalBio = React.createClass({
 
     mixins: [React.addons.LinkedStateMixin],
 
-    _getState: function () {
+    _getState() {
         return {
             bio: this.props.user.get('bio')
         };
     },
-    _updateState: function () {
+    _updateState() {
         this.setState(this._getState());
     },
-    getInitialState: function () {
+    getInitialState() {
         return this._getState();
     },
-    componentDidMount: function () {
+    componentDidMount() {
         Store.addSaveProfileListener(this._onSaveProfile);
         Store.addSetCurrentUserListener(this._updateState);
 
-        var avatar = document.getElementById('profile-img');
+        let avatar = document.getElementById('profile-img');
         this.props.user.profilePic(avatar);
-        
-        this.props.user.on('sync', function () {
+
+        this.props.user.on('sync', _ => {
             if (this.newUrl) {
                 $('.avatar').css({'background-image': 'url("' + this.newUrl + '")'});
                 this.newUrl = false;
             }
-        }.bind(this));
+        });
     },
-    componentDidUpdate: function() {
-        var avatar = document.getElementById('profile-img');
+    componentDidUpdate() {
+        let avatar = document.getElementById('profile-img');
 
         if (!this.newUrl) {
             this.props.user.profilePic(avatar);
         }
     },
-    componentWillUnmount: function () {
+    componentWillUnmount() {
         Store.removeSaveProfileListener(this._onSaveProfile);
         Store.removeSetCurrentUserListener(this._updateState);
         this.props.user.off();
     },
-    render: function () {
+    render() {
         return (
             <div className="row">
                 <div className="col-xs-12 text-center no-padding">
@@ -66,12 +68,12 @@ var PersonalBio = React.createClass({
             </div>
         );
     },
-    clickFileInput: function (e) {
+    clickFileInput(e) {
         e.preventDefault();
         $('input[type=file]').trigger('click');
     },
-    uploadImage: function (e) {
-        var selectedFile = e.target.files[0];
+    uploadImage(e) {
+        let selectedFile = e.target.files[0];
 
         if (!selectedFile) { return; }
 
@@ -87,9 +89,9 @@ var PersonalBio = React.createClass({
             return Actions.okpAlert({body:'This browser doesn\'t support picture upload'});
         }
 
-        var reader = new FileReader();
+        let reader = new FileReader();
 
-        var imgtag = document.getElementById('profile-img');
+        let imgtag = document.getElementById('profile-img');
         imgtag.title = selectedFile.name;
 
         reader.onload = function(ev) {
@@ -99,19 +101,19 @@ var PersonalBio = React.createClass({
             this.convertImgToBase64URL(ev.target.result, function(base64Img){
                 this.setState({profileIcon: base64Img});
                 this.setEnabledButton();
-            }.bind(this));
-        }.bind(this);
+            });
+        };
 
         reader.readAsDataURL(selectedFile);
 
     },
-    convertImgToBase64URL: function(url, callback, outputFormat) {
-        var canvas = document.createElement('CANVAS'),
+    convertImgToBase64URL(url, callback, outputFormat) {
+        let canvas = document.createElement('CANVAS'),
             ctx = canvas.getContext('2d'),
             img = new Image();
         img.crossOrigin = 'Anonymous';
-        img.onload = function(){
-            var dataURL;
+        img.onload = _ => {
+            let dataURL;
             canvas.height = img.height;
             canvas.width = img.width;
             ctx.drawImage(img, 0, 0);
@@ -121,10 +123,10 @@ var PersonalBio = React.createClass({
         };
         img.src = url;
     },
-    setEnabledButton: function () {
+    setEnabledButton() {
         Actions.setEnabledButton(!!(this.state.profileIcon || this.state.bio));
     },
-    _onSaveProfile: function () {
+    _onSaveProfile() {
         this.props.user.set({
             picture: this.state.profileIcon,
             bio: this.state.bio

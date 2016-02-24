@@ -1,29 +1,30 @@
-var React = require('react/addons');
+'use strict';
 
-var SearchBar = React.createClass({
+let React = require('react/addons');
+
+let SearchBar = React.createClass({
 
 	mixins: [React.addons.LinkedStateMixin],
 
-	getInitialState: function () {
+	getInitialState() {
 		return {
 			address: ''  ,
 			autocomplete: window.google ? new google.maps.places.Autocomplete(document.getElementById('autocomplete'),{types: ['geocode']}) : null
 		};
 	},
 
-	componentDidMount: function () {
-		var self = this;
+	componentDidMount() {
 	    if (window.google) {
 			this.setState({ autocomplete: new google.maps.places.Autocomplete(document.getElementById('autocomplete'),{types: ['geocode']}) });
 	    } else {
-	    	$(window).on('googleapis:loaded', function () {
-	    		var autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'),{types: ['geocode']});
-	    		self.setState({ autocomplete: autocomplete });
+	    	$(window).on('googleapis:loaded', _ => {
+	    		let autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'),{types: ['geocode']});
+	    		this.setState({ autocomplete: autocomplete });
 	    	});
 	    }
 	},
 
-	render: function () {
+	render() {
 		return (
 			<div className="search-bar">
 				<input id="autocomplete" onKeyPress={this.checkEnter} onFocus={this.geolocate} className="address search ma" valueLink={this.linkState('address')} placeholder="Where are you interested?"/>
@@ -31,28 +32,27 @@ var SearchBar = React.createClass({
 			</div>
 		);
 	},
-	checkEnter: function (e) {
+	checkEnter(e) {
     	if (e && e.which === 13) {
     		this.submitAddress();
     	}
     },
-    submitAddress: function () {
+    submitAddress() {
     	// TODO: look at this.state.autocomplete to store lat/lon
     	console.log($('#autocomplete').val());
     },
-    geolocate: function () {
-    	var self = this;
+    geolocate() {
 	 	if (navigator.geolocation && this.state.autocomplete) {
-		    navigator.geolocation.getCurrentPosition(function(position) {
-		      	var geolocation = {
+		    navigator.geolocation.getCurrentPosition(position => {
+		      	let geolocation = {
 		        	lat: position.coords.latitude,
 		        	lng: position.coords.longitude
 		      	};
-		      	var circle = new google.maps.Circle({
+		      	let circle = new google.maps.Circle({
 		        	center: geolocation,
 		        	radius: position.coords.accuracy
 		      	});
-		      	self.state.autocomplete.setBounds(circle.getBounds());
+		      	this.state.autocomplete.setBounds(circle.getBounds());
 		    });
 	  	}
 	}

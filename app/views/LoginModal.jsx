@@ -1,31 +1,33 @@
-var React = require('react/addons');
-var Actions = require('../actions/Actions');
-var Store = require('../stores/Store');
+'use strict';
 
-var LoginModalView = React.createClass({
+let React = require('react/addons');
+let Actions = require('../actions/Actions');
+let Store = require('../stores/Store');
+
+let LoginModalView = React.createClass({
 
     mixins: [React.addons.LinkedStateMixin],
 
-    componentDidMount: function () {
-        $('#loginModal').on('shown.bs.modal', function () {
-            setTimeout(function () {
+    componentDidMount() {
+        $('#loginModal').on('shown.bs.modal', _ => {
+            setTimeout(_ => {
                 $('[name=email]').focus();
             }, 0);
         });
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
         $('#loginModal').modal('hide');
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             email: '',
             password: ''
         };
     },
 
-    render: function () {
+    render() {
         return (
             <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
                 <div className="modal-dialog narrow-modal">
@@ -65,27 +67,27 @@ var LoginModalView = React.createClass({
             </div>
         );
     },
-    signUp: function () {
+    signUp() {
         $('#loginModal').modal('hide');
         $('#registerModal').modal('show');
     },
-    captureLogin: function (e) {
+    captureLogin(e) {
         if (e.keyCode && e.keyCode !== 13) { return; }
 
-        var data = {
+        let data = {
             email: this.state.email,
             password: this.state.password
         };
 
         this.login(data)
-        .fail(function () {
+        .fail(_ => {
             $('.flash-msg-error').toggleClass('hidden');
-            setTimeout(function () {
+            setTimeout(_ => {
                 $('.flash-msg-error').toggleClass('hidden');
             }, 3000);
         });
     },
-    login: function (data) {
+    login(data) {
         Actions.startLoading();
 
         return $.ajax({
@@ -93,7 +95,7 @@ var LoginModalView = React.createClass({
             type: 'POST',
             data: data
         })
-        .always(function () {
+        .always(_ => {
             Actions.stopLoading();
         });
     }

@@ -1,5 +1,7 @@
-var Store = require('./stores/Store');
-var React = require('react');
+'use strict';
+
+let Store = require('./stores/Store');
+let React = require('react');
 
 window._ = require('lodash');
 window.Backbone = require('backbone');
@@ -8,12 +10,12 @@ window.select2 = require('select2');
 window.moment = require('moment');
 Backbone.$ = $; // kinda sux
 
-var Actions = require('./actions/Actions');
+let Actions = require('./actions/Actions');
 
-var UserModel = require('./models/UserModel');
-var AppBase = require('./views/AppBase.jsx');
+let UserModel = require('./models/UserModel');
+let AppBase = require('./views/AppBase.jsx');
 
-var Router = require('./router.jsx');
+let Router = require('./router.jsx');
 
 $.ajaxSetup({
    xhrFields: {
@@ -23,11 +25,11 @@ $.ajaxSetup({
 });
 
 // Create currentUser model
-var currentUser = Store.getCurrentUser();
+let currentUser = Store.getCurrentUser();
 // Render AppBase component
 React.render(React.createElement(AppBase, {}), document.getElementById('app'));
 // Init router
-var router = new Router({ root: '/', currentUser: currentUser });
+let router = new Router({ root: '/', currentUser: currentUser });
 // Start history
 Backbone.history.start({ pushState: true, root: '/' });
 
@@ -42,7 +44,7 @@ currentUser.fetch({url: apiBaseUrl + '/login'})
     Actions.setCurrentUser(currentUser);
 })
 .fail(function () {
-    Actions.okpAlert({body: 'API is down.'});
+    // Actions.okpAlert({body: 'API is down.'});
 })
 .always(function () {
     Actions.stopLoading();
@@ -52,8 +54,8 @@ currentUser.fetch({url: apiBaseUrl + '/login'})
 $(document).on('click', 'a:not([data-bypass])', function(evt) {
     if (evt.metaKey || evt.ctrlKey) { return; }
 
-    var href = { prop: $(this).prop('href'), attr: $(this).attr('href') };
-    var root = location.protocol + '//' + location.host + '/';
+    let href = { prop: $(this).prop('href'), attr: $(this).attr('href') };
+    let root = location.protocol + '//' + location.host + '/';
 
     if (href.prop && href.prop.slice(0, root.length) === root) {
         evt.preventDefault();

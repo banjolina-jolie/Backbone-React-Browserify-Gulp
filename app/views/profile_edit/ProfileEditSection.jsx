@@ -1,14 +1,16 @@
-var React = require('react');
-var Actions = require('../../actions/Actions');
+'use strict';
 
-var Basic = require('./Basic.jsx');
-var Bio = require('./Bio.jsx');
-var ChangePassword = require('./ChangePassword.jsx');
+let React = require('react');
+let Actions = require('../../actions/Actions');
+
+let Basic = require('./Basic.jsx');
+let Bio = require('./Bio.jsx');
+let ChangePassword = require('./ChangePassword.jsx');
 
 
-var PaymentList = require('./PaymentList.jsx');
+let PaymentList = require('./PaymentList.jsx');
 
-var profileEditConfig = {
+let profileEditConfig = {
     personal: {
     	basic: { view: Basic, title: 'Basic'},
     	bio: { view: Bio, title: 'Bio & Photo'},
@@ -19,18 +21,18 @@ var profileEditConfig = {
     }
 };
 
-var ProfileEditSections = React.createClass({
-    componentDidMount: function () {
+let ProfileEditSections = React.createClass({
+    componentDidMount() {
         $('#save-profile-edit').toggleClass('hidden', this.props.secondary === 'payments');
     },
-    componentDidUpdate: function (prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState) {
         $('#save-profile-edit').toggleClass('hidden', this.props.secondary === 'payments');
     },
-    getSecondaryView: function () {
-    	var secondaries = profileEditConfig[this.props.primary];
+    getSecondaryView() {
+    	let secondaries = profileEditConfig[this.props.primary];
         return secondaries[this.props.secondary].view;
     },
-    renderSecondary: function () {
+    renderSecondary() {
         return (
             <div>
                 { React.createElement(this.getSecondaryView()) }
@@ -39,8 +41,8 @@ var ProfileEditSections = React.createClass({
             </div>
         );
     },
-    render: function () {
-        var secondaries = $.extend(true, {}, profileEditConfig[this.props.primary]);
+    render() {
+        let secondaries = $.extend(true, {}, profileEditConfig[this.props.primary]);
         delete secondaries['change-password'];
 
         if (Object.keys(secondaries).length > 1) {
@@ -49,7 +51,7 @@ var ProfileEditSections = React.createClass({
                     <ul className="profile-edit-secondary-header m0">
                         <div className="row m0">
                             {_.map(secondaries, function (obj, key) {
-                                var classes = 'tab-link';
+                                let classes = 'tab-link';
                                 if (key === this.props.secondary) {
                                     classes += ' selected';
                                 }
@@ -58,7 +60,7 @@ var ProfileEditSections = React.createClass({
                                         <a className={classes} href={'/account/' + key}>{obj.title}</a>
                                     </li>
                                 );
-                            }.bind(this))}
+                            })}
                         </div>
                     </ul>
 
@@ -70,7 +72,7 @@ var ProfileEditSections = React.createClass({
         } else {
         	return (
     	    	<div className="no-titles">
-    	            
+
                     { React.createElement(this.getSecondaryView()) }
 
                     <button onClick={this.triggerSet} id="save-profile-edit" className="btn btn-default btn-solid btn-blue mb40">Save</button>
@@ -79,21 +81,21 @@ var ProfileEditSections = React.createClass({
         }
 
 	},
-    triggerSet: function (e) {
+    triggerSet(e) {
         e.preventDefault();
-        var user = Store.getCurrentUser();
+        let user = Store.getCurrentUser();
         user.off(this.save);
         user.once('change', this.save);
         Actions.saveProfile();
     },
-    save: function (e) {
-        var user = Store.getCurrentUser();
+    save(e) {
+        let user = Store.getCurrentUser();
 
         if (this.props.secondary !== 'payments') {
             if (!user.validationError) {
                 Actions.startLoading();
         	    user.save()
-                .done(function () {
+                .done(_ => {
                     Actions.okpAlert({body: 'Changes Saved'});
                     Actions.stopLoading();
                 });

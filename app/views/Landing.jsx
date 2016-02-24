@@ -1,16 +1,20 @@
-var React = require('react');
-var Actions = require('../actions/Actions');
-var Store = require('../stores/Store');
-var Footer = require('./Footer.jsx');
-var Header = require('./Header.jsx');
-var SearchBar = require('./search/SearchBar.jsx');
+'use strict';
 
-var LandingView = React.createClass({
-    render: function () {
+let React = require('react');
+let Actions = require('../actions/Actions');
+let Store = require('../stores/Store');
+let Footer = require('./Footer.jsx');
+let Header = require('./Header.jsx');
+let SearchBar = require('./search/SearchBar.jsx');
+
+let LandingView = React.createClass({
+    render() {
         return (
             <div className="landing">
-
+                <a name="topmost"></a>
                 <Header />
+
+                <div></div>
 
                 <section className="intro">
                     <div className="container dashboard">
@@ -18,6 +22,7 @@ var LandingView = React.createClass({
                         <SearchBar />
                     </div>
                 </section>
+                    <a href="#topmost" data-bypass>BACK TO TOP</a>
 
             </div>
         );

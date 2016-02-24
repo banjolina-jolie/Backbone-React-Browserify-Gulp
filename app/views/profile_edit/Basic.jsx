@@ -1,51 +1,53 @@
-var React = require('react/addons');
-var _ = require('lodash');
-var Store = require('../../stores/Store');
-var Email = require('../../models/EmailModel');
-var DeleteModal = require('./DeleteModal.jsx');
+'use strict';
 
-var PersonalBasic = React.createClass({
+let React = require('react/addons');
+let _ = require('lodash');
+let Store = require('../../stores/Store');
+let Email = require('../../models/EmailModel');
+let DeleteModal = require('./DeleteModal.jsx');
+
+let PersonalBasic = React.createClass({
 
 	mixins: [React.addons.LinkedStateMixin],
 
-    _getState: function () {
-        var user = Store.getCurrentUser();
-        var obj = user.toJSON();
+    _getState() {
+        let user = Store.getCurrentUser();
+        let obj = user.toJSON();
         obj.markers = {};
         obj.user = user;
         return obj;
     },
-    _updateState: function () {
+    _updateState() {
         this.setState(this._getState());
     },
-    getInitialState: function () {
+    getInitialState() {
         return this._getState();
     },
-    componentDidMount: function () {
+    componentDidMount() {
         Store.addSetCurrentUserListener(this._updateState);
         Store.addSaveProfileListener(this._onSaveProfile);
     },
-    componentWillUnmount: function () {
+    componentWillUnmount() {
         Store.removeSetCurrentUserListener(this._updateState);
         Store.removeSaveProfileListener(this._onSaveProfile);
     },
-    renderMessages: function () {
-        var output = {};
+    renderMessages() {
+        let output = {};
 
-        for(var name in this.state.errors) {
+        for (let name in this.state.errors) {
             output[name] = <div className="error-msg">{this.state.errors[name]}</div>;
         }
         return output;
     },
-    render: function () {
-    	var messages = this.renderMessages();
-        var baseClass = 'no-padding';
-        var sizeClass = ' col-xs-12';
-        var firstNameClasses = baseClass + sizeClass + ' mb20';
-        var lastNameClasses = baseClass + sizeClass;
+    render() {
+    	let messages = this.renderMessages();
+        let baseClass = 'no-padding';
+        let sizeClass = ' col-xs-12';
+        let firstNameClasses = baseClass + sizeClass + ' mb20';
+        let lastNameClasses = baseClass + sizeClass;
 
         if (this.state.user.id) {
-            var sizeClass = ' col-xs-6 ';
+            let sizeClass = ' col-xs-6 ';
             firstNameClasses = baseClass + sizeClass + 'pr10';
             lastNameClasses = baseClass + sizeClass + 'pl10';
         }
@@ -73,7 +75,7 @@ var PersonalBasic = React.createClass({
 		            </div>
 		        </div>
 
-	        	{ 
+	        	{
                     this.renderUnchangeableInputs()
                 }
 
@@ -82,12 +84,12 @@ var PersonalBasic = React.createClass({
 		        { this.renderAddressInputs() }
 
 				<div className="mb20"> { this.renderDangerZone() } </div>
-		        
+
 		        <DeleteModal user={this.state.user}/>
 		    </form>
         );
     },
-    renderDangerZone: function () {
+    renderDangerZone() {
         if (!this.state.user.isNew()) {
             return (
                 <div className="dropdown">
@@ -103,10 +105,10 @@ var PersonalBasic = React.createClass({
             );
         }
     },
-    renderUnchangeableInputs: function () {
-        var disableEmail = this.state.user.get('email') ? 'disabled' : null;
-        var messages = this.renderMessages();
-        
+    renderUnchangeableInputs() {
+        let disableEmail = this.state.user.get('email') ? 'disabled' : null;
+        let messages = this.renderMessages();
+
 
         if (this.state.user.isNew()) {
             return (
@@ -131,7 +133,7 @@ var PersonalBasic = React.createClass({
             );
         }
     },
-    renderPasswordInputs: function () {
+    renderPasswordInputs() {
         if (this.state.user.isNew()) {
             return (
                 <div>
@@ -159,7 +161,7 @@ var PersonalBasic = React.createClass({
             );
         }
     },
-    renderAddressInputs: function () {
+    renderAddressInputs() {
         if (this.state.user.id) {
         	return (
         		<div>
@@ -213,16 +215,16 @@ var PersonalBasic = React.createClass({
     		);
         }
     },
-    removeError: function (e) {
-    	var attr = $(e.currentTarget).attr('name');
-    	var markers = this.state.markers;
+    removeError(e) {
+    	let attr = $(e.currentTarget).attr('name');
+    	let markers = this.state.markers;
     	delete markers[attr];
 
     	this.setState({ markers: markers });
     },
-    _onSaveProfile: function () {
-		var markers = {};
-        var values = _.clone(this.state);
+    _onSaveProfile() {
+		let markers = {};
+        let values = _.clone(this.state);
 
         if (values.newPassword) {
         	if (values.newPassword !== values.retype_newPassword) {
@@ -248,7 +250,7 @@ var PersonalBasic = React.createClass({
 
         // delete stuff from values
         // TODO: MAKE BETTER
-       	var attrsToDelete = ['line1','line2','city','state','postal_code','markers','errors', 'user'];
+       	let attrsToDelete = ['line1','line2','city','state','postal_code','markers','errors', 'user'];
        	attrsToDelete.forEach(function (attr) {
        		delete values[attr];
        	});
@@ -256,15 +258,15 @@ var PersonalBasic = React.createClass({
     	this.state.user.set(values);
 
     	if (!this.state.user.isValid()) {
-    		for (var key in this.state.user.validationError) {
+    		for (let key in this.state.user.validationError) {
     			markers[key] = 'has-error';
     		}
         }
         this.setState({ markers: markers });
     },
-    _removeMarker: function (e) {
-    	var attr = $(e.currentTarget).attr('name');
-        var markers = this.state.markers;
+    _removeMarker(e) {
+    	let attr = $(e.currentTarget).attr('name');
+        let markers = this.state.markers;
         markers[attr] = '';
         this.setState({ markers: markers });
     }

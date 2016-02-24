@@ -1,15 +1,17 @@
-var React = require('react/addons');
+'use strict';
 
-var TermsView = React.createClass({
+let React = require('react/addons');
 
-	componentDidMount: function () {
+let TermsView = React.createClass({
+
+	componentDidMount() {
 		$(window).scrollTop(0);
 	},
 
-    render: function () {
+    render() {
         return (
             <div className="container">
-	            
+
             </div>
         );
     }

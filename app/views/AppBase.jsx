@@ -1,11 +1,13 @@
-var Store = require('../stores/Store');
-var React = require('react/addons');
-var Actions = require('../actions/Actions');
-var ContactUsModal = require('./ContactUsModal.jsx');
-var LoginModal = require('./LoginModal.jsx');
-var RegisterModal = require('./register/RegisterModal.jsx');
-var Header = require('../views/Header.jsx');
-var Footer = require('../views/Footer.jsx');
+'use strict';
+
+let Store = require('../stores/Store');
+let React = require('react/addons');
+let Actions = require('../actions/Actions');
+let ContactUsModal = require('./ContactUsModal.jsx');
+let LoginModal = require('./LoginModal.jsx');
+let RegisterModal = require('./register/RegisterModal.jsx');
+let Header = require('../views/Header.jsx');
+let Footer = require('../views/Footer.jsx');
 
 
 function getState() {
@@ -20,28 +22,28 @@ function getState() {
     };
 }
 
-var AppBaseView = React.createClass({
-    getInitialState: function () {
+let AppBaseView = React.createClass({
+    getInitialState() {
         return getState();
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
         Store.addUIChangeListener(this._onUIChange);
         Store.addSetLoadingListener(this._updateLoading);
         Store.addOkpAlertListener(this._showAlert);
         Store.addSetCurrentUserListener(this._onUIChange);
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
         Store.removeUIChangeListener(this._onUIChange);
         Store.removeLoadingListener(this._updateLoading);
         Store.removeOkpAlertListener(this._showAlert);
         Store.removeSetCurrentUserListener(this._onUIChange);
     },
 
-    render: function () {
-        var classes = 'spinner';
-        var divStyle = { height: 0 };
+    render() {
+        let classes = 'spinner';
+        let divStyle = { height: 0 };
 
         if (this.state.loading) {
             classes += ' loading';
@@ -51,28 +53,28 @@ var AppBaseView = React.createClass({
         return (
             <div className="app-view">
                 <div className={classes} style={divStyle}></div>
-                
+
                 { this.renderHeader() }
 
                 <div id="content"></div>
-                
+
                 <Footer />
-                
+
                 {this.renderAlertModal()}
-                
+
                 <ContactUsModal />
                 <LoginModal />
                 <RegisterModal />
             </div>
         );
     },
-    renderHeader: function () {
+    renderHeader() {
         if (this.state.header) {
             return ( <Header /> );
         }
     },
-    renderAlertModal: function () {
-        var alert = this.state.alert;
+    renderAlertModal() {
+        let alert = this.state.alert;
         return (
             <div className="modal fade" id="alertModal" tabIndex="-1" data-backdrop="static" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
@@ -100,8 +102,8 @@ var AppBaseView = React.createClass({
         );
     },
 
-    renderAlertBody: function () {
-        var alert = this.state.alert;
+    renderAlertBody() {
+        let alert = this.state.alert;
         if (_.isFunction(alert.body)) {
             return alert.body();
         } else {
@@ -109,7 +111,7 @@ var AppBaseView = React.createClass({
         }
     },
 
-    renderCancelBtn: function () {
+    renderCancelBtn() {
         if (this.state.alert.cancel) {
             return (
                 <button type="button" className="btn btn-default btn-outline btn-blue" data-dismiss="modal" onClick={this._clickAlertCancel}>Cancel</button>
@@ -117,26 +119,26 @@ var AppBaseView = React.createClass({
         }
     },
 
-    _onUIChange: function () {
-        this.setState(getState(), function () {
+    _onUIChange() {
+        this.setState(getState(), _ => {
             if (this.state.view) {
                 React.render(React.createElement(this.state.view, this.state.viewData), document.getElementById('content'));
             }
-        }.bind(this));
+        });
     },
 
-    _updateLoading: function () {
+    _updateLoading() {
         this.setState({loading: Store.getLoading()});
     },
 
-    _showAlert: function () {
-        this.setState({alert: Store.getAlert()}, function () {
+    _showAlert() {
+        this.setState({alert: Store.getAlert()}, _ => {
             $('#alertModal').modal('show');
             Actions.stopLoading();
         });
     },
 
-    _clickAlertConfirm: function (e) {
+    _clickAlertConfirm(e) {
         e.preventDefault();
 
         if (!this.state.alert.keepOpen) {
@@ -150,7 +152,7 @@ var AppBaseView = React.createClass({
         }
     },
 
-    _clickAlertCancel: function (e) {
+    _clickAlertCancel(e) {
         e.preventDefault();
 
         $('#alertModal').modal('hide');

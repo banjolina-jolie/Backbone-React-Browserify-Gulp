@@ -1,10 +1,12 @@
-var React = require('react');
+'use strict';
 
-var FooterView = React.createClass({
+let React = require('react');
 
-    render: function () {
-        var currentYear = new Date().getFullYear();
-        
+let FooterView = React.createClass({
+
+    render() {
+        let currentYear = new Date().getFullYear();
+
         return (
             <footer>
                 <div className="container no-padding">

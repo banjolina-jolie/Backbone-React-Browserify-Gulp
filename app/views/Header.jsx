@@ -1,43 +1,45 @@
-var React = require('react');
-var Store = require('../stores/Store');
-var Actions = require('../actions/Actions');
+'use strict';
 
-var HeaderView = React.createClass({
-    _getState: function () {
+let React = require('react');
+let Store = require('../stores/Store');
+let Actions = require('../actions/Actions');
+
+let HeaderView = React.createClass({
+    _getState() {
         return {
             user: Store.getCurrentUser()
         }
     },
-    _updateState: function () {
+    _updateState() {
         this.setState(this._getState);
     },
-    getInitialState: function () {
+    getInitialState() {
         return this._getState();
     },
-    componentWillUnmount: function () {
-        var Store = require('../stores/Store');
+    componentWillUnmount() {
+        let Store = require('../stores/Store');
         Store.removeSetCurrentUserListener(this._updateState);
     },
-    componentDidMount: function () {
-        var Store = require('../stores/Store');
+    componentDidMount() {
+        let Store = require('../stores/Store');
         Store.addSetCurrentUserListener(this._updateState);
-        var avatar = React.findDOMNode(this.refs.avatar);
+        let avatar = React.findDOMNode(this.refs.avatar);
 
         if (avatar) {
             this.state.user.profilePic(avatar);
         }
     },
-    componentDidUpdate: function () {
-        var avatar = React.findDOMNode(this.refs.avatar);
+    componentDidUpdate() {
+        let avatar = React.findDOMNode(this.refs.avatar);
 
         if (avatar) {
             this.state.user.profilePic(avatar);
         }
     },
-    render: function () {
-        var right;
+    render() {
+        let right;
         if (this.state.user.isFetched) {
-            var right = (this.state.user.id ? this.renderLogged() : this.renderNotLogged());
+            let right = (this.state.user.id ? this.renderLogged() : this.renderNotLogged());
         }
 
         return (
@@ -55,8 +57,8 @@ var HeaderView = React.createClass({
             </nav>
         );
     },
-    renderLogged: function () {
-        var links = ['account', 'logout'];
+    renderLogged() {
+        let links = ['account', 'logout'];
 
         return (
             <div className="dropdown user">
@@ -77,7 +79,7 @@ var HeaderView = React.createClass({
             </div>
         );
     },
-    renderNotLogged: function () {
+    renderNotLogged() {
         return (
             <div className="fr">
                 <ul className="navbar-buttons">
