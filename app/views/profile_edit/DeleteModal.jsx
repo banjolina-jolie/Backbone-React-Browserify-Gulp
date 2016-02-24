@@ -1,6 +1,7 @@
 'use strict';
 
 let React = require('react');
+let Store = require('../../stores/Store');
 
 let DeleteModalView = React.createClass({
 
@@ -26,7 +27,7 @@ let DeleteModalView = React.createClass({
         );
     },
     deleteAccount() {
-        this.props.user.destroy()
+        Store.getCurrentUser().destroy()
         .always(_ => {
             window.location.href = '/';
         });

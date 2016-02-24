@@ -23,7 +23,7 @@ let PaymentListView = React.createClass({
             return (
                 <div className="row mb20 basic-form pl0">
                     <div className="col-xs-12">
-                        <NewPayment user={this.props.user} />
+                        <NewPayment />
                         <button className="btn btn-default fr cancel-new-payment ml10" onClick={this._setListView}>{'Cancel'}</button>
                     </div>
                 </div>
@@ -76,7 +76,7 @@ let PaymentListView = React.createClass({
     _removePaymentMethod(e) {
         Actions.startLoading();
         let pmId = $(e.currentTarget).data('pmid');
-        this.props.user.removePaymentMethod(pmId)
+        Store.getCurrentUser().removePaymentMethod(pmId)
         .always(_ => {
             Actions.stopLoading();
         });

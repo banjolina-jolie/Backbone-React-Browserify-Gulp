@@ -35,7 +35,7 @@ let CreditCardView = React.createClass({
             card_number: null,
             cvc: null,
             markers: {},
-            useHomeAddress: !!this.props.user.get('address').line1
+            useHomeAddress: !!Store.getCurrentUser().get('address').line1
         };
     },
     componentDidMount() {
@@ -157,12 +157,12 @@ let CreditCardView = React.createClass({
 		}
 	},
 	renderAddressBase() {
-		if (this.props.user.get('address').line1) {
+		if (Store.getCurrentUser().get('address').line1) {
 			return (
 				<div>
 					<div className="tal ml10">
 		                <input checked={this.state.useHomeAddress} id="useHome1" onChange={this._toggleAddressForm} type="radio" name="useHomeAddress" value="1" />
-                    	<label className="ml6" htmlFor="useHome1">use {this.props.user.get('address').line1}</label>
+                    	<label className="ml6" htmlFor="useHome1">use {Store.getCurrentUser().get('address').line1}</label>
                 	</div>
                 	<div className="tal ml10 mb10">
 		                <input checked={!this.state.useHomeAddress} id="useHome0" onChange={this._toggleAddressForm} type="radio" name="useHomeAddress" value="0" />
@@ -237,7 +237,7 @@ let CreditCardView = React.createClass({
    		delete values.errors;
 
   	    if (this.state.useHomeAddress) {
-        	let homeAddress = this.props.user.get('address');
+        	let homeAddress = Store.getCurrentUser().get('address');
   	    	_.extend(values, homeAddress);
   	    }
 
@@ -255,14 +255,14 @@ let CreditCardView = React.createClass({
 
         Actions.startLoading();
 
-		this.props.user.saveTransactor({
+		Store.getCurrentUser().saveTransactor({
         	updates: {
         		type: 0,
         		details: values
         	}
         })
         .fail(res => {
-        	this.props.user.validationError = true;
+        	Store.getCurrentUser().validationError = true;
         	Actions.okpAlert({body: res.responseJSON.message || 'Sorry there was an error'});
         });
 	},

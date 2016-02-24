@@ -74,7 +74,7 @@ let ChangePassword = React.createClass({
 
             delete values.retype_newPassword;
 
-            this.props.user.set(values);
+            Store.getCurrentUser().set(values);
             Backbone.history.navigate('/account', {trigger: true});
         }
     }

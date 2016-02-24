@@ -35,7 +35,7 @@ let PaymentView = React.createClass({
             <div className="row">
                 <div className="col-xs-10 text-center pl0">
                     <form className="pay-method form-horizontal">
-                        <CreditCardView user={this.props.user} />
+                        <CreditCardView />
                     </form>
                 </div>
             </div>
