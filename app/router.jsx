@@ -5,7 +5,7 @@ let Actions = require('./actions/Actions');
 let Store = require('./stores/Store');
 let UserModel = require('./models/UserModel');
 
-function parseQuery(qstr) {
+let parseQuery = qstr => {
     let query = {};
     let a = qstr.split('&');
     for (let i = 0; i < a.length; i++) {
@@ -44,8 +44,7 @@ let router = Backbone.Router.extend({
         $.ajax({
             url: apiBaseUrl + '/api/logout' // server should remove cookie
         })
-        .done(function () {
-            // Actions.setCurrentUser({});
+        .done(_ => {
             window.location.href= '/';
         });
     },

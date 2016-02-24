@@ -19,6 +19,6 @@ If you don't have gulp installed globally, run `npm install -g gulp`
   1. `git clone https://github.com/banjolina-jolie/Backbone-React-Browserify-Gulp`
   2. `cd Backbone-React-Browserify-Gulp`
   3. `npm install`
-  4. `gulp --harmony`
+  4. `gulp`
 
 Then, in your browser, navigate to localhost:8080

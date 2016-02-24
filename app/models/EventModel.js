@@ -1,7 +1,9 @@
-var Backbone = require('backbone');
+'use strict';
 
-var EventModel = Backbone.Model.extend({
-    defaults: function () {
+let Backbone = require('backbone');
+
+let EventModel = Backbone.Model.extend({
+    defaults() {
         return {
             guide: '',
             members: []

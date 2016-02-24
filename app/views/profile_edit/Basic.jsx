@@ -15,6 +15,10 @@ let PersonalBasic = React.createClass({
         let obj = user.toJSON();
         obj.markers = {};
         obj.user = user;
+        if (obj.address) {
+            _.extend(obj, obj.address);
+            delete obj.address;
+        }
         return obj;
     },
     _updateState() {
@@ -106,32 +110,23 @@ let PersonalBasic = React.createClass({
         }
     },
     renderUnchangeableInputs() {
-        let disableEmail = this.state.user.get('email') ? 'disabled' : null;
         let messages = this.renderMessages();
 
 
-        if (this.state.user.isNew()) {
-            return (
-                <div className="form-group">
-                    <div className={'input-group input-with-label ' + this.state.markers.email}>
-                        <input disabled={disableEmail} onKeyUp={this._removeMarker} id="email" valueLink={this.linkState('email')} onFocus={this.removeError} type="email" name="email" className={'form-control ' + (this.state.markers.email || '')} placeholder="Email"/>
-                        <i className="fa fa-times"></i>
-                        <i className="fa fa-check"></i>
+        return (
+            <div className="form-group">
+                <div className={'input-group input-with-label ' + this.state.markers.email}>
+                    <input onKeyUp={this._removeMarker} id="email" valueLink={this.linkState('email')} onFocus={this.removeError} type="email" name="email" className={'form-control ' + (this.state.markers.email || '')} placeholder="Email"/>
+                    <span className="input-group-title">
+                        Email
+                    </span>
+                    <i className="fa fa-times"></i>
+                    <i className="fa fa-check"></i>
                     {messages.email}
-                    </div>
                 </div>
-            );
-        } else {
-            return (
-                <div className="unchangeables">
-                    <div className="row">
-                        <div className="col-xs-12 no-padding">
-                            <div className="form-group">{this.state.email}</div>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
+            </div>
+        );
+
     },
     renderPasswordInputs() {
         if (this.state.user.isNew()) {
@@ -168,13 +163,19 @@ let PersonalBasic = React.createClass({
     	    		<div className="form-group">
     		            <div className={'input-group input-with-label ' + this.state.markers.line1}>
     		                <input onKeyUp={this._removeMarker} valueLink={this.linkState('line1')} type="text" name="line1" className="form-control" placeholder="Address Line 1"/>
-    		                <i className="fa fa-times"></i>
+                            <span className="input-group-title">
+                                Address Line 1
+                            </span>
+                            <i className="fa fa-times"></i>
     		                <i className="fa fa-check"></i>
     		            </div>
     		        </div>
     		        <div className="form-group">
     		            <div className={'input-group input-with-label ' + this.state.markers.line2}>
     		                <input onKeyUp={this._removeMarker} valueLink={this.linkState('line2')} type="text" name="line2" className="form-control" placeholder="Address Line 2"/>
+                            <span className="input-group-title">
+                                Address Line 2
+                            </span>
     		                <i className="fa fa-times"></i>
     		                <i className="fa fa-check"></i>
     		            </div>
@@ -251,10 +252,9 @@ let PersonalBasic = React.createClass({
         // delete stuff from values
         // TODO: MAKE BETTER
        	let attrsToDelete = ['line1','line2','city','state','postal_code','markers','errors', 'user'];
-       	attrsToDelete.forEach(function (attr) {
+       	attrsToDelete.forEach(attr => {
        		delete values[attr];
        	});
-
     	this.state.user.set(values);
 
     	if (!this.state.user.isValid()) {

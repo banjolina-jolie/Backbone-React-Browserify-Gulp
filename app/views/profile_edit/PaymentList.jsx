@@ -36,7 +36,7 @@ let PaymentListView = React.createClass({
                     <div className="col-xs-6 no-padding">
                         { this.renderEmpty() }
 
-                        {this.state.methods.map(function (method, idx) {
+                        {this.state.methods.map((method, idx) => {
                             let text = method.bankName || method.brand;
                             text += ' ( ...ending with ' + method.last4 + ')';
 

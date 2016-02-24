@@ -39,19 +39,19 @@ Actions.startLoading();
 // send GET to /login to read cookies and return currentUser
 currentUser.fetch({url: apiBaseUrl + '/login'})
 // NOTE: currentUser is parsed by now
-.done(function (response) {
+.done((response) => {
     currentUser.isFetched = true;
     Actions.setCurrentUser(currentUser);
 })
-.fail(function () {
-    // Actions.okpAlert({body: 'API is down.'});
+.fail(_ => {
+    Actions.okpAlert({body: 'API is down.'});
 })
-.always(function () {
+.always(_ => {
     Actions.stopLoading();
 });
 
 // make anchor tags work with pushstate (Backbone boilerplate)
-$(document).on('click', 'a:not([data-bypass])', function(evt) {
+$(document).on('click', 'a:not([data-bypass])', function (evt) {
     if (evt.metaKey || evt.ctrlKey) { return; }
 
     let href = { prop: $(this).prop('href'), attr: $(this).attr('href') };

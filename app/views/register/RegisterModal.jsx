@@ -52,7 +52,7 @@ let RegisterView = React.createClass({
                 $('#registerModal').modal('hide');
                 Backbone.history.navigate('/account', { trigger: true });
             })
-            .fail(function (res) {
+            .fail(res => {
                 res = res.responseJSON || res;
                 let msg = (res && res.message) || 'Sorry there was an error.';
                 Actions.okpAlert({body: msg});

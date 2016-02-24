@@ -38,8 +38,9 @@ let HeaderView = React.createClass({
     },
     render() {
         let right;
+
         if (this.state.user.isFetched) {
-            let right = (this.state.user.id ? this.renderLogged() : this.renderNotLogged());
+            right = (this.state.user.id ? this.renderLogged() : this.renderNotLogged());
         }
 
         return (
@@ -70,7 +71,7 @@ let HeaderView = React.createClass({
                     </span>
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {links.map(function (link) {
+                    {links.map(link => {
                         return (
                             <li key={link}><a href={'/' + link}>{link}</a></li>
                         );

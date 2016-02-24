@@ -1,34 +1,36 @@
-var Backbone = require('backbone');
-var Email = require('./EmailModel');
-var Actions = require('../actions/Actions');
+'use strict';
 
-var model = Backbone.Model.extend({
-    defaults: function () {
+let Backbone = require('backbone');
+let Email = require('./EmailModel');
+let Actions = require('../actions/Actions');
+
+let model = Backbone.Model.extend({
+    defaults() {
         return {
             password: '',
             type: null,
             address: {}
         };
     },
-    urlRoot: function () {
-        var Store = require('../stores/Store');
+    urlRoot() {
+        let Store = require('../stores/Store');
         // when POSTing a new user, chop off '/api'
-        var currentUser = Store.getCurrentUser();
-        var route = currentUser.isNew() ? '/users' : '/api/users';
+        let currentUser = Store.getCurrentUser();
+        let route = currentUser.isNew() ? '/users' : '/api/users';
         return apiBaseUrl + route;
     },
-    profilePic: function (el) {
+    profilePic(el) {
         if (this.get('picture')) {
-            var url = this.get('picture');
-            var img = document.createElement('img');
-            img.onload = function(){
+            let url = this.get('picture');
+            let img = document.createElement('img');
+            img.onload = _ => {
                 el.style.backgroundImage = 'url("' + img.src + '")';
             };
             img.src = url;
         }
         return '';
     },
-    parse: function (model) {
+    parse(model) {
         this.fetched = true;
 
         if (model._id) {
@@ -36,16 +38,16 @@ var model = Backbone.Model.extend({
             delete model._id;
         }
         if (model.events) {
-            
+
         }
         this.status = true;
 
         return model;
     },
-    validate: function (attrs) {
-        var emailModel = new Email(attrs.email);
-        var mailOutput = emailModel.isValid();
-        var errors = {};
+    validate(attrs) {
+        let emailModel = new Email(attrs.email);
+        let mailOutput = emailModel.isValid();
+        let errors = {};
 
         if (!mailOutput) {
             errors.email = emailModel.validationError;

@@ -88,7 +88,7 @@ let ContactUsModal = React.createClass({
             	content: this.state.content
             }
         })
-        .done(function(data) {
+        .done(data => {
             $('#contactUsModal').modal('hide');
             setTimeout(_ => {
             	Actions.okpAlert({

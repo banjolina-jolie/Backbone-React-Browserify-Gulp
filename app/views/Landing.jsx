@@ -11,7 +11,6 @@ let LandingView = React.createClass({
     render() {
         return (
             <div className="landing">
-                <a name="topmost"></a>
                 <Header />
 
                 <div></div>
@@ -22,7 +21,6 @@ let LandingView = React.createClass({
                         <SearchBar />
                     </div>
                 </section>
-                    <a href="#topmost" data-bypass>BACK TO TOP</a>
 
             </div>
         );

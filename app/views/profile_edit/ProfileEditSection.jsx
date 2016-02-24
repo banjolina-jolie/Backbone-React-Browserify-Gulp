@@ -2,6 +2,7 @@
 
 let React = require('react');
 let Actions = require('../../actions/Actions');
+let Store = require('../../stores/Store');
 
 let Basic = require('./Basic.jsx');
 let Bio = require('./Bio.jsx');
@@ -42,6 +43,7 @@ let ProfileEditSections = React.createClass({
         );
     },
     render() {
+        var SecondaryView = this.getSecondaryView();
         let secondaries = $.extend(true, {}, profileEditConfig[this.props.primary]);
         delete secondaries['change-password'];
 
@@ -50,7 +52,7 @@ let ProfileEditSections = React.createClass({
                 <div className="with-titles">
                     <ul className="profile-edit-secondary-header m0">
                         <div className="row m0">
-                            {_.map(secondaries, function (obj, key) {
+                            {_.map(secondaries, (obj, key) => {
                                 let classes = 'tab-link';
                                 if (key === this.props.secondary) {
                                     classes += ' selected';
@@ -64,7 +66,7 @@ let ProfileEditSections = React.createClass({
                         </div>
                     </ul>
 
-                    { React.createElement(this.getSecondaryView()) }
+                    <SecondaryView />
 
                     <button onClick={this.triggerSet} id="save-profile-edit" className="btn btn-default btn-solid btn-blue mb40">Save</button>
                 </div>
@@ -73,7 +75,7 @@ let ProfileEditSections = React.createClass({
         	return (
     	    	<div className="no-titles">
 
-                    { React.createElement(this.getSecondaryView()) }
+                    <SecondaryView />
 
                     <button onClick={this.triggerSet} id="save-profile-edit" className="btn btn-default btn-solid btn-blue mb40">Save</button>
     	        </div>
@@ -82,13 +84,14 @@ let ProfileEditSections = React.createClass({
 
 	},
     triggerSet(e) {
+        window.Store = Store;
         e.preventDefault();
         let user = Store.getCurrentUser();
-        user.off(this.save);
+        user.off('change', this.save);
         user.once('change', this.save);
         Actions.saveProfile();
     },
-    save(e) {
+    save() {
         let user = Store.getCurrentUser();
 
         if (this.props.secondary !== 'payments') {

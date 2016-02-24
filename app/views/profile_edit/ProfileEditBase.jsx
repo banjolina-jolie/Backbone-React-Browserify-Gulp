@@ -16,7 +16,7 @@ let sectionMapper = {
 
 let ProfileEditBase = React.createClass({
     renderLeftBarPrimaries(primary) {
-        return _.map(sectionMapper, function (val, key) {
+        return _.map(sectionMapper, (val, key) => {
             let classes = primary === key ? 'active-primary' : '';
             return <li key={key} ><a className={classes} href={'/account/'+key}>{val.title}</a></li>;
         });
@@ -26,7 +26,7 @@ let ProfileEditBase = React.createClass({
         let secondary = sectionMapper[primary].sections[0];
 
         if (this.props.section) {
-            _.each(sectionMapper, function (val, key, obj) {
+            _.each(sectionMapper, (val, key, obj) => {
                 if (_.contains(val.sections, this.props.section)) {
                     primary = key;
                     secondary = this.props.section;

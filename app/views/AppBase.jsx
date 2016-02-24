@@ -10,7 +10,7 @@ let Header = require('../views/Header.jsx');
 let Footer = require('../views/Footer.jsx');
 
 
-function getState() {
+let getState = _ => {
     return {
         user: Store.getCurrentUser(),
         header: Store.getHeader(),
@@ -63,10 +63,17 @@ let AppBaseView = React.createClass({
                 {this.renderAlertModal()}
 
                 <ContactUsModal />
+
+                { this.renderRegisterModal() }
+
                 <LoginModal />
-                <RegisterModal />
             </div>
         );
+    },
+    renderRegisterModal() {
+        if (!this.state.user.id) {
+            return (<RegisterModal />);
+        }
     },
     renderHeader() {
         if (this.state.header) {

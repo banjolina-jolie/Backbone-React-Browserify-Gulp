@@ -9,8 +9,9 @@ let PersonalBio = React.createClass({
     mixins: [React.addons.LinkedStateMixin],
 
     _getState() {
+        let user = Store.getCurrentUser();
         return {
-            bio: this.props.user.get('bio')
+            bio: user.get('bio')
         };
     },
     _updateState() {
@@ -20,30 +21,31 @@ let PersonalBio = React.createClass({
         return this._getState();
     },
     componentDidMount() {
+        var currentUser = Store.getCurrentUser();
         Store.addSaveProfileListener(this._onSaveProfile);
         Store.addSetCurrentUserListener(this._updateState);
 
         let avatar = document.getElementById('profile-img');
-        this.props.user.profilePic(avatar);
-
-        this.props.user.on('sync', _ => {
-            if (this.newUrl) {
-                $('.avatar').css({'background-image': 'url("' + this.newUrl + '")'});
-                this.newUrl = false;
-            }
-        });
+        currentUser.profilePic(avatar);
+        currentUser.on('sync', this.userSyncCallback.bind(this));
+    },
+    userSyncCallback() {
+        if (this.newUrl) {
+            $('.avatar').css({'background-image': 'url("' + this.newUrl + '")'});
+            this.newUrl = false;
+        }
     },
     componentDidUpdate() {
         let avatar = document.getElementById('profile-img');
 
         if (!this.newUrl) {
-            this.props.user.profilePic(avatar);
+            Store.getCurrentUser().profilePic(avatar);
         }
     },
     componentWillUnmount() {
         Store.removeSaveProfileListener(this._onSaveProfile);
         Store.removeSetCurrentUserListener(this._updateState);
-        this.props.user.off();
+        Store.getCurrentUser().off('sync', this.userSyncCallback);
     },
     render() {
         return (
@@ -94,11 +96,11 @@ let PersonalBio = React.createClass({
         let imgtag = document.getElementById('profile-img');
         imgtag.title = selectedFile.name;
 
-        reader.onload = function(ev) {
+        reader.onload = ev => {
             this.newUrl = ev.target.result;
             imgtag.style.backgroundImage = 'url("' + ev.target.result + '")';
 
-            this.convertImgToBase64URL(ev.target.result, function(base64Img){
+            this.convertImgToBase64URL(ev.target.result, base64Img => {
                 this.setState({profileIcon: base64Img});
                 this.setEnabledButton();
             });
@@ -127,7 +129,7 @@ let PersonalBio = React.createClass({
         Actions.setEnabledButton(!!(this.state.profileIcon || this.state.bio));
     },
     _onSaveProfile() {
-        this.props.user.set({
+        Store.getCurrentUser().set({
             picture: this.state.profileIcon,
             bio: this.state.bio
         });

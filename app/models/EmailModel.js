@@ -1,17 +1,19 @@
-var Backbone = require('backbone');
+'use strict';
 
-var Mail = Backbone.Model.extend({
+let Backbone = require('backbone');
+
+let Mail = Backbone.Model.extend({
     constructor: function (mail) {
         mail = mail || '';
         this.mail = mail.trim();
         Backbone.Model.apply(this, arguments);
     },
-    validate: function () {
-        if(this.mail.length == 0) {
+    validate() {
+        if (this.mail.length == 0) {
             return Mail.empty;
         }
-        var splittedAt = this.mail.split('@');
-        if(splittedAt.length < 2) {
+        let splittedAt = this.mail.split('@');
+        if (splittedAt.length < 2) {
             return Mail.noAt;
         } else if (splittedAt.length == 2 && (splittedAt[0].length==0 || splittedAt[1].length==0)) {
             return Mail.atInMiddle;
@@ -22,7 +24,7 @@ var Mail = Backbone.Model.extend({
             return Mail.noTLD;
         }
     },
-    toString: function () {
+    toString() {
         return this.mail;
     }
 });

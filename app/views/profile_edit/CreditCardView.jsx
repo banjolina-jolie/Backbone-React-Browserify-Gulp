@@ -4,16 +4,17 @@ let React = require('react/addons');
 let Actions = require('../../actions/Actions');
 let Store = require('../../stores/Store');
 let vsBinding = require('../../utils/vsBinding');
-let months = numRange(1, 12);
-let years = numRange(2015, 2025);
 
 let numRange = (min, max) => {
-	let arr = [];
-	for (let i = min; i <= max; i++) {
-		arr.push(i);
-	}
-	return arr;
+    let arr = [];
+    for (let i = min; i <= max; i++) {
+        arr.push(i);
+    }
+    return arr;
 }
+
+let months = numRange(1, 12);
+let years = numRange(2015, 2025);
 
 let renderOption = num => {
 	return <option key={num} value={num}>{num}</option>;
@@ -260,7 +261,7 @@ let CreditCardView = React.createClass({
         		details: values
         	}
         })
-        .fail(function (res) {
+        .fail(res => {
         	this.props.user.validationError = true;
         	Actions.okpAlert({body: res.responseJSON.message || 'Sorry there was an error'});
         });

@@ -1,31 +1,33 @@
-var Dispatcher = require('../dispatcher/Dispatcher');
-var EventEmitter = require('events').EventEmitter;
-var Constants = require('../constants/Constants');
-var assign = require('object-assign');
-var User =  require('../models/UserModel');
+'use strict';
+
+let Dispatcher = require('../dispatcher/Dispatcher');
+let EventEmitter = require('events').EventEmitter;
+let Constants = require('../constants/Constants');
+let assign = require('object-assign');
+let User =  require('../models/UserModel');
 
 // Events
-var UI_CHANGE_EVENT = 'uiChange';
-var SAVE_PROFILE_EVENT = 'saveProfile';
-var SET_CURRENT_USER_EVENT = 'setCurrentUser';
-var SET_ENABLE_BUTTON_EVENT = 'setEnableButton';
-var SET_PAYMENT_METHODS_EVENT = 'setPaymentMethods';
-var SET_SELECTED_CARD_EVENT = 'setSelectedCard';
-var SET_LOADING_EVENT = 'setLoading';
-var OKP_ALERT_EVENT = 'okpAlert';
+let UI_CHANGE_EVENT = 'uiChange';
+let SAVE_PROFILE_EVENT = 'saveProfile';
+let SET_CURRENT_USER_EVENT = 'setCurrentUser';
+let SET_ENABLE_BUTTON_EVENT = 'setEnableButton';
+let SET_PAYMENT_METHODS_EVENT = 'setPaymentMethods';
+let SET_SELECTED_CARD_EVENT = 'setSelectedCard';
+let SET_LOADING_EVENT = 'setLoading';
+let OKP_ALERT_EVENT = 'okpAlert';
 
 // Persisted Values
-var _currentUser = new User();
-var _header = null;
-var _footer = null;
-var _buttonEnableState = null;
-var _paymentMethods = null;
-var _selectedCard = null;
-var _loading = null;
-var _alert = null;
-var _checkListenerSuccessCB = {};
-var _view = null;
-var _viewData = { user: _currentUser };
+let _currentUser = new User();
+let _header = null;
+let _footer = null;
+let _buttonEnableState = null;
+let _paymentMethods = null;
+let _selectedCard = null;
+let _loading = null;
+let _alert = null;
+let _checkListenerSuccessCB = {};
+let _view = null;
+let _viewData = { user: _currentUser };
 
 
 // Persisted Value Modifiers
@@ -41,7 +43,7 @@ function changeUI(ui, view, viewData) {
 	if (view) {
 		_view = view;
 	}
-	
+
 	_viewData = viewData || {};
 }
 
@@ -71,119 +73,119 @@ function setAlert(alert) {
 
 
 // Store Methods
-var Store = assign({}, EventEmitter.prototype, {
+let Store = assign({}, EventEmitter.prototype, {
 
-	emitChange: function (evt) {
+	emitChange(evt) {
 		this.emit(evt);
 	},
 
-	getCurrentUser: function () {
+	getCurrentUser() {
 		return _currentUser;
 	},
 
-	getHeader: function () {
+	getHeader() {
 		return _header;
 	},
 
-	getFooter: function () {
+	getFooter() {
 		return _footer;
 	},
 
-	getButtonEnableState: function () {
+	getButtonEnableState() {
 		return _buttonEnableState;
 	},
 
-	getPaymentMethods: function () {
+	getPaymentMethods() {
 		return _paymentMethods;
 	},
 
-	getSelectedCard: function () {
+	getSelectedCard() {
 		return _selectedCard;
 	},
 
-	getLoading: function () {
+	getLoading() {
 		return _loading;
 	},
 
-	getAlert: function () {
+	getAlert() {
 		return _alert;
 	},
 
-	getView: function () {
+	getView() {
 		return {
 			view: _view,
 			data: _viewData
 		}
 	},
 
-	addUIChangeListener: function (callback) {
+	addUIChangeListener(callback) {
 		this.on(UI_CHANGE_EVENT, callback);
 	},
 
-	removeUIChangeListener: function (callback) {
+	removeUIChangeListener(callback) {
 		this.removeListener(UI_CHANGE_EVENT, callback);
 	},
 
-	addSaveProfileListener: function (callback) {
+	addSaveProfileListener(callback) {
 		this.on(SAVE_PROFILE_EVENT, callback);
 	},
 
-	removeSaveProfileListener: function (callback) {
+	removeSaveProfileListener(callback) {
 		this.removeListener(SAVE_PROFILE_EVENT, callback);
 	},
 
-	addEnableButtonListener: function (callback) {
+	addEnableButtonListener(callback) {
 		this.on(SET_ENABLE_BUTTON_EVENT, callback);
 	},
 
-	removeEnableButtonListener: function (callback) {
+	removeEnableButtonListener(callback) {
 		this.removeListener(SET_ENABLE_BUTTON_EVENT, callback);
 	},
 
-	addSetPaymentMethodsListener: function (callback) {
+	addSetPaymentMethodsListener(callback) {
 		this.on(SET_PAYMENT_METHODS_EVENT, callback);
 	},
 
-	removeSetPaymentMethodsListener: function (callback) {
+	removeSetPaymentMethodsListener(callback) {
 		this.removeListener(SET_PAYMENT_METHODS_EVENT, callback);
 	},
 
-	addSetSelectedCardListener: function (callback) {
+	addSetSelectedCardListener(callback) {
 		this.on(SET_SELECTED_CARD_EVENT, callback);
 	},
 
-	removeSetSelectedCardListener: function (callback) {
+	removeSetSelectedCardListener(callback) {
 		this.removeListener(SET_SELECTED_CARD_EVENT, callback);
 	},
 
-	addSetLoadingListener: function (callback) {
+	addSetLoadingListener(callback) {
 		this.on(SET_LOADING_EVENT, callback);
 	},
 
-	removeSetLoadingListener: function (callback) {
+	removeSetLoadingListener(callback) {
 		this.removeListener(SET_LOADING_EVENT, callback);
 	},
 
-	addSetCurrentUserListener: function (callback) {
+	addSetCurrentUserListener(callback) {
 		this.on(SET_CURRENT_USER_EVENT, callback);
 	},
 
-	removeSetCurrentUserListener: function (callback) {
+	removeSetCurrentUserListener(callback) {
 		this.removeListener(SET_CURRENT_USER_EVENT, callback);
 	},
 
-	addOkpAlertListener: function (callback) {
+	addOkpAlertListener(callback) {
 		this.on(OKP_ALERT_EVENT, callback);
 	},
 
-	removeOkpAlertListener: function (callback) {
+	removeOkpAlertListener(callback) {
 		this.removeListener(OKP_ALERT_EVENT, callback);
 	}
 
 });
 
 // Register callback to handle all updates
-Dispatcher.register(function (action) {
+Dispatcher.register(action => {
 
 	switch(action.actionType) {
 

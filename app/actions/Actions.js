@@ -1,28 +1,30 @@
-var Dispatcher = require('../dispatcher/Dispatcher');
-var Constants = require('../constants/Constants');
+'use strict';
 
-var Actions = {
-    setCurrentUser: function (userModel) {
+let Dispatcher = require('../dispatcher/Dispatcher');
+let Constants = require('../constants/Constants');
+
+let Actions = {
+    setCurrentUser(userModel) {
         Dispatcher.dispatch({
             actionType: Constants.SET_CURRENT_USER,
             userModel: userModel
         });
     },
-    startLoading: function () {
+    startLoading() {
         this._setLoading(true);
     },
-    stopLoading: function () {
+    stopLoading() {
         this._setLoading(false);
     },
-    _setLoading: function (loading) {
-        setTimeout(function () {
+    _setLoading(loading) {
+        setTimeout(_ => {
             Dispatcher.dispatch({
                 actionType: Constants.SET_LOADING,
                 loading: loading
             });
         }, 0);
     },
-    setUI: function (ui, view, viewData) {
+    setUI(ui, view, viewData) {
         Dispatcher.dispatch({
             actionType: Constants.CHANGE_UI,
             ui: ui,
@@ -30,34 +32,34 @@ var Actions = {
             viewData: viewData
         });
     },
-    setEnabledButton: function (enabled) {
+    setEnabledButton(enabled) {
         Dispatcher.dispatch({
             actionType: Constants.SET_ENABLE_BUTTON,
             enabled: enabled
         });
     },
-    saveProfile: function () {
+    saveProfile() {
         Dispatcher.dispatch({
             actionType: Constants.SAVE_PROFILE
         });
     },
-    setPaymentMethods: function (paymentMethods) {
+    setPaymentMethods(paymentMethods) {
         Dispatcher.dispatch({
             actionType: Constants.SET_PAYMENT_METHODS,
             paymentMethods: paymentMethods
         });
     },
-    setSelectedCard: function (card) {
+    setSelectedCard(card) {
         Dispatcher.dispatch({
             actionType: Constants.SET_SELECTED_CARD,
             card: card
-        });  
+        });
     },
-    okpAlert: function (alert) {
+    okpAlert(alert) {
         Dispatcher.dispatch({
             actionType: Constants.OKP_ALERT,
             alert: alert
-        }); 
+        });
     }
 };
 
