@@ -19,52 +19,15 @@ let router = Backbone.Router.extend({
     routes: {
         '': 'landing',
         'login': 'login',
-        'logout': 'logout',
-        'account': 'profileEdit',
-        'account/:section': 'profileEdit',
-        'about': 'about',
-        'terms': 'terms',
-        'privacy': 'privacy',
         '*all': 'notFound'
     },
-    initialize(options) {
-        // NOTE: use for debugging
-        window.currentUser = Store.getCurrentUser();
+    landing() {
+        let view = require('./views/Landing.jsx');
+        Actions.setUI(view);
     },
     notFound() {
         // TODO: make nice 404 page
         this.navigate('/', { trigger: true });
-    },
-    about() {
-        let view = require('./views/About.jsx');
-        Actions.setUI('loggedIn', view);
-    },
-    logout() {
-        // TODO: Log out of FB
-        $.ajax({
-            url: apiBaseUrl + '/api/logout' // server should remove cookie
-        })
-        .done(_ => {
-            window.location.href= '/';
-        });
-    },
-    landing() {
-        let view = require('./views/Landing.jsx');
-        Actions.setUI(false, view);
-    },
-    profileEdit(section) {
-        let view = require('./views/profile_edit/ProfileEditBase.jsx');
-        let data = { section: section };
-        Actions.setUI('loggedIn', view, data);
-    },
-    terms() {
-        let view = require('./views/Terms.jsx');
-        Actions.setUI('loggedIn', view);
-    },
-    privacy() {
-        let view = require('./views/Privacy.jsx');
-        Actions.setUI('loggedIn', view);
-
     }
 });
 

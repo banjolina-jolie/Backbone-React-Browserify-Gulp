@@ -17,12 +17,10 @@ let Actions = {
         this._setLoading(false);
     },
     _setLoading(loading) {
-        setTimeout(_ => {
-            Dispatcher.dispatch({
-                actionType: Constants.SET_LOADING,
-                loading: loading
-            });
-        }, 0);
+        Dispatcher.dispatch({
+            actionType: Constants.SET_LOADING,
+            loading: loading
+        });
     },
     setUI(ui, view, viewData) {
         Dispatcher.dispatch({
@@ -30,35 +28,6 @@ let Actions = {
             ui: ui,
             view: view,
             viewData: viewData
-        });
-    },
-    setEnabledButton(enabled) {
-        Dispatcher.dispatch({
-            actionType: Constants.SET_ENABLE_BUTTON,
-            enabled: enabled
-        });
-    },
-    saveProfile() {
-        Dispatcher.dispatch({
-            actionType: Constants.SAVE_PROFILE
-        });
-    },
-    setPaymentMethods(paymentMethods) {
-        Dispatcher.dispatch({
-            actionType: Constants.SET_PAYMENT_METHODS,
-            paymentMethods: paymentMethods
-        });
-    },
-    setSelectedCard(card) {
-        Dispatcher.dispatch({
-            actionType: Constants.SET_SELECTED_CARD,
-            card: card
-        });
-    },
-    okpAlert(alert) {
-        Dispatcher.dispatch({
-            actionType: Constants.OKP_ALERT,
-            alert: alert
         });
     }
 };

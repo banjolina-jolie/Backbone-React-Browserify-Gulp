@@ -8,21 +8,15 @@ window.Backbone = require('backbone');
 window.$ = require('jquery');
 window.select2 = require('select2');
 window.moment = require('moment');
+window.apiBaseUrl = 'https://victor.bettercompany.co';
+
 Backbone.$ = $; // kinda sux
 
 let Actions = require('./actions/Actions');
 
 let UserModel = require('./models/UserModel');
 let AppBase = require('./views/AppBase.jsx');
-
 let Router = require('./router.jsx');
-
-$.ajaxSetup({
-   xhrFields: {
-        withCredentials: true
-    },
-    crossDomain: true
-});
 
 // Create currentUser model
 let currentUser = Store.getCurrentUser();
@@ -33,22 +27,13 @@ let router = new Router({ root: '/', currentUser: currentUser });
 // Start history
 Backbone.history.start({ pushState: true, root: '/' });
 
-// show loading while API checks cookies
-Actions.startLoading();
-
-// send GET to /login to read cookies and return currentUser
-currentUser.fetch({url: apiBaseUrl + '/login'})
-// NOTE: currentUser is parsed by now
-.done((response) => {
-    currentUser.isFetched = true;
-    Actions.setCurrentUser(currentUser);
-})
-.fail(_ => {
-    Actions.okpAlert({body: 'API is down.'});
-})
-.always(_ => {
-    Actions.stopLoading();
-});
+// // get token
+// $.ajax({
+//     url: apiBaseUrl + '/',
+//     headers: {
+//         Accept: 'application/json; scheme=root; version=0'
+//     }
+// });
 
 // make anchor tags work with pushstate (Backbone boilerplate)
 $(document).on('click', 'a:not([data-bypass])', function (evt) {

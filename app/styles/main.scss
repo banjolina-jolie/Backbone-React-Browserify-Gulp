@@ -7,18 +7,13 @@
 @import "shared/variables";
 @import "shared/fonts";
 @import "shared/font-awesome/font-awesome";
-@import "shared/typography";
 @import "shared/helpers";
 @import "shared/layout";
 
 // // Components
-@import "components/navbar";
-@import "components/footer";
 @import "components/buttons";
 @import "components/forms";
 @import "components/radio-buttons";
 
 // // Pages
 @import "pages/landing";
-@import "pages/search";
-@import "pages/profile-edit";

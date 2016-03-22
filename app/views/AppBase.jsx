@@ -58,8 +58,6 @@ let AppBaseView = React.createClass({
 
                 <div id="content"></div>
 
-                <Footer />
-
                 {this.renderAlertModal()}
 
                 <ContactUsModal />

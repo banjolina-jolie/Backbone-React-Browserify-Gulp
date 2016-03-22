@@ -35,15 +35,8 @@ function setCurrentUser(model) {
 	_currentUser = model;
 }
 
-function changeUI(ui, view, viewData) {
-	_buttonEnableState = null;
-	_header = ui;
-	_footer = ui;
-
-	if (view) {
-		_view = view;
-	}
-
+function changeUI(view, viewData) {
+	_view = view;
 	_viewData = viewData || {};
 }
 
@@ -83,26 +76,6 @@ let Store = assign({}, EventEmitter.prototype, {
 		return _currentUser;
 	},
 
-	getHeader() {
-		return _header;
-	},
-
-	getFooter() {
-		return _footer;
-	},
-
-	getButtonEnableState() {
-		return _buttonEnableState;
-	},
-
-	getPaymentMethods() {
-		return _paymentMethods;
-	},
-
-	getSelectedCard() {
-		return _selectedCard;
-	},
-
 	getLoading() {
 		return _loading;
 	},
@@ -126,38 +99,6 @@ let Store = assign({}, EventEmitter.prototype, {
 		this.removeListener(UI_CHANGE_EVENT, callback);
 	},
 
-	addSaveProfileListener(callback) {
-		this.on(SAVE_PROFILE_EVENT, callback);
-	},
-
-	removeSaveProfileListener(callback) {
-		this.removeListener(SAVE_PROFILE_EVENT, callback);
-	},
-
-	addEnableButtonListener(callback) {
-		this.on(SET_ENABLE_BUTTON_EVENT, callback);
-	},
-
-	removeEnableButtonListener(callback) {
-		this.removeListener(SET_ENABLE_BUTTON_EVENT, callback);
-	},
-
-	addSetPaymentMethodsListener(callback) {
-		this.on(SET_PAYMENT_METHODS_EVENT, callback);
-	},
-
-	removeSetPaymentMethodsListener(callback) {
-		this.removeListener(SET_PAYMENT_METHODS_EVENT, callback);
-	},
-
-	addSetSelectedCardListener(callback) {
-		this.on(SET_SELECTED_CARD_EVENT, callback);
-	},
-
-	removeSetSelectedCardListener(callback) {
-		this.removeListener(SET_SELECTED_CARD_EVENT, callback);
-	},
-
 	addSetLoadingListener(callback) {
 		this.on(SET_LOADING_EVENT, callback);
 	},
@@ -172,14 +113,6 @@ let Store = assign({}, EventEmitter.prototype, {
 
 	removeSetCurrentUserListener(callback) {
 		this.removeListener(SET_CURRENT_USER_EVENT, callback);
-	},
-
-	addOkpAlertListener(callback) {
-		this.on(OKP_ALERT_EVENT, callback);
-	},
-
-	removeOkpAlertListener(callback) {
-		this.removeListener(OKP_ALERT_EVENT, callback);
 	}
 
 });
@@ -199,34 +132,9 @@ Dispatcher.register(action => {
 			Store.emitChange(UI_CHANGE_EVENT);
 		break;
 
-		case Constants.SAVE_PROFILE:
-			Store.emitChange(SAVE_PROFILE_EVENT);
-		break;
-
-		case Constants.SET_ENABLE_BUTTON:
-			changeEnableButton(action.enabled);
-			Store.emitChange(SET_ENABLE_BUTTON_EVENT);
-		break;
-
-		case Constants.SET_PAYMENT_METHODS:
-			setPaymentMethods(action.details);
-			Store.emitChange(SET_PAYMENT_METHODS_EVENT);
-		break;
-
-		case Constants.SET_SELECTED_CARD:
-			setSelectedCard(action.card);
-			Store.emitChange(SET_SELECTED_CARD_EVENT);
-		break;
-
 		case Constants.SET_LOADING:
 			setLoading(action.loading);
 			Store.emitChange(SET_LOADING_EVENT);
-		break;
-
-
-		case Constants.OKP_ALERT:
-			setAlert(action.alert);
-			Store.emitChange(OKP_ALERT_EVENT);
 		break;
 
 		default:

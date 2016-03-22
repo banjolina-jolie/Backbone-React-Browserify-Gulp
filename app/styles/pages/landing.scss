@@ -1,101 +1,53 @@
 .landing {
-    position: relative;
+    background-image: url("/assets/img_background@2x.jpg");
+    background-size: cover;
+    background-position: bottom;
+    height: 100vh;
+    padding-top: 10vh;
+}
 
-    h2 {
-        color: #fff;
-    }
+.title-container {
+}
 
-    .glyphicon {
-        font-size: 36px;
+.page-title {
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+}
 
-        &.glyphicon-triangle-bottom {
-            font-size: 8px;
-        }
-    }
+.page-description {
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+}
 
-    .dashboard {
-        max-width: 1000px;
-    }
-    
-    .dashboard-title {
-        font-family: $font-Raleway;
-        font-size: 36px;
-    }
+.login-container {
+    margin: 40px auto 0;
+    text-align: center;
+    width: 330px;
 
-    .dashboard-btn {
-        background-color: rgba(255, 255, 255, 0.1);
-        text-transform: capitalize;
+    input {
         display: block;
-        color: #fff;
-        margin: auto;
-        padding-top: 65px;
-        border: 2px solid #fff;
-        border-radius: 8px;
-        width: 240px;
-        height: 212px;
-        margin-bottom: 30px;
-
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: darken(#fff, 15%);
-            border-color: darken(#fff, 15%);
-        }
-    }
-
-    .navbar {
-        margin-top: 16px;
-        padding: 0;
-        position: absolute;
+        outline: none;
+        border: none;
+        padding: 20px;
         width: 100%;
-        
-        .container {
-            border: none;
+        font-weight: bold;
+
+        &.email-input {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            border-bottom: 1px solid #ddd;
         }
-
-        .brand {
-            color: $white-text-color;
-        }
-
-        .navbar-nav {
-            li {
-                a {
-                    color: $white-text-color;
-
-                    &:hover {
-                        color: $link-lightblue_hover;
-                    }
-                }
-            }
-        }
-
-        .firstName {
-            color: $white-text-color;
-        }
-
-        .btn.btn-outline.btn-white.xs-border-blue {
-            border-color: $white-text-color;
-            color: $white-text-color;
+        &.password-input {
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
         }
     }
-
-    .intro {
-        background: url("/images/landing_img.jpg") no-repeat;
-        background-size: cover;
-        padding-top: 90px;
-        height: 560px;
-
-        .container {
-            position: relative;
-            top: 10%;
-        }
-
-        .intro-title {
-            color: $white-text-color;
-            font-size: 72px;
-        }
-
-        .big-search-block {
-            margin-top: 50px;
-        }
+    .btn {
+        margin-top: 15px;
+        width: 100%;
+        background-color: $purple;
+        color: #fff;
     }
 }
