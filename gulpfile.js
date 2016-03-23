@@ -3,17 +3,10 @@ var connect = require('gulp-connect');
 var browserify = require('browserify');
 var transform = require('vinyl-transform');
 var historyApiFallback = require('connect-history-api-fallback');
-var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
 var clean = require('gulp-clean');
 var concat = require('gulp-concat');
-var preprocess = require('gulp-preprocess');
 
-
-// Load .env
-if(process.env.NODE_ENV !== 'production') {
-    require('dotenv').load();
-}
 
 // Clean
 gulp.task('clean', function () {
@@ -23,11 +16,10 @@ gulp.task('clean', function () {
 
 // Connect
 gulp.task('connect', function() {
-    var livereload = process.env.NODE_ENV !== 'production' ? true : false;
-    console.log("bring up web server on port " + process.env.PORT)
+    var livereload = true;
     connect.server({
         root: ['dist', 'app'],
-        port: process.env.PORT,
+        port: 8008,
         livereload: livereload,
         keepalive: true,
         middleware: function(connect, opt) {
@@ -41,35 +33,20 @@ gulp.task('connect', function() {
 // Browserify
 gulp.task('browserify', function () {
     var browserified = transform(function(filename) {
-        var b = browserify(filename, {noParse: ['jquery', 'moment']});
+        var b = browserify(filename, {noParse: ['jquery']});
         return b.bundle();
     });
-    if (process.env.NODE_ENV !== 'production') {
-        // skip uglify in development
-        return gulp.src(['./app/main.js'])
-            .pipe(browserified)
-            .pipe(gulp.dest('./dist/js'))
-            .pipe(connect.reload());
-    } else {
-        return gulp.src(['./app/main.js'])
-            .pipe(browserified)
-            .pipe(uglify())
-            .pipe(gulp.dest('./dist/js'))
-            .pipe(connect.reload());
-    }
+
+    return gulp.src(['./app/main.js'])
+        .pipe(browserified)
+        .pipe(gulp.dest('./dist/js'))
+        .pipe(connect.reload());
 });
 
-// Preprocess
-gulp.task('preprocess', function () {
-    gulp.src('./app/index.html')
-        .pipe(preprocess({context: { NODE_ENV: process.env.NODE_ENV }}))
-        .pipe(gulp.dest('./dist/'));
-});
 
 // HTML
 gulp.task('html', function () {
     gulp.src('./app/*.html')
-        .pipe(preprocess({context: { NODE_ENV: process.env.NODE_ENV }}))
         .pipe(connect.reload());
 });
 
@@ -89,10 +66,6 @@ gulp.task('watch', function () {
     gulp.watch(['./app/styles/**/*.scss'], ['sass']);
 });
 
-var defaultTasks = ['clean', 'preprocess', 'browserify', 'sass', 'connect'];
-
-if (process.env.NODE_ENV !== 'production') {
-    defaultTasks.push('watch');
-}
+var defaultTasks = ['clean', 'browserify', 'sass', 'connect', 'watch'];
 
 gulp.task('default', defaultTasks);

@@ -3,13 +3,18 @@ html, body {
     background-color: #fbfbfb;
     color: #444;
     font-family: "Quicksand";
+    font-size: 16px;
 }
 
 .app-view {
     position: absolute;
+    background-image: url("/assets/img_background@2x.jpg");
+    background-size: cover;
+    background-position: bottom;
     min-height: 100vh;
     width: 100%;
 }
+
 .spinner {
     &.loading {
         position: absolute;

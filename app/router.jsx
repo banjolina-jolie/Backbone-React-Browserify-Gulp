@@ -3,7 +3,6 @@
 let React = require('react');
 let Actions = require('./actions/Actions');
 let Store = require('./stores/Store');
-let UserModel = require('./models/UserModel');
 
 let parseQuery = qstr => {
     let query = {};
@@ -17,12 +16,16 @@ let parseQuery = qstr => {
 
 let router = Backbone.Router.extend({
     routes: {
-        '': 'landing',
-        'login': 'login',
+        '': 'login',
+        'messages': 'messages',
         '*all': 'notFound'
     },
-    landing() {
-        let view = require('./views/Landing.jsx');
+    login() {
+        let view = require('./views/Login.jsx');
+        Actions.setUI(view);
+    },
+    messages() {
+        let view = require('./views/Messages.jsx');
         Actions.setUI(view);
     },
     notFound() {

@@ -1,8 +1,4 @@
-.landing {
-    background-image: url("/assets/img_background@2x.jpg");
-    background-size: cover;
-    background-position: bottom;
-    height: 100vh;
+.login-page {
     padding-top: 10vh;
 }
 
@@ -43,11 +39,5 @@
             border-bottom-left-radius: 8px;
             border-bottom-right-radius: 8px;
         }
-    }
-    .btn {
-        margin-top: 15px;
-        width: 100%;
-        background-color: $purple;
-        color: #fff;
     }
 }

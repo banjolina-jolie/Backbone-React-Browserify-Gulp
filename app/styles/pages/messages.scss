@@ -1,0 +1,75 @@
+.logout {
+    height: 50px;
+
+    &:before {
+        content: ' ';
+        background-image: url('../assets/btn_back.svg');
+        display: block;
+        background-size: 28px 28px;
+        height: 28px;
+        width: 28px;
+    }
+}
+
+.messages-list {
+    max-width: 500px;
+    margin: auto;
+    padding: 0 10px;
+}
+
+.message-container {
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.message-content {
+    margin-top: 10px;
+    color: #888;
+}
+
+.compose-container {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+}
+
+.compose-btn {
+    margin: auto;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    background-color: $purple;
+    box-shadow: 0 0 7px #000;
+    margin-left: -50%;
+}
+
+.compose-modal .modal-dialog {
+    max-width: 330px;
+}
+
+.compose-modal .modal-dialog.new-message-content-container {
+    margin-top: 25vh;
+    margin-bottom: 0;
+}
+
+.submit-post-container {
+    margin-top: 0;
+}
+
+.new-message-content {
+    border-radius: 8px;
+    width: 100%;
+    min-height: 240px;
+    padding: 18px;
+    font-weight: bold;
+    resize: none;
+    outline: none;
+}
+
+.modal-backdrop.in {
+    opacity: 0.8;
+    background-color: #333;
+}
