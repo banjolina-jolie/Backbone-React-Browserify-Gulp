@@ -12,7 +12,7 @@
 .messages-list {
     max-width: 500px;
     margin: auto;
-    padding: 0 10px;
+    padding: 0 15px;
 }
 
 .message-container {
@@ -49,6 +49,8 @@
 
 .compose-modal .modal-dialog {
     max-width: 330px;
+    margin: 30px auto;
+    padding: 0 10px;
 }
 
 .compose-modal .modal-dialog.new-message-content-container {

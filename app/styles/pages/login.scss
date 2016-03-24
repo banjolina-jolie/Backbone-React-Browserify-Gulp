@@ -1,5 +1,5 @@
 .login-page {
-    padding-top: 10vh;
+    padding: 10vh 15px 20px;
 }
 
 .title-container {
@@ -20,7 +20,7 @@
 .login-container {
     margin: 40px auto 0;
     text-align: center;
-    width: 330px;
+    max-width: 330px;
 
     input {
         display: block;

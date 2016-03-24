@@ -26,51 +26,51 @@ let LoginView = React.createClass({
                 <div className="login-container">
                     <input className="email-input" type="text" valueLink={this.linkState('email')} placeholder="Email" name="email"/>
                     <input className="password-input" type="password" valueLink={this.linkState('password')} placeholder="Password" name="password"/>
-                    <button className="btn" onClick={this.login}>sign in</button>
+                    <button className="btn" onClick={this._fetchAuthUrl}>sign in</button>
                 </div>
             </div>
         );
     },
-    login() {
-        let data = this.state;
-        let authUrl;
+    _fetchAuthUrl() {
+        // fetch auth URL
+        $.ajax({
+            url: apiBaseUrl + '/',
+            headers: {
+                Accept: 'application/json; scheme=root; version=0'
+            }
+        })
+        .done(this._sendAuth);
+    },
+    _sendAuth(data) {
+        let authUrl = data['authenticate-url'];
 
-        Seq()
-            .seq(function () {
-                // fetch auth URL
-                $.ajax({
-                    url: apiBaseUrl + '/',
-                    headers: {
-                        Accept: 'application/json; scheme=root; version=0'
-                    }
-                })
-                .done(data => {
-                    authUrl = data['authenticate-url'];
-                    this();
-                });
-            })
-            .seq(function() {
-                // POST email/password to fetch location and x-session-token
-                $.ajax({
-                    url: apiBaseUrl + authUrl,
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json; scheme=authentication; version=0',
-                    },
-                    type: 'post',
-                    data: JSON.stringify(data)
-                })
-                .done((data, status, res) => {
-                    let location = res.getResponseHeader('location');
-                    let token = res.getResponseHeader('x-session-token');
-                    // add token to headers
-                    window.localStorage.setItem('location', location);
-                    window.localStorage.setItem('token', token);
+        // POST email/password to fetch location and x-session-token
+        $.ajax({
+            url: apiBaseUrl + authUrl,
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json; scheme=authentication; version=0',
+            },
+            type: 'post',
+            data: JSON.stringify(this.state)
+        })
+        .done((data, status, res) => {
+            // set local storage for persistence
+            this._setLocalStorage(res);
+            // go to messages view
+            this._renderMessages();
+        });
+    },
+    _setLocalStorage(res) {
+        let location = res.getResponseHeader('location');
+        let token = res.getResponseHeader('x-session-token');
 
-                    let view = require('./Messages.jsx');
-                    Actions.setUI(view);
-                });
-            });
+        window.localStorage.setItem('location', location);
+        window.localStorage.setItem('token', token);
+    },
+    _renderMessages() {
+        let messagesView = require('./Messages.jsx');
+        Actions.setUI(messagesView);
     }
 });
 

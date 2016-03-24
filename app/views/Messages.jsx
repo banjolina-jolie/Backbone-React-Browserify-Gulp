@@ -23,12 +23,12 @@ let MessagesView = React.createClass({
         Store.addSetMessagesListener(this._updateState);
         // add token to all headers
         $.ajaxSetup({
-            beforeSend: function (xhr) {
+            beforeSend: xhr => {
                 xhr.setRequestHeader('x-session-token', localStorage.getItem('token'));
             }
         });
 
-        this._fetchMessages();
+        this._fetchMessageUrl();
     },
 
     componentWillUnmount() {
@@ -39,7 +39,7 @@ let MessagesView = React.createClass({
         return (
             <div className="messages-list">
 
-                <div className="logout"></div>
+                <div onClick={this._logout} className="logout"></div>
 
                 {this.state.messages.map( (message, idx) => {
                     return (
@@ -69,39 +69,44 @@ let MessagesView = React.createClass({
 
     _compose() {
         $('#composeModal').modal('show');
+        $('#composeModal').on('hidden.bs.modal', _ => {
+            this._fetchMessageUrl();
+        });
     },
 
-    _fetchMessages() {
+    _fetchMessageUrl() {
         let location = window.localStorage.getItem('location');
-        let msgUrl;
 
-        Seq()
-            .seq(function () {
-                // fetch messages-url
-                $.ajax({
-                    url: apiBaseUrl + location,
-                    headers: {
-                        Accept: 'application/json; scheme=session; version=0'
-                    }
-                })
-                .done(data => {
-                    msgUrl = data['messages-url'];
-                    Actions.setMessageUrl(msgUrl);
-                    this();
-                });
-            })
-            .seq(function () {
-                // fetch messages
-                $.ajax({
-                    url: apiBaseUrl + msgUrl,
-                    headers: {
-                        Accept: 'application/json; scheme=messages; version=0'
-                    }
-                })
-                .done(data => {
-                    Actions.setMessages(data.messages);
-                });
-            });
+        $.ajax({
+            url: apiBaseUrl + location,
+            headers: {
+                Accept: 'application/json; scheme=session; version=0'
+            }
+        })
+        .done(this._fetchMessages);
+    },
+
+    _fetchMessages(data) {
+        let msgUrl = data['messages-url'];
+        Actions.setMessageUrl(msgUrl);
+
+        $.ajax({
+            url: apiBaseUrl + msgUrl,
+            headers: {
+                Accept: 'application/json; scheme=messages; version=0'
+            }
+        })
+        .done(data => {
+            Actions.setMessages(data.messages);
+        });
+    },
+
+    _logout() {
+        window.localStorage.removeItem('location');
+        window.localStorage.removeItem('token');
+
+        let loginView = require('./Login.jsx');
+        Actions.setUI(loginView);
     }
 });
 
