@@ -11,7 +11,8 @@ let SET_LOADING_EVENT = 'setLoading';
 let SET_MESSAGES_EVENT = 'setMessages';
 
 // Persisted Values
-let _messages = [{author: 'richard@gere.com', content: 'Hey there buddy.'}, {author: 'kelly@slater.com', content: 'Im here for the waves!'}];
+let _messageUrl = null;
+let _messages = [];
 let _loading = null;
 let _view = null;
 let _viewData = {};
@@ -28,6 +29,14 @@ function setLoading(loading) {
 	_loading = loading;
 }
 
+function setMessages(messages) {
+	_messages = messages;
+}
+
+function setMessageUrl(messageUrl) {
+	_messageUrl = messageUrl;
+}
+
 // Store Methods
 let Store = assign({}, EventEmitter.prototype, {
 
@@ -39,10 +48,6 @@ let Store = assign({}, EventEmitter.prototype, {
 		return _loading;
 	},
 
-	getAlert() {
-		return _alert;
-	},
-
 	getView() {
 		return {
 			view: _view,
@@ -52,6 +57,10 @@ let Store = assign({}, EventEmitter.prototype, {
 
 	getMessages() {
 		return _messages;
+	},
+
+	getMessageUrl() {
+		return _messageUrl;
 	},
 
 	addUIChangeListener(callback) {
@@ -98,6 +107,10 @@ Dispatcher.register(action => {
 		case Constants.SET_MESSAGES:
 			setMessages(action.messages);
 			Store.emitChange(SET_MESSAGES_EVENT);
+		break;
+
+		case Constants.SET_MESSAGE_URL:
+			setMessageUrl(action.messageUrl);
 		break;
 
 		default:

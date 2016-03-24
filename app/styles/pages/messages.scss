@@ -1,14 +1,12 @@
 .logout {
-    height: 50px;
-
-    &:before {
-        content: ' ';
-        background-image: url('../assets/btn_back.svg');
-        display: block;
-        background-size: 28px 28px;
-        height: 28px;
-        width: 28px;
-    }
+    display: inline-block;
+    height: 70px;
+    width: 42px;
+    background-image: url('assets/btn_logout.svg');
+    background-repeat: no-repeat;
+    background-size: 72px;
+    background-position: -27px;
+    cursor: pointer;
 }
 
 .messages-list {
@@ -41,9 +39,12 @@
     width: 70px;
     height: 70px;
     border-radius: 100%;
-    background-color: $purple;
-    box-shadow: 0 0 7px #000;
+    background-image: url('/assets/btn_compose@2x.png');
+    background-size: 91px 91px;
+    background-position: -10px -5px;
+    box-shadow: 0 2px 14px #333;
     margin-left: -50%;
+    cursor: pointer;
 }
 
 .compose-modal .modal-dialog {

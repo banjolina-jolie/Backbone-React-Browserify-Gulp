@@ -4,6 +4,7 @@ let React = require('react/addons');
 let Actions = require('../actions/Actions');
 let Store = require('../stores/Store');
 let ComposeModal = require('./ComposeModal.jsx');
+let Seq = require('seq');
 
 let MessagesView = React.createClass({
 
@@ -18,7 +19,16 @@ let MessagesView = React.createClass({
     },
 
     componentDidMount() {
+        // listen for fetch messages
         Store.addSetMessagesListener(this._updateState);
+        // add token to all headers
+        $.ajaxSetup({
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('x-session-token', localStorage.getItem('token'));
+            }
+        });
+
+        this._fetchMessages();
     },
 
     componentWillUnmount() {
@@ -59,8 +69,40 @@ let MessagesView = React.createClass({
 
     _compose() {
         $('#composeModal').modal('show');
-    }
+    },
 
+    _fetchMessages() {
+        let location = window.localStorage.getItem('location');
+        let msgUrl;
+
+        Seq()
+            .seq(function () {
+                // fetch messages-url
+                $.ajax({
+                    url: apiBaseUrl + location,
+                    headers: {
+                        Accept: 'application/json; scheme=session; version=0'
+                    }
+                })
+                .done(data => {
+                    msgUrl = data['messages-url'];
+                    Actions.setMessageUrl(msgUrl);
+                    this();
+                });
+            })
+            .seq(function () {
+                // fetch messages
+                $.ajax({
+                    url: apiBaseUrl + msgUrl,
+                    headers: {
+                        Accept: 'application/json; scheme=messages; version=0'
+                    }
+                })
+                .done(data => {
+                    Actions.setMessages(data.messages);
+                });
+            });
+    }
 });
 
 module.exports = MessagesView;

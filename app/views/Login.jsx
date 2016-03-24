@@ -33,49 +33,43 @@ let LoginView = React.createClass({
     },
     login() {
         let data = this.state;
-        let location;
-        let token;
+        let authUrl;
 
         Seq()
             .seq(function () {
+                // fetch auth URL
                 $.ajax({
                     url: apiBaseUrl + '/',
                     headers: {
                         Accept: 'application/json; scheme=root; version=0'
                     }
                 })
-                .done(_ => {
+                .done(data => {
+                    authUrl = data['authenticate-url'];
                     this();
                 });
             })
-            .seq(function () {
+            .seq(function() {
+                // POST email/password to fetch location and x-session-token
                 $.ajax({
-                    url: apiBaseUrl + '/authenticate',
+                    url: apiBaseUrl + authUrl,
                     headers: {
                         Accept: 'application/json',
-                        'Content-Type': 'application/json; scheme=authentication; version=0'
+                        'Content-Type': 'application/json; scheme=authentication; version=0',
                     },
                     type: 'post',
                     data: JSON.stringify(data)
                 })
                 .done((data, status, res) => {
-                    location = res.getResponseHeader('location');
-                    // Actions.setLocation(location);
-                    this();
+                    let location = res.getResponseHeader('location');
+                    let token = res.getResponseHeader('x-session-token');
+                    // add token to headers
+                    window.localStorage.setItem('location', location);
+                    window.localStorage.setItem('token', token);
+
+                    let view = require('./Messages.jsx');
+                    Actions.setUI(view);
                 });
-            })
-            .seq(function () {
-                $.ajax({
-                    url: apiBaseUrl + location,
-                    headers: {
-                        Accept: 'application/json; scheme=session; version=0',
-                        Host: 'localhost:8008'
-                    }
-                })
-                .done(function () {
-                    debugger;
-                });
-                // Backbone.history.navigate('/messages');
             });
     }
 });

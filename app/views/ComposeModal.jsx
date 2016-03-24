@@ -17,8 +17,8 @@ let ComposeModal = React.createClass({
     },
 
     getInitialState() {
-
         return {
+            content: ''
         };
     },
 
@@ -34,15 +34,17 @@ let ComposeModal = React.createClass({
             </div>
         );
     },
-    publish() {
+    _publish() {
         $.ajax({
-            url: apiBaseUrl + '/compose',
+            url: apiBaseUrl + Store.getMessageUrl(),
+            headers: {
+                'Content-Type': 'application/json; scheme=message-content; version=0',
+            },
             type: 'POST',
-            data: {
-                content: this.state.content
-            }
+            data: JSON.stringify(this.state)
         })
         .done(_ => {
+            this.setState({ content: '' });
             $('#composeModal').modal('hide');
         });
     }

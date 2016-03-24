@@ -16,16 +16,20 @@ let parseQuery = qstr => {
 
 let router = Backbone.Router.extend({
     routes: {
-        '': 'login',
-        'messages': 'messages',
+        '': 'landing',
         '*all': 'notFound'
     },
-    login() {
-        let view = require('./views/Login.jsx');
-        Actions.setUI(view);
-    },
-    messages() {
-        let view = require('./views/Messages.jsx');
+    landing() {
+        let view;
+        let storage = window.localStorage;
+        let token = storage.getItem('token');
+        let location = storage.getItem('location');
+
+        if (token && location) {
+            view = require('./views/Messages.jsx');
+        } else {
+            view = require('./views/Login.jsx');
+        }
         Actions.setUI(view);
     },
     notFound() {

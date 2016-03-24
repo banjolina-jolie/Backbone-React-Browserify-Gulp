@@ -16,6 +16,12 @@ let Actions = {
             loading
         });
     },
+    setMessageUrl(messageUrl) {
+        Dispatcher.dispatch({
+            actionType: Constants.SET_MESSAGE_URL,
+            messageUrl
+        });
+    },
     setMessages(messages) {
         Dispatcher.dispatch({
             actionType: Constants.SET_MESSAGES,
