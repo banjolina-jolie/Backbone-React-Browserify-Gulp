@@ -38,7 +38,7 @@ let AppBaseView = React.createClass({
         }
 
         return (
-            <div className="app-view">
+            <div>
                 <div className={classes} style={divStyle}></div>
                 <div className="triangle-bg"></div>
                 <div id="content"></div>

@@ -23,11 +23,14 @@
     font-weight: bold;
 
     .red-dot {
+        background-image: url('/assets/img_dotRed@2x.png');
         float: right;
         height: 9px;
+        width: 9px;
         position: relative;
         top: -4px;
         right: -9px;
+        background-size: cover;
     }
 }
 
@@ -44,13 +47,13 @@
 
 .compose-btn {
     margin: auto;
-    width: 70px;
-    height: 70px;
+    width: 61px;
+    height: 61px;
     border-radius: 100%;
     background-image: url('/assets/btn_compose@2x.png');
-    background-size: 91px 91px;
+    background-size: 81px 81px;
     background-position: -10px -5px;
-    box-shadow: 0 3px 11px #aaa;
+    box-shadow: 0 3px 10px #aaa;
     margin-left: -50%;
     cursor: pointer;
 }
@@ -71,6 +74,7 @@
 
     .btn {
         text-transform: capitalize;
+        font-size: 15px;
     }
 }
 

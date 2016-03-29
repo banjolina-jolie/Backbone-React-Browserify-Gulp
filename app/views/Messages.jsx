@@ -62,7 +62,7 @@ let MessagesView = React.createClass({
     _renderDot(idx) {
         if (!idx) {
             return (
-                <img className="red-dot" src="/assets/img_dotRed@2x.png"/>
+                <span className="red-dot"></span>
             );
         }
     },
