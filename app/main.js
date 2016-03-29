@@ -6,21 +6,14 @@ let React = require('react');
 window._ = require('lodash');
 window.Backbone = require('backbone');
 window.$ = require('jquery');
+Backbone.$ = $;
+
+// API base url
 window.apiBaseUrl = 'https://victor.bettercompany.co';
 
-Backbone.$ = $; // kinda sux
-
 let Actions = require('./actions/Actions');
-
 let AppBase = require('./views/AppBase.jsx');
 let Router = require('./router.jsx');
-
-$.ajaxSetup({
-    // xhrFields: {
-    //     withCredentials: true
-    // },
-    crossDomain: true
-});
 
 // Render AppBase component
 React.render(React.createElement(AppBase, {}), document.getElementById('app'));

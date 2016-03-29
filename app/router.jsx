@@ -3,16 +3,8 @@
 let React = require('react');
 let Actions = require('./actions/Actions');
 let Store = require('./stores/Store');
+let setTokenHeader = require('./utils/setTokenHeader');
 
-let parseQuery = qstr => {
-    let query = {};
-    let a = qstr.split('&');
-    for (let i = 0; i < a.length; i++) {
-        let b = a[i].split('=');
-        query[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || '');
-    }
-    return query;
-}
 
 let router = Backbone.Router.extend({
     routes: {
@@ -26,11 +18,15 @@ let router = Backbone.Router.extend({
         let location = storage.getItem('location');
 
         if (token && location) {
+            setTokenHeader(token);
             view = require('./views/Messages.jsx');
         } else {
             view = require('./views/Login.jsx');
         }
         Actions.setUI(view);
+    },
+    userProfile() {
+
     },
     notFound() {
         // TODO: make nice 404 page

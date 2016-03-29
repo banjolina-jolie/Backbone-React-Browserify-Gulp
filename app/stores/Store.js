@@ -9,13 +9,14 @@ let assign = require('object-assign');
 let UI_CHANGE_EVENT = 'uiChange';
 let SET_LOADING_EVENT = 'setLoading';
 let SET_MESSAGES_EVENT = 'setMessages';
+let FETCH_MESSAGES_EVENT = 'fetchMessages';
 
 // Persisted Values
+let _view = null;
+let _loading = null;
+let _viewData = {};
 let _messageUrl = null;
 let _messages = [];
-let _loading = null;
-let _view = null;
-let _viewData = {};
 
 
 // Persisted Value Modifiers
@@ -85,6 +86,14 @@ let Store = assign({}, EventEmitter.prototype, {
 
 	removeSetMessagesListener(callback) {
 		this.removeListener(SET_MESSAGES_EVENT, callback);
+	},
+
+	addFetchMessagesListener(callback) {
+		this.on(FETCH_MESSAGES_EVENT, callback);
+	},
+
+	removeFetchMessagesListener(callback) {
+		this.removeListener(FETCH_MESSAGES_EVENT, callback);
 	}
 
 });
@@ -95,7 +104,7 @@ Dispatcher.register(action => {
 	switch(action.actionType) {
 
 		case Constants.CHANGE_UI:
-			changeUI(action.ui, action.view, action.viewData);
+			changeUI(action.view, action.viewData);
 			Store.emitChange(UI_CHANGE_EVENT);
 		break;
 
@@ -105,12 +114,13 @@ Dispatcher.register(action => {
 		break;
 
 		case Constants.SET_MESSAGES:
+			setMessageUrl(action.msgUrl);
 			setMessages(action.messages);
 			Store.emitChange(SET_MESSAGES_EVENT);
 		break;
 
-		case Constants.SET_MESSAGE_URL:
-			setMessageUrl(action.messageUrl);
+		case Constants.FETCH_MESSAGES:
+			Store.emitChange(FETCH_MESSAGES_EVENT);
 		break;
 
 		default:

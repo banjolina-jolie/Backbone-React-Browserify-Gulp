@@ -9,9 +9,10 @@ let ComposeModal = React.createClass({
     mixins: [React.addons.LinkedStateMixin],
 
     componentDidMount() {
+        // focus input when modal is shown
         $('#composeModal').on('shown.bs.modal', _ => {
             setTimeout(_ => {
-                $('[name=email]').focus();
+                $('.new-msg-content').focus();
             }, 0);
         });
     },
@@ -25,8 +26,8 @@ let ComposeModal = React.createClass({
     render() {
         return (
             <div className="modal fade compose-modal" id="composeModal" tabIndex="-1" role="dialog" aria-labelledby="composeModalLabel" aria-hidden="true">
-                <div className="modal-dialog new-message-content-container">
-                    <textarea valueLink={this.linkState('content')} className="new-message-content" placeholder="What do you want to say?"></textarea>
+                <div className="modal-dialog new-msg-content-container">
+                    <textarea maxLength="10" valueLink={this.linkState('content')} className="new-msg-content" placeholder="What do you want to say?"></textarea>
                 </div>
                 <div className="modal-dialog submit-post-container">
                     <button onClick={this._publish} className="btn">Post</button>
@@ -46,6 +47,7 @@ let ComposeModal = React.createClass({
         .done(_ => {
             this.setState({ content: '' });
             $('#composeModal').modal('hide');
+            Actions.fetchMessages();
         });
     }
 });

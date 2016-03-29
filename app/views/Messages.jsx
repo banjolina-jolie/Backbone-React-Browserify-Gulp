@@ -4,7 +4,6 @@ let React = require('react/addons');
 let Actions = require('../actions/Actions');
 let Store = require('../stores/Store');
 let ComposeModal = require('./ComposeModal.jsx');
-let Seq = require('seq');
 
 let MessagesView = React.createClass({
 
@@ -19,20 +18,16 @@ let MessagesView = React.createClass({
     },
 
     componentDidMount() {
-        // listen for fetch messages
+        // set listeners
+        Store.addFetchMessagesListener(this._fetchMessageUrl);
         Store.addSetMessagesListener(this._updateState);
-        // add token to all headers
-        $.ajaxSetup({
-            beforeSend: xhr => {
-                xhr.setRequestHeader('x-session-token', localStorage.getItem('token'));
-            }
-        });
 
         this._fetchMessageUrl();
     },
 
     componentWillUnmount() {
         Store.removeSetMessagesListener(this._updateState);
+        Store.removeFetchMessagesListener(this._fetchMessageUrl);
     },
 
     render() {
@@ -44,6 +39,7 @@ let MessagesView = React.createClass({
                 {this.state.messages.map( (message, idx) => {
                     return (
                         <div className="message-container" key={'message' + idx}>
+                            {this._renderDot(idx)}
                             <div className="message-author">
                                 {message.author}
                             </div>
@@ -63,15 +59,20 @@ let MessagesView = React.createClass({
         );
     },
 
+    _renderDot(idx) {
+        if (!idx) {
+            return (
+                <img className="red-dot" src="/assets/img_dotRed@2x.png"/>
+            );
+        }
+    },
+
     _updateState() {
-        this.setState(this._getState())
+        this.setState(this._getState());
     },
 
     _compose() {
         $('#composeModal').modal('show');
-        $('#composeModal').on('hidden.bs.modal', _ => {
-            this._fetchMessageUrl();
-        });
     },
 
     _fetchMessageUrl() {
@@ -88,7 +89,6 @@ let MessagesView = React.createClass({
 
     _fetchMessages(data) {
         let msgUrl = data['messages-url'];
-        Actions.setMessageUrl(msgUrl);
 
         $.ajax({
             url: apiBaseUrl + msgUrl,
@@ -97,7 +97,7 @@ let MessagesView = React.createClass({
             }
         })
         .done(data => {
-            Actions.setMessages(data.messages);
+            Actions.setMessages(msgUrl, data.messages.reverse());
         });
     },
 

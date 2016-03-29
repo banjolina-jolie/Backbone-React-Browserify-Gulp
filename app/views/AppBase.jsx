@@ -4,17 +4,18 @@ let Store = require('../stores/Store');
 let React = require('react/addons');
 let Actions = require('../actions/Actions');
 
-let getState = _ => {
-    return {
-        loading: false,
-        view: Store.getView().view,
-        viewData: Store.getView().data
-    };
-}
 
 let AppBaseView = React.createClass({
+    _getState() {
+        return {
+            loading: false,
+            view: Store.getView().view,
+            viewData: Store.getView().data
+        };
+    },
+
     getInitialState() {
-        return getState();
+        return this._getState();
     },
 
     componentDidMount() {
@@ -39,13 +40,14 @@ let AppBaseView = React.createClass({
         return (
             <div className="app-view">
                 <div className={classes} style={divStyle}></div>
+                <div className="triangle-bg"></div>
                 <div id="content"></div>
             </div>
         );
     },
 
     _onUIChange() {
-        this.setState(getState(), _ => {
+        this.setState(this._getState(), _ => {
             if (this.state.view) {
                 React.render(React.createElement(this.state.view, this.state.viewData), document.getElementById('content'));
             }

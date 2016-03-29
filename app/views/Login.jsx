@@ -3,7 +3,7 @@
 let React = require('react/addons');
 let Actions = require('../actions/Actions');
 let Store = require('../stores/Store');
-let Seq = require('seq');
+let setTokenHeader = require('../utils/setTokenHeader');
 
 let LoginView = React.createClass({
 
@@ -24,8 +24,8 @@ let LoginView = React.createClass({
                 </div>
 
                 <div className="login-container">
-                    <input className="email-input" type="text" valueLink={this.linkState('email')} placeholder="Email" name="email"/>
-                    <input className="password-input" type="password" valueLink={this.linkState('password')} placeholder="Password" name="password"/>
+                    <input onClick={this._removeError} onKeyUp={this._captureKeyUp} className="email-input" type="text" valueLink={this.linkState('email')} placeholder="Email" name="email"/>
+                    <input onClick={this._removeError} onKeyUp={this._captureKeyUp} className="password-input" type="password" valueLink={this.linkState('password')} placeholder="Password" name="password"/>
                     <button className="btn" onClick={this._fetchAuthUrl}>sign in</button>
                 </div>
             </div>
@@ -55,22 +55,33 @@ let LoginView = React.createClass({
             data: JSON.stringify(this.state)
         })
         .done((data, status, res) => {
+            let location = res.getResponseHeader('location');
+            let token = res.getResponseHeader('x-session-token');
             // set local storage for persistence
-            this._setLocalStorage(res);
+            window.localStorage.setItem('location', location);
+            window.localStorage.setItem('token', token);
+            // set token to future request headers
+            setTokenHeader(token);
             // go to messages view
             this._renderMessages();
+        })
+        .fail(_ => {
+            $('input').addClass('error');
         });
-    },
-    _setLocalStorage(res) {
-        let location = res.getResponseHeader('location');
-        let token = res.getResponseHeader('x-session-token');
-
-        window.localStorage.setItem('location', location);
-        window.localStorage.setItem('token', token);
     },
     _renderMessages() {
         let messagesView = require('./Messages.jsx');
         Actions.setUI(messagesView);
+    },
+    _removeError() {
+        $('input').removeClass('error');
+    },
+    _captureKeyUp(e) {
+        this._removeError();
+
+        if (e.keyCode === 13) {
+            this._fetchAuthUrl();
+        }
     }
 });
 

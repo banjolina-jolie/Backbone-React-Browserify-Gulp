@@ -4,6 +4,13 @@ let Dispatcher = require('../dispatcher/Dispatcher');
 let Constants = require('../constants/Constants');
 
 let Actions = {
+    setUI(view, viewData) {
+        Dispatcher.dispatch({
+            actionType: Constants.CHANGE_UI,
+            view,
+            viewData
+        });
+    },
     startLoading() {
         this._setLoading(true);
     },
@@ -16,24 +23,16 @@ let Actions = {
             loading
         });
     },
-    setMessageUrl(messageUrl) {
-        Dispatcher.dispatch({
-            actionType: Constants.SET_MESSAGE_URL,
-            messageUrl
-        });
-    },
-    setMessages(messages) {
+    setMessages(msgUrl, messages) {
         Dispatcher.dispatch({
             actionType: Constants.SET_MESSAGES,
+            msgUrl,
             messages
         });
     },
-    setUI(ui, view, viewData) {
+    fetchMessages() {
         Dispatcher.dispatch({
-            actionType: Constants.CHANGE_UI,
-            ui,
-            view,
-            viewData
+            actionType: Constants.FETCH_MESSAGES
         });
     }
 };

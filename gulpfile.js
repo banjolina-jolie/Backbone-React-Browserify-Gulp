@@ -19,7 +19,7 @@ gulp.task('connect', function() {
     var livereload = true;
     connect.server({
         root: ['dist', 'app'],
-        port: 8008,
+        port: 8080,
         livereload: livereload,
         keepalive: true,
         middleware: function(connect, opt) {

@@ -21,6 +21,14 @@
     background-color: #fff;
     margin-bottom: 20px;
     font-weight: bold;
+
+    .red-dot {
+        float: right;
+        height: 9px;
+        position: relative;
+        top: -4px;
+        right: -9px;
+    }
 }
 
 .message-content {
@@ -42,7 +50,7 @@
     background-image: url('/assets/btn_compose@2x.png');
     background-size: 91px 91px;
     background-position: -10px -5px;
-    box-shadow: 0 2px 14px #333;
+    box-shadow: 0 3px 11px #aaa;
     margin-left: -50%;
     cursor: pointer;
 }
@@ -53,16 +61,20 @@
     padding: 0 10px;
 }
 
-.compose-modal .modal-dialog.new-message-content-container {
+.compose-modal .modal-dialog.new-msg-content-container {
     margin-top: 25vh;
     margin-bottom: 0;
 }
 
-.submit-post-container {
+.modal .modal-dialog.submit-post-container {
     margin-top: 0;
+
+    .btn {
+        text-transform: capitalize;
+    }
 }
 
-.new-message-content {
+.new-msg-content {
     border-radius: 8px;
     width: 100%;
     min-height: 240px;
