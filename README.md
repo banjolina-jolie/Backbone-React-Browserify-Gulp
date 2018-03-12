@@ -8,7 +8,7 @@ Also includes:
 - Google Maps autocomplete
 - Bootstrap
 
-NOTE: You'll want to use Node v4.2 or greater
+NOTE: You'll want to use Node v9.8 or greater
 
 Steps to run (you'll need `git` and `npm` installed):
 
