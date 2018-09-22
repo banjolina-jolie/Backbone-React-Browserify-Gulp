@@ -91,7 +91,7 @@ let ContactUsModal = React.createClass({
         .done(data => {
             $('#contactUsModal').modal('hide');
             setTimeout(_ => {
-            	Actions.okpAlert({
+            	Actions.appAlert({
             		body: 'Your message has been submitted. We will get back to you ASAP!'
             	});
             }, 0);

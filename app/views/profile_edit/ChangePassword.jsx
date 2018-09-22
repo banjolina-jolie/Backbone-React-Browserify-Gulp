@@ -63,12 +63,12 @@ let ChangePassword = React.createClass({
 
         if (values.newPassword) {
             if (values.newPassword !== values.retype_newPassword) {
-                Actions.okpAlert({body:'The new password fields do not match.'});
+                Actions.appAlert({body:'The new password fields do not match.'});
                 return;
             }
 
             if (!values.oldPassword) {
-                Actions.okpAlert({body:'Please provide your existing password in the "old password" field'});
+                Actions.appAlert({body:'Please provide your existing password in the "old password" field'});
                 return;
             }
 

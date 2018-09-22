@@ -80,15 +80,15 @@ let PersonalBio = React.createClass({
         if (!selectedFile) { return; }
 
         if (selectedFile.type !== 'image/png' && selectedFile.type !== 'image/jpg' && selectedFile.type !== 'image/jpeg') {
-            return Actions.okpAlert({body:'Valid file types are .png, .jpg, .jpeg'});
+            return Actions.appAlert({body:'Valid file types are .png, .jpg, .jpeg'});
         }
 
         if (selectedFile.size > 2100000) {
-            return Actions.okpAlert({body:'Size limit is 2MB'});
+            return Actions.appAlert({body:'Size limit is 2MB'});
         }
 
         if (!FileReader) {
-            return Actions.okpAlert({body:'This browser doesn\'t support picture upload'});
+            return Actions.appAlert({body:'This browser doesn\'t support picture upload'});
         }
 
         let reader = new FileReader();

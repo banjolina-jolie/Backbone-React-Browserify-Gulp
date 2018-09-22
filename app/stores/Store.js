@@ -14,7 +14,7 @@ let SET_ENABLE_BUTTON_EVENT = 'setEnableButton';
 let SET_PAYMENT_METHODS_EVENT = 'setPaymentMethods';
 let SET_SELECTED_CARD_EVENT = 'setSelectedCard';
 let SET_LOADING_EVENT = 'setLoading';
-let OKP_ALERT_EVENT = 'okpAlert';
+let APP_ALERT_EVENT = 'appAlert';
 
 // Persisted Values
 let _currentUser = new User();
@@ -174,12 +174,12 @@ let Store = assign({}, EventEmitter.prototype, {
 		this.removeListener(SET_CURRENT_USER_EVENT, callback);
 	},
 
-	addOkpAlertListener(callback) {
-		this.on(OKP_ALERT_EVENT, callback);
+	addAppAlertListener(callback) {
+		this.on(APP_ALERT_EVENT, callback);
 	},
 
-	removeOkpAlertListener(callback) {
-		this.removeListener(OKP_ALERT_EVENT, callback);
+	removeAppAlertListener(callback) {
+		this.removeListener(APP_ALERT_EVENT, callback);
 	}
 
 });
@@ -224,9 +224,9 @@ Dispatcher.register(action => {
 		break;
 
 
-		case Constants.OKP_ALERT:
+		case Constants.APP_ALERT:
 			setAlert(action.alert);
-			Store.emitChange(OKP_ALERT_EVENT);
+			Store.emitChange(APP_ALERT_EVENT);
 		break;
 
 		default:

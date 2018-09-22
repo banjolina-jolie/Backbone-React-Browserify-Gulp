@@ -99,7 +99,7 @@ let ProfileEditSections = React.createClass({
                 Actions.startLoading();
         	    user.save()
                 .done(_ => {
-                    Actions.okpAlert({body: 'Changes Saved'});
+                    Actions.appAlert({body: 'Changes Saved'});
                     Actions.stopLoading();
                 });
             }

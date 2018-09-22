@@ -55,7 +55,7 @@ let RegisterView = React.createClass({
             .fail(res => {
                 res = res.responseJSON || res;
                 let msg = (res && res.message) || 'Sorry there was an error.';
-                Actions.okpAlert({body: msg});
+                Actions.appAlert({body: msg});
             })
             .always(_ => {
                 Actions.stopLoading();

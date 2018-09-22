@@ -263,7 +263,7 @@ let CreditCardView = React.createClass({
         })
         .fail(res => {
         	Store.getCurrentUser().validationError = true;
-        	Actions.okpAlert({body: res.responseJSON.message || 'Sorry there was an error'});
+        	Actions.appAlert({body: res.responseJSON.message || 'Sorry there was an error'});
         });
 	},
 	_updateSelectedCard() {

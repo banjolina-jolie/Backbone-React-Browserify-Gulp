@@ -8,5 +8,5 @@ module.exports = keyMirror({
     SET_PAYMENT_METHODS: null,
     SET_SELECTED_CARD: null,
     SET_LOADING: null,
-    OKP_ALERT: null
+    APP_ALERT: null
 });

@@ -44,7 +44,7 @@ currentUser.fetch({url: apiBaseUrl + '/login'})
     Actions.setCurrentUser(currentUser);
 })
 .fail(_ => {
-    Actions.okpAlert({body: 'API is down.'});
+    Actions.appAlert({body: 'API is down.'});
 })
 .always(_ => {
     Actions.stopLoading();

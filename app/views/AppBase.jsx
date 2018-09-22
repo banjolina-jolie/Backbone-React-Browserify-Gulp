@@ -30,14 +30,14 @@ let AppBaseView = React.createClass({
     componentDidMount() {
         Store.addUIChangeListener(this._onUIChange);
         Store.addSetLoadingListener(this._updateLoading);
-        Store.addOkpAlertListener(this._showAlert);
+        Store.addAppAlertListener(this._showAlert);
         Store.addSetCurrentUserListener(this._onUIChange);
     },
 
     componentWillUnmount() {
         Store.removeUIChangeListener(this._onUIChange);
         Store.removeLoadingListener(this._updateLoading);
-        Store.removeOkpAlertListener(this._showAlert);
+        Store.removeAppAlertListener(this._showAlert);
         Store.removeSetCurrentUserListener(this._onUIChange);
     },
 

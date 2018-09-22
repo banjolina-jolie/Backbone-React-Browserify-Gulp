@@ -55,9 +55,9 @@ let Actions = {
             card: card
         });
     },
-    okpAlert(alert) {
+    appAlert(alert) {
         Dispatcher.dispatch({
-            actionType: Constants.OKP_ALERT,
+            actionType: Constants.APP_ALERT,
             alert: alert
         });
     }
